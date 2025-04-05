@@ -15,4 +15,5 @@ function submitInfo() {
     text: infoText,
   };
   console.log("Collected this info: ", info);
+
 }

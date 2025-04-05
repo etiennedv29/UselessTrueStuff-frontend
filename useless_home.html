@@ -42,34 +42,36 @@
   </head>
   <body>
     <header>
-      <div class="user-login">
-        <img
+        <div>
+           <img
           id="siteLogo"
           src="assets/uselessTrueStuff_logo.jpg"
-          alt="User True Stuff"
-        />
-        <img
+          alt="Useless True Stuff"
+            /> 
+        </div>
+      <!-- <div class="user-login">
+         <img
           id="user-image"
           src="path/to/default-user-image.jpg"
           alt="User Image"
         />
         <button onclick="openLoginPopup()">Se connecter</button>
-      </div>
+      </div> -->
       <button class="submit-info-button" onclick="openSubmitPopup()">
-        Soumettre une info
+        Partager une info bien inutile
       </button>
     </header>
 
     <aside>
       <nav>
         <ul>
-          <li><a href="#">Catégorie 1</a></li>
-          <li><a href="#">Catégorie 2</a></li>
-          <li><a href="#">Catégorie 3</a></li>
-          <li><a href="#">Catégorie 4</a></li>
-          <li><a href="#">Catégorie 5</a></li>
-          <li><a href="#">Catégorie 6</a></li>
-          <li><a href="#">Catégorie 7</a></li>
+          <li><a href="#">Top infos</a></li>
+          <li><a href="#">Aléatoire</a></li>
+          <li><a href="#">Coquin</a></li>
+          <li><a href="#">Art</a></li>
+          <li><a href="#">Sciences</a></li>
+          <li><a href="#">Sport</a></li>
+          <li><a href="#">Autre</a></li>
         </ul>
       </nav>
     </aside>
@@ -80,7 +82,7 @@
         <div class="fact-content">
           <h2>Titre de l'info</h2>
           <p>
-            Texte de l'info. Un fait inutile mais vrai qui vous fera sourire.
+            Voilà un fait réel, peut-être pas si inutile.
           </p>
           <div class="vote-buttons">
             <button onclick="vote('up', this)">Super useless!</button>
@@ -92,16 +94,16 @@
       </article>
     </main>
 
-    <div id="login-popup" class="popup">
+    <!-- <div id="login-popup" class="popup">
       <span class="close" onclick="closePopup('login-popup')">&times;</span>
       <h2>Connexion</h2>
-      <form>
+      <form> -->
         <!-- Formulaire de connexion -->
-        <input type="text" placeholder="Nom d'utilisateur" />
+        <!-- <input type="text" placeholder="Nom d'utilisateur" />
         <input type="password" placeholder="Mot de passe" />
         <button type="submit">Se connecter</button>
       </form>
-    </div>
+    </div> -->
 
     <div id="submit-popup" class="popup">
       <span class="close" onclick="closePopup('submit-popup')">&times;</span>
