@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useless True Stuff</title>
+    <link rel="stylesheet" href="styles_v2.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="assets/uselessTrueStuff_logo.jpg" alt="Useless True Stuff Logo" class="logo">
+        </div>
+        <div class="catchphrase">
+            <p>Partagez vos histoires inutiles mais vraies !</p>
+        </div>
+        <div class="submit-button-container">
+            <button id="submit-story-btn">Soumettre une histoire</button>
+        </div>
+    </header>
+    <header class="category-header">
+        <nav class="top-nav">
+            <ul>
+                <li><a href="#" data-category="top">TOP</a></li>
+                <li><a href="#" data-category="random">ALÉATOIRE</a></li>
+                <li><a href="#" data-category="coquin">COQUIN</a></li>
+                <li><a href="#" data-category="sport">SPORT</a></li>
+                <li><a href="#" data-category="art">ART ET CULTURE</a></li>
+                <li><a href="#" data-category="science">SCIENCE ET TECHNOLOGIE</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Rechercher...">
+                <button class="search-button">🔍</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="ad-space">
+            <!-- Espace publicitaire -->
+            <p>Publicité</p>
+        </div>
+        <section id="stories">
+            <article data-id="1" data-category="funny" data-votes="5" data-date="2023-10-01">
+                <a href="story_template.html?id=1">
+                    <h2>Titre de l'histoire 1</h2>
+                </a>
+                <p>Contenu de l'histoire 1...</p>
+                <div class="voting">
+                    <button class="vote-up">👍</button>
+                    <span class="vote-count">5</span>
+                    <button class="vote-down">👎</button>
+                </div>
+                <div class="share-buttons">
+                    <a href="#" class="share-button">Partager sur X</a>
+                    <a href="#" class="share-button">Partager sur Facebook</a>
+                    <a href="#" class="share-button">Partager sur Instagram</a>
+                </div>
+            </article>
+            <article data-id="2" data-category="surprising" data-votes="3" data-date="2023-09-25">
+                <a href="story_template.html?id=2">
+                    <h2>Titre de l'histoire 2</h2>
+                </a>
+                <p>Contenu de l'histoire 2...</p>
+                <div class="voting">
+                    <button class="vote-up">👍</button>
+                    <span class="vote-count">3</span>
+                    <button class="vote-down">👎</button>
+                </div>
+                <div class="share-buttons">
+                    <a href="#" class="share-button">Partager sur X</a>
+                    <a href="#" class="share-button">Partager sur Facebook</a>
+                    <a href="#" class="share-button">Partager sur Instagram</a>
+                </div>
+            </article>
+        </section>
+        <div class="ad-space">
+            <!-- Espace publicitaire -->
+            <p>Publicité</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Useless True Stuff</p>
+        <div class="footer-links">
+            <a href="#">Contact</a> |
+            <a href="#">Mentions légales</a>
+        </div>
+    </footer>
+
+    <!-- Pop-up pour soumettre une histoire -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2>Soumettre une nouvelle histoire</h2>
+            <form id="story-form">
+                <label for="story-title">Titre :</label>
+                <input type="text" id="story-title" name="title" required>
+                <label for="story-content">Histoire :</label>
+                <textarea id="story-content" name="content" required></textarea>
+                <label for="story-category">Catégorie :</label>
+                <select id="story-category" name="category" required>
+                    <option value="top">Top</option>
+                    <option value="random">Aléatoire</option>
+                    <option value="coquin">Coquin</option>
+                    <option value="sport">Sport</option>
+                    <option value="art">Art et Culture</option>
+                    <option value="science">Science et Technologie</option>
+                </select>
+                <button type="submit">Soumettre</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="useless_script_v2.js"></script>
+</body>
+</html>
