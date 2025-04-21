@@ -1,0 +1,90 @@
+.factBox {
+  background-color: azure;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom:20px;
+}
+
+.factImageContainer {
+  width: 20%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  object-fit:contain;
+
+}
+.factImage {
+  aspect-ratio: 1/1;
+  height: 100%;
+
+  
+}
+.factInfoContainer {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.factTitle {
+  font-weight: 900;
+  height: 20%;
+  display: flex;
+  align-items: center;
+}
+.factSeparator {
+    height: 0;
+    width: 100%;
+    border: 0.5px solid #0b0c1a;
+}
+
+.factDescription {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  height: 60%;
+  padding-top: 1%;
+
+}
+
+.factSocialContainer {
+  height: 20%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.commentsContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 20%;
+}
+.votesBox {
+  width: 35%;
+  height:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color:#1ad4ff;;
+  color: #0b0c1a
+  
+}
+
+.votesContainer{
+    width: 22%;
+    height:60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #0b0c1a;
+    margin-left: 1%;
+    color : #0b0c1a;
+    padding:0% 0 0 1%;
+}
+.votesCount{
+    margin-left: 1vh;
+}

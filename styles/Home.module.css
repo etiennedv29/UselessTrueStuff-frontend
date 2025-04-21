@@ -1,0 +1,68 @@
+.header {
+  width: vh;
+  height: 15vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0b0c1a;
+  border-bottom: 1px solid #1ad4ff;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 2vh;
+}
+
+.logoImage {
+  aspect-ratio: 1/1;
+  height: 100%;
+}
+.logoCatchPhrase {
+  color: #1ad4ff;
+  margin-left: 2vh;
+  font-size: 20px;
+}
+.userInfoContainer {
+  display: flex;
+  justify-content: space-around;
+  color: #1ad4ff;
+  width: 17vh;
+  padding-right: 3vh;
+}
+
+.navbar {
+  width: vh;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #0b0c1a;
+  color: #1ad4ff;
+}
+.navbarCategory {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.mainContainer{
+  width: vh;
+  background-color: #0b0c1a;
+  display:flex;
+  justify-content: space-between;
+
+}
+
+.factsContainer{
+  width: 60%;
+
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:20px;
+}
+
+.mainPublicity{
+width: 20%;
+background-color: grey;
+}
