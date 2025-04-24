@@ -223,7 +223,7 @@ function Home() {
   // ];
 
   async function getFacts() {
-    let response = await fetch(`http://localhost:3000/facts/`);
+    let response = await fetch(`https://useless-true-stuff-backend.vercel.app/facts/`);
     let data = await response.json();
     //console.log(data)
     let newFactsData = data.map((fact) => {
