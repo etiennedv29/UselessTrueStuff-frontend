@@ -2,8 +2,8 @@ import styles from "../styles/Home.module.css";
 import Fact from "./Fact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import Image from 'next/image'
-import Head from 'next/head'
+import Image from "next/image";
+import Head from "next/head";
 
 function Home() {
   let facts = [];
@@ -13,16 +13,36 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Useless True Stuff for you</title>
-        <meta name="description" content= "Find out super useless facts that have all been verified as true. It's fun yet all very fact-checked!"></meta>
+        <title>Useless True Stuff</title>
+        <meta
+          name="description"
+          content="Find out super useless facts that have all been verified as true. It's fun yet all very fact-checked!"
+        ></meta>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        ></meta>
+        <link rel="icon" href="/UTS-frontend/public/uselessTrueStuff_logo.jpg"></link>
       </Head>
-      <header className ={styles.header}>
+      <header className={styles.header}>
         <div className={styles.logoContainer}>
-          <Image className={styles.logoImage} src="/uselessTrueStuff_logo.jpg" alt="UselessTrueStuff logo" width={133} height={100} />
-          <div className = {styles.logoCatchPhrase}>True stuff you didn't know you needed</div>
+          <Image
+            className={styles.logoImage}
+            src="/uselessTrueStuff_logo.jpg"
+            alt="UselessTrueStuff logo"
+            width={133}
+            height={100}
+          />
+          <div className={styles.logoCatchPhrase}>
+            True stuff you didn't know you needed
+          </div>
         </div>
         <div className={styles.userInfoContainer}>
-        <FontAwesomeIcon icon={faUser} className={styles.userImage} style={{color:"#1ad4ff"}} />
+          <FontAwesomeIcon
+            icon={faUser}
+            className={styles.userImage}
+            style={{ color: "#1ad4ff" }}
+          />
           <div className={styles.userName}>Etienne</div>
         </div>
       </header>
