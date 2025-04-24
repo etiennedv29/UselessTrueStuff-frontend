@@ -72,10 +72,20 @@
   text-align: left;
   
 }
+.navbarCategory:hover {
+  color:#0b0c1a;
+  background-color:#1ad4ff
+}
 .navbarCategory {
   margin-right: 10px;
   margin-left: 10px;
+  cursor:pointer;
+  height:30px;
+  display: flex;
+  align-items: center;
+  border-radius:3px;
 }
+
 .navBarSubmitFact{
   width:15%;
   height:30px;
@@ -86,6 +96,12 @@
   border:#1ad4ff solid 1px;
   border-radius:3px;
   font-weight:900;
+  cursor: pointer;
+}
+.navBarSubmitFact:hover {
+ 
+  color:#0b0c1a;
+  background-color:#1ad4ff;
 }
 .mainContainer {
   width: vh;
@@ -107,3 +123,13 @@
   width: 20%;
   background-color: grey;
 }
+
+.submitFactButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #ccc;
+  color: #fff;
+  cursor: pointer;
+}
+
