@@ -3,6 +3,7 @@ import Fact from "./Fact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Image from 'next/image'
+import Head from 'next/head'
 
 function Home() {
   let facts = [];
@@ -11,6 +12,10 @@ function Home() {
   }
   return (
     <div>
+      <Head>
+        <title>Useless True Stuff for you</title>
+        <meta name="description" content= "Find out super useless facts that have all been verified as true. It's fun yet all very fact-checked!"></meta>
+      </Head>
       <header className ={styles.header}>
         <div className={styles.logoContainer}>
           <Image className={styles.logoImage} src="/uselessTrueStuff_logo.jpg" alt="UselessTrueStuff logo" width={133} height={100} />
