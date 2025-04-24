@@ -13,16 +13,8 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Useless True Stuff</title>
-        <meta
-          name="description"
-          content="Find out super useless facts that have all been verified as true. It's fun yet all very fact-checked!"
-        ></meta>
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-        ></meta>
-        <link rel="icon" href="/UTS-frontend/public/uselessTrueStuff_logo.jpg"></link>
+        <title>Useless True Stuff - Home</title>
+
       </Head>
       <header className={styles.header}>
         <div className={styles.logoContainer}>

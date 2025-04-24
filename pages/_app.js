@@ -1,13 +1,26 @@
-import '../styles/globals.css';
-import Head from 'next/head';
+import "../styles/globals.css";
+import Head from "next/head";
 
 function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Useless True Stuff</title>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8211374496683215"
-     crossorigin="anonymous"></script>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-8211374496683215"
+        ></meta>
+        <meta
+          name="description"
+          content="Find out super useless facts that have all been verified as true. It's fun yet all very fact-checked!"
+        ></meta>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        ></meta>
+        <link
+          rel="icon"
+          href="/UTS-frontend/public/uselessTrueStuff_logo.jpg"
+        ></link>
       </Head>
       <Component {...pageProps} />
     </>
