@@ -5,8 +5,9 @@ import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 
 function Fact(props) {
-  const [nbVotesPlus, setNbVotesPlus] = useState(0);
-  const [nbVotesMinus, setNbVotesMinus] = useState(0);
+  
+  const [nbVotesPlus, setNbVotesPlus] = useState(props.nbVotesPlus);
+  const [nbVotesMinus, setNbVotesMinus] = useState(props.nbVotesMinus);
 
   const votePlusClick= () => {
     setNbVotesPlus(nbVotesPlus+1)
@@ -23,14 +24,14 @@ function Fact(props) {
       </div>
   
       <div className={styles.factInfoContainer}>
-        <div className={styles.factTitle}>Stepping to the top</div>
+        <div className={styles.factTitle}>{props.factTitle}</div>
         <div className = {styles.factSeparator}></div>
-        <div className={styles.factDescription}>There are 10000 steps to get up the Eiffel Tower</div>
+        <div className={styles.factDescription}>{props.factDescription}</div>
   
         <div className={styles.factSocialContainer}>
   
           <div className={styles.commentsContainer}>
-            <span className={styles.commentCount}>34 comments</span>
+            <span className={styles.commentCount}>{props.factComments.length} comments</span>
           </div>
   
           <div className={styles.votesContainer} onClick={()=> votePlusClick()}>
