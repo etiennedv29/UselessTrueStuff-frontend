@@ -19,7 +19,7 @@ function App({ Component, pageProps }) {
         ></meta>
         <link
           rel="icon"
-          href="/UTS-frontend/public/uselessTrueStuff_logo.jpg"
+          href="uselessTrueStuff_logo.jpg"
         ></link>
       </Head>
       <Component {...pageProps} />
