@@ -2,6 +2,7 @@ import styles from "../styles/Home.module.css";
 import Fact from "./Fact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Image from 'next/image'
 
 function Home() {
   let facts = [];
@@ -12,7 +13,7 @@ function Home() {
     <div>
       <header className ={styles.header}>
         <div className={styles.logoContainer}>
-          <img className={styles.logoImage} src="/uselessTrueStuff_logo.jpg" alrt="logo" />
+          <Image className={styles.logoImage} src="/uselessTrueStuff_logo.jpg" alt="UselessTrueStuff logo" width={133} height={100} />
           <div className = {styles.logoCatchPhrase}>True stuff you didn't know you needed</div>
         </div>
         <div className={styles.userInfoContainer}>

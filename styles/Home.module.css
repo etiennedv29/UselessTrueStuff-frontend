@@ -16,7 +16,7 @@
 }
 
 .logoImage {
-  aspect-ratio: 1/1;
+  aspect-ratio: auto;
   height: 100%;
 }
 .logoCatchPhrase {
