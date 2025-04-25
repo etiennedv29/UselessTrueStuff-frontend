@@ -33,42 +33,39 @@ function SubmitForm(props) {
       trueRatio: null,
       status: "pending",
       image: null,
-      userID:"123456",
+      userID: "123456",
     };
 
     try {
-      await fetch('https://useless-true-stuff-backend.vercel.app/facts/addFact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fact),
+      const response = await fetch(
+        "https://useless-true-stuff-backend.vercel.app/facts/addFact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(fact),
+        }
+      );
+      const addedFact = await response.json();
+      console.log("added fact =>", addedFact);
+      console.log("id de l'added fact = ", addedFact._id);
+
+
+      await fetch("http://localhost:3000/facts/checkFact", {
+        //local host parce que je n'ai pas encore deploy cette partie
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          description: addedFact.description,
+          id: addedFact._id,
+        }),
       });
-      
-const truthCheckData = {
-  "messages": [
-    {
-    "role": "user",
-    "content": fact.description
-    }
-  ],
-"agent_id": process.env.MISTRAL_AGENT_ID
-}
 
-const factTruth = await fetch('https://api.mistral.ai/v1/agents/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Bearer:process.env.UTS_MISTRAL_API_KEY },
-        body: JSON.stringify(truthCheckData),
-                            
-      });
-      console.log(res.json(factTruth))
-
-      
-    alert('Fact submitted!');
-    setFormData({ userID: '', title: '', description: '', category: '' });
-    setShowForm(false);
-
+      alert("Fact submitted!");
+      setFormData({ userID: "", title: "", description: "", category: "" });
+      setShowForm(false);
     } catch (error) {
-      console.error('Submission failed', error);
-      alert('An error occurred. Please try again.');
+      console.error("Submission failed", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -81,59 +78,67 @@ const factTruth = await fetch('https://api.mistral.ai/v1/agents/completions', {
       {showForm && (
         <div className={styles.popupOverlay}>
           <div className={styles.popupContent}>
-          <FontAwesomeIcon
+            <FontAwesomeIcon
               icon={faSquareXmark}
               className={styles.closeButton}
               onClick={() => setShowForm(false)}
             />
 
-            <h2 className={styles.popoverTitle}>Yipee ! Something true and useless</h2>
+            <h2 className={styles.popoverTitle}>
+              Yipee ! Something true and useless
+            </h2>
             <form className={styles.submitForm} onSubmit={handleSubmit}>
-                <div className= {styles.formInputsContainer}>
-              <input className= {styles.submitFormField}
-                type="text"
-                name="userID"
-                placeholder="Your nickname"
-                value={formData.userID}
-                onChange={handleChange}
-                required
-              />
-              <input className= {styles.submitFormField}
-                type="text"
-                name="title"
-                placeholder="Title of your fact"
-                value={formData.title}
-                onChange={handleChange}
-                required
-              />
-              <textarea className= {styles.submitFormField}
-                name="description"
-                placeholder="What's so true and useless ?"
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
-              <div className={styles.formCategoryContainer }>
-                <p className = {styles.formCategoryText}>Category:</p>
-                <select className= {styles.formCategorySelector} 
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select category</option>
-                <option value="général">General</option>
-                <option value="scientifique">Scientific</option>
-                <option value="géographie">Geography</option>
-                <option value="histoire">History</option>
-                <option value="technologique">Technology</option>
-                <option value="humour">Humour</option>
-                <option value="adulte">Adult</option>
-              </select>
+              <div className={styles.formInputsContainer}>
+                <input
+                  className={styles.submitFormField}
+                  type="text"
+                  name="userID"
+                  placeholder="Your nickname"
+                  value={formData.userID}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className={styles.submitFormField}
+                  type="text"
+                  name="title"
+                  placeholder="Title of your fact"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                />
+                <textarea
+                  className={styles.submitFormField}
+                  name="description"
+                  placeholder="What's so true and useless ?"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                />
+                <div className={styles.formCategoryContainer}>
+                  <p className={styles.formCategoryText}>Category:</p>
+                  <select
+                    className={styles.formCategorySelector}
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select category</option>
+                    <option value="général">General</option>
+                    <option value="scientifique">Scientific</option>
+                    <option value="géographie">Geography</option>
+                    <option value="histoire">History</option>
+                    <option value="technologique">Technology</option>
+                    <option value="humour">Humour</option>
+                    <option value="adulte">Adult</option>
+                  </select>
+                </div>
               </div>
-              </div>
-              
-              <button className={styles.formSubmitButton}type="submit">Send</button>
+
+              <button className={styles.formSubmitButton} type="submit">
+                Send
+              </button>
             </form>
           </div>
         </div>
