@@ -43,17 +43,29 @@ function SubmitForm(props) {
         body: JSON.stringify(fact),
       });
       
+const truthCheckData = {
+  "messages": [
+    {
+    "role": "user",
+    "content": fact.description
+    }
+  ],
+"agent_id": process.env.MISTRAL_AGENT_ID
+}
 
-    //   await fetch('https://external-service.com/verify', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ text: fact.description }),
-                            //UTS_MISTRAL_API_KEY:Psd2eoJyLMAWXiT3sSUg5vGn8fSizELu
-    //   });
+const factTruth = await fetch('https://api.mistral.ai/v1/agents/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Bearer:process.env.UTS_MISTRAL_API_KEY },
+        body: JSON.stringify(truthCheckData),
+                            
+      });
+      console.log(res.json(factTruth))
 
-    //   alert('Fact submitted!');
-    //   setFormData({ userID: '', title: '', description: '', category: '' });
+      
+    alert('Fact submitted!');
+    setFormData({ userID: '', title: '', description: '', category: '' });
     setShowForm(false);
+
     } catch (error) {
       console.error('Submission failed', error);
       alert('An error occurred. Please try again.');
