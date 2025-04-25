@@ -37,7 +37,7 @@ function SubmitForm(props) {
     };
 
     try {
-      await fetch('http://localhost:3000/facts/addFact', {
+      await fetch('https://useless-true-stuff-backend.vercel.app/facts/addFact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fact),
