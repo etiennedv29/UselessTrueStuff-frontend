@@ -50,7 +50,7 @@ function SubmitForm(props) {
       console.log("id de l'added fact = ", addedFact._id);
 
 
-      await fetch("http://localhost:3000/facts/checkFact", {
+      await fetch("https://useless-true-stuff-backend.vercel.app/facts/checkFact", {
         //local host parce que je n'ai pas encore deploy cette partie
         method: "POST",
         headers: { "Content-Type": "application/json" },
