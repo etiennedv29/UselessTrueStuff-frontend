@@ -33,28 +33,31 @@ function SubmitForm(props) {
       trueRatio: null,
       status: "pending",
       image: null,
+      userID:"123456",
     };
 
-    // try {
-    //   await fetch('/api/facts', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(fact),
-    //   });
+    try {
+      await fetch('http://localhost:3000/facts/addFact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fact),
+      });
+      
 
     //   await fetch('https://external-service.com/verify', {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
     //     body: JSON.stringify({ text: fact.description }),
+                            //UTS_MISTRAL_API_KEY:Psd2eoJyLMAWXiT3sSUg5vGn8fSizELu
     //   });
 
     //   alert('Fact submitted!');
     //   setFormData({ userID: '', title: '', description: '', category: '' });
-    //   setShowForm(false);
-    // } catch (error) {
-    //   console.error('Submission failed', error);
-    //   alert('An error occurred. Please try again.');
-    // }
+    setShowForm(false);
+    } catch (error) {
+      console.error('Submission failed', error);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (
