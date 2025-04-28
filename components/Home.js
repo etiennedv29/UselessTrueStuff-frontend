@@ -12,10 +12,11 @@ function Home() {
 
   async function getFacts() {
     let response = await fetch(
+      //`http://localhost:3000/facts/`
       `https://useless-true-stuff-backend.vercel.app/facts/`
     );
     let data = await response.json();
-
+  
     let newFactsData = data.map((fact) => {
       const newFactFormat = {
         factTitle: fact.title,
@@ -28,14 +29,16 @@ function Home() {
       return newFactFormat;
     });
     setFactsData(newFactsData);
+  
   }
+
 
   useEffect(() => {
     getFacts();
   }, []);
 
   let facts = factsData.map((data, i) => {
-    return <Fact key={i} {...data} />;
+    return <Fact key={i} {...data} factTitle={`${i} ${data.factTitle}`} factImage={`https://picsum.photos/200/200?random=${i}`} />;
   });
 
   return (

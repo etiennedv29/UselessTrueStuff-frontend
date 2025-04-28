@@ -14,6 +14,8 @@ function SubmitForm(props) {
   });
 
   const handleChange = (e) => {
+    console.log(e);
+    
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -38,6 +40,7 @@ function SubmitForm(props) {
 
     try {
       const response = await fetch(
+        //"http://localhost:3000/facts/addFact",
         "https://useless-true-stuff-backend.vercel.app/facts/addFact",
         {
           method: "POST",
@@ -50,8 +53,10 @@ function SubmitForm(props) {
       console.log("id de l'added fact = ", addedFact._id);
 
 
-      await fetch("https://useless-true-stuff-backend.vercel.app/facts/checkFact", {
-        //local host parce que je n'ai pas encore deploy cette partie
+      await fetch(
+        //"http://localhost:3000/facts/checkFact", 
+        "https://useless-true-stuff-backend.vercel.app/facts/checkFact",
+        {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
