@@ -32,7 +32,7 @@ function SubmitForm(props) {
       validatedAt: null,
       trueRatio: null,
       status: "pending",
-      image: "https://picsum.photos/200",
+      image: "https://picsum.photos/seed/picsum/200/200",
       userID: "123456",
     };
 
