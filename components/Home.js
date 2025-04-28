@@ -15,7 +15,7 @@ function Home() {
       `https://useless-true-stuff-backend.vercel.app/facts/`
     );
     let data = await response.json();
-    //console.log(data)
+
     let newFactsData = data.map((fact) => {
       const newFactFormat = {
         factTitle: fact.title,
