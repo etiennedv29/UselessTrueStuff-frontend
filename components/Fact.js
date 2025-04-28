@@ -20,7 +20,7 @@ function Fact(props) {
   return (
     <div className={styles.factBox}>
       <div className={styles.factImageContainer}>
-        <img className={styles.factImage} src="./fact-default-image.jpg" alt="This fact image " />
+        <img className={styles.factImage} src="https://picsum.photos/200" alt="This fact image " />
       </div>
   
       <div className={styles.factInfoContainer}>
