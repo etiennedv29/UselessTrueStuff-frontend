@@ -2,6 +2,7 @@ import styles from "../styles/Fact.module.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import Link from 'next/link';
 
 
 function Fact(props) {
@@ -24,7 +25,7 @@ function Fact(props) {
       </div>
   
       <div className={styles.factInfoContainer}>
-        <div className={styles.factTitle}>{props.factTitle}</div>
+        <h2 className={styles.factTitle}>{props.factTitle}</h2>
         <div className = {styles.factSeparator}></div>
         <div className={styles.factDescription}>{props.factDescription}</div>
   

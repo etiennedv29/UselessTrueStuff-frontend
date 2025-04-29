@@ -6,12 +6,10 @@
   justify-content: space-between;
   align-items: center;
   background-color: #0b0c1a;
-  
   position: sticky;
   top: 0;
-
 }
-.globalInfo{
+.globalInfo {
   width: 100%;
   height: auto;
   display: flex;
@@ -19,8 +17,6 @@
   align-items: center;
   background-color: #0b0c1a;
   border-bottom: 1px solid #1ad4ff;
-
-
 }
 
 .logoContainer {
@@ -45,13 +41,11 @@
   color: #1ad4ff;
   width: 17vh;
   padding-right: 3vh;
-
 }
 
-.userImage{
+.userImage {
   aspect-ratio: auto;
-  height:20px;
-
+  height: 20px;
 }
 
 .navbar {
@@ -64,44 +58,42 @@
   text-align: left;
   background-color: #0b0c1a;
   color: #1ad4ff;
-  padding:1%;
+  padding: 1%;
 }
-.navbarCategories{
-  display:flex;
+.navbarCategories {
+  display: flex;
   justify-content: center;
   text-align: left;
-  
 }
 .navbarCategory:hover {
-  color:#0b0c1a;
-  background-color:#1ad4ff
+  color: #0b0c1a;
+  background-color: #1ad4ff;
 }
 .navbarCategory {
   margin-right: 10px;
   margin-left: 10px;
-  cursor:pointer;
-  height:30px;
+  cursor: pointer;
+  height: 30px;
   display: flex;
   align-items: center;
-  border-radius:3px;
+  border-radius: 3px;
 }
 
-.navBarSubmitFact{
-  width:15%;
-  height:30px;
-  display:flex;
- text-align: center;
- align-items: center;
- justify-content: center;
-  border:#1ad4ff solid 1px;
-  border-radius:3px;
-  font-weight:900;
+.navBarSubmitFact {
+  width: 15%;
+  height: 30px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: #1ad4ff solid 1px;
+  border-radius: 3px;
+  font-weight: 900;
   cursor: pointer;
 }
 .navBarSubmitFact:hover {
- 
-  color:#0b0c1a;
-  background-color:#1ad4ff;
+  color: #0b0c1a;
+  background-color: #1ad4ff;
 }
 .mainContainer {
   width: vh;
@@ -132,4 +124,3 @@
   color: #fff;
   cursor: pointer;
 }
-

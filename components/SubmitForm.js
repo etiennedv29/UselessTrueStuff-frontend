@@ -52,6 +52,7 @@ function SubmitForm(props) {
       console.log("added fact =>", addedFact);
       console.log("id de l'added fact = ", addedFact._id);
 
+     
 
       await fetch(
         //"http://localhost:3000/facts/checkFact", 
