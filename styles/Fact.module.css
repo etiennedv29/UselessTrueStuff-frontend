@@ -60,8 +60,15 @@
 
 .commentsContainer {
   display: flex;
-  justify-content: space-around;
-  width: 20%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 22%;
+  height:60%;
+  background-color: lightblue;
+  border-radius: 5px;
+  cursor:pointer;
 }
 .votesBox {
   width: 35%;
