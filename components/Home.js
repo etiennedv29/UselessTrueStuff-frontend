@@ -27,7 +27,7 @@ function Home() {
       data = await response.json();
     } else {
       response = await fetch(
-       // `http://localhost:3000/facts/`
+       //`http://localhost:3000/facts/`
         `https://useless-true-stuff-backend.vercel.app/facts/`
       );
       data = await response.json();

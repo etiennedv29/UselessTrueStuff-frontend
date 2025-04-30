@@ -1,15 +1,16 @@
 import styles from "../styles/Fact.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import CommentSmall from './CommentSmall'
+import CommentSmall from "./CommentSmall";
+import SubmitFormComment from "./SubmitFormComment";
 
 function Fact(props) {
   const [nbVotesPlus, setNbVotesPlus] = useState(props.nbVotesPlus);
   const [nbVotesMinus, setNbVotesMinus] = useState(props.nbVotesMinus);
-  const [displayComments, setDisplayComments] = useState(false)
-  const [commentsToDisplay,setCommentsTodisplay] = useState([])
+  const [displayComments, setDisplayComments] = useState(false);
+  const [commentsToDisplay, setCommentsTodisplay] = useState([]);
 
   const votePlusClick = () => {
     setNbVotesPlus(nbVotesPlus + 1);
@@ -18,15 +19,20 @@ function Fact(props) {
     setNbVotesMinus(nbVotesMinus - 1);
   };
 
-console.log(props.factComments)
+  //prepare the comments to be displayed
+  useEffect(() => {
+    
+    setCommentsTodisplay(
+      props.factComments.map((data, i) => {
+        <CommentSmall {...data} key={i} />;
+      })
+    );
+  }, []);
 
-setCommentsTodisplay(props.factComments.map((data,i) => {
-  <CommentSmall {...data} key={i}/>
-}))
-
-
-
-
+  const handleCommentDisplayClick = () => {
+    console.log(props)
+    setDisplayComments(displayComments === true ? false : true);
+  };
 
   return (
     <div className={styles.factBox}>
@@ -44,9 +50,13 @@ setCommentsTodisplay(props.factComments.map((data,i) => {
         <div className={styles.factDescription}>{props.factDescription}</div>
 
         <div className={styles.factSocialContainer}>
-          <div className={styles.commentsContainer}>
+          <div
+            className={styles.commentsContainer}
+            onClick={() => handleCommentDisplayClick()}
+          >
             <span className={styles.commentCount}>
               {props.factComments.length} comments
+              <SubmitFormComment factId={props.factId} />
             </span>
           </div>
 
@@ -67,14 +77,14 @@ setCommentsTodisplay(props.factComments.map((data,i) => {
           >
             <div className={styles.voteText}>Too useless</div>
             <div className={styles.votesBox}>
-              <FontAwesomeIcon icon={faThumbsDown}  />
+              <FontAwesomeIcon icon={faThumbsDown} />
               <span className={styles.votesCount}>{nbVotesMinus}</span>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.commentsBox}>
-      {commentsToDisplay}
+        {displayComments && commentsToDisplay}
       </div>
     </div>
   );
