@@ -1,3 +1,10 @@
+.factIncludingComments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .factBox {
   background-color: azure;
   width: 100%;
@@ -5,7 +12,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom:20px;
+  margin-bottom: 5px;
+  padding: 3px;
+  border-radius: 3px;
 }
 
 .factImageContainer {
@@ -13,14 +22,10 @@
   height: 60%;
   display: flex;
   justify-content: center;
-  
-
 }
 .factImage {
   aspect-ratio: 1/1;
   height: 100%;
-
-  
 }
 .factInfoContainer {
   width: 80%;
@@ -31,15 +36,15 @@
 
 .factTitle {
   font-weight: 900;
-  height: 20%;
+
   display: flex;
   align-items: center;
-  cursor:pointer;
+  cursor: pointer;
 }
 .factSeparator {
-    height: 0;
-    width: 100%;
-    border: 0.5px solid #0b0c1a;
+  height: 0;
+  width: 100%;
+  border: 0.5px solid #0b0c1a;
 }
 
 .factDescription {
@@ -47,8 +52,7 @@
     "Lucida Sans", Arial, sans-serif;
   height: 60%;
   padding-top: 1%;
-  cursor:pointer;
-
+  cursor: pointer;
 }
 
 .factSocialContainer {
@@ -65,38 +69,57 @@
   align-items: center;
   text-align: center;
   width: 22%;
-  height:60%;
-  background-color: lightblue;
+  height: 60%;
+  background-color: #1ad4ff;
   border-radius: 5px;
-  cursor:pointer;
+  cursor: pointer;
 }
 .votesBox {
   width: 35%;
-  height:100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color:#1ad4ff;;
+  background-color: #1ad4ff;
   color: #0b0c1a;
-  
+}
+
+.votesContainer {
+  width: 22%;
+  height: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #0b0c1a;
+  margin-left: 1%;
+  color: #0b0c1a;
+  padding: 0% 0 0 1%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.votesCount {
+  margin-left: 1vh;
+}
+
+.commentsModal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  border:1px red solid;
   
 }
 
-.votesContainer{
-    width: 22%;
-    height:60%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #0b0c1a;
-    margin-left: 1%;
-    color : #0b0c1a;
-    padding:0% 0 0 1%;
-    cursor:pointer;
-    border-radius: 5px;
+.commentsBox {
+  width: 100%;
 }
-.votesCount{
-    margin-left: 1vh;
+
+.seeMoreCommentsButton {
+  background-color: azure;
+  text-align: center;
+  cursor: pointer;
+  width: 70%;
 }

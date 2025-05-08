@@ -1,0 +1,32 @@
+.commentContainer {
+  margin-bottom: 3px;
+  background-color: azure;
+  height: 70px;
+  padding: 2px;
+  border-radius: 3px;
+  width:90%;
+}
+.commentHeader {
+  background-color: #1ad4ff;
+  margin-bottom: 4px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  border-radius: 2px;
+  color:rgb(79, 76, 76)
+}
+.commentSubmissionDate {
+  font-weight: 400;
+}
+.commentAuthor {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.commentContent {
+  padding-left: 10px;
+
+}
+
+

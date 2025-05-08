@@ -21,70 +21,80 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
-    
+    console.log("displaycomments=>", displayComments);
     setCommentsTodisplay(
-      props.factComments.map((data, i) => {
-        <CommentSmall {...data} key={i} />;
+      props.factComments.slice(0, 3).map((data, i) => {
+        return (
+          <div>
+            <CommentSmall {...data} key={i} />
+          </div>
+        );
       })
     );
-  }, []);
+    console.log("comments to display", commentsToDisplay);
+  }, [displayComments]);
 
   const handleCommentDisplayClick = () => {
-    console.log(props)
+    console.log("props du fact", props);
     setDisplayComments(displayComments === true ? false : true);
   };
 
   return (
-    <div className={styles.factBox}>
-      <div className={styles.factImageContainer}>
-        <img
-          className={styles.factImage}
-          src="https://picsum.photos/200"
-          alt="This fact image "
-        />
-      </div>
+    <div className={styles.factIncludingComments}>
+      <div className={styles.factBox}>
+        <div className={styles.factImageContainer}>
+          <img
+            className={styles.factImage}
+            src="https://picsum.photos/200"
+            alt="This fact image "
+          />
+        </div>
 
-      <div className={styles.factInfoContainer}>
-        <h2 className={styles.factTitle}>{props.factTitle}</h2>
-        <div className={styles.factSeparator}></div>
-        <div className={styles.factDescription}>{props.factDescription}</div>
+        <div className={styles.factInfoContainer}>
+          <h2 className={styles.factTitle}>{props.factTitle}</h2>
+          <div className={styles.factSeparator}></div>
+          <div className={styles.factDescription}>{props.factDescription}</div>
 
-        <div className={styles.factSocialContainer}>
-          <div
-            className={styles.commentsContainer}
-            onClick={() => handleCommentDisplayClick()}
-          >
-            <span className={styles.commentCount}>
-              {props.factComments.length} comments
-              <SubmitFormComment factId={props.factId} />
-            </span>
-          </div>
-
-          <div
-            className={styles.votesContainer}
-            onClick={() => votePlusClick()}
-          >
-            <div className={styles.voteText}>Great info!</div>
-            <div className={styles.votesBox}>
-              <FontAwesomeIcon icon={faThumbsUp} />
-              <span className={styles.votesCount}>{nbVotesPlus}</span>
+          <div className={styles.factSocialContainer}>
+            <div
+              className={styles.commentsContainer}
+              onClick={() => handleCommentDisplayClick()}
+            >
+              <span className={styles.commentCount}>
+                {props.factComments.length} comments
+                {/* <SubmitFormComment factId={props.factId} /> */}
+              </span>
             </div>
-          </div>
 
-          <div
-            className={styles.votesContainer}
-            onClick={() => voteMinusClick()}
-          >
-            <div className={styles.voteText}>Too useless</div>
-            <div className={styles.votesBox}>
-              <FontAwesomeIcon icon={faThumbsDown} />
-              <span className={styles.votesCount}>{nbVotesMinus}</span>
+            <div
+              className={styles.votesContainer}
+              onClick={() => votePlusClick()}
+            >
+              <div className={styles.voteText}>Great info!</div>
+              <div className={styles.votesBox}>
+                <FontAwesomeIcon icon={faThumbsUp} />
+                <span className={styles.votesCount}>{nbVotesPlus}</span>
+              </div>
+            </div>
+
+            <div
+              className={styles.votesContainer}
+              onClick={() => voteMinusClick()}
+            >
+              <div className={styles.voteText}>Too useless</div>
+              <div className={styles.votesBox}>
+                <FontAwesomeIcon icon={faThumbsDown} />
+                <span className={styles.votesCount}>{nbVotesMinus}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={styles.commentsBox}>
-        {displayComments && commentsToDisplay}
+      <div className={styles.commentsModal}>
+        <div className={styles.commentsBox}>
+          {displayComments && commentsToDisplay}
+        </div>
+        {displayComments && (<div className={styles.seeMoreCommentsButton}> See more comments</div>)}
       </div>
     </div>
   );
