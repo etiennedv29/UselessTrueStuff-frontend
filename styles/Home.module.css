@@ -39,8 +39,8 @@
   display: flex;
   justify-content: space-around;
   color: #1ad4ff;
-  width: 17vh;
-  padding-right: 3vh;
+  width: 10vw;
+  padding-right: 2vw;
 }
 
 .userImage {
@@ -124,3 +124,22 @@
   color: #fff;
   cursor: pointer;
 }
+
+.footerContainer{
+  color:white;
+  background-color: #0b0c1a;
+  padding:5px;
+  padding-left: 20px;
+  min-height: 150px;
+}
+.legalContainer{
+  height: 60vh;
+  background-color: azure;
+  padding-left: 20px;
+}
+
+.footerNav{
+  cursor:pointer;
+}
+
+

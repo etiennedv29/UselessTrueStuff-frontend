@@ -42,19 +42,19 @@ function Header() {
           <div className={styles.navbarCategory}>Latest</div>
           </Link>
           <Link href="/">
-          <div className={styles.navbarCategory}>Top 100</div>
+          <div className={styles.navbarCategory}>Best of</div>
           </Link>
           <Link href="/categories/général">
-            <div className={styles.navbarCategory}>Général</div>
+            <div className={styles.navbarCategory}>General</div>
           </Link>
           <Link href="/categories/scientifique">
-          <div className={styles.navbarCategory}>Scientifique</div>
+          <div className={styles.navbarCategory}>Scientific</div>
           </Link>
           <Link href="/categories/category3">
-          <div className={styles.navbarCategory}>Catégorie 3</div>
+          <div className={styles.navbarCategory}>Technology</div>
           </Link>
           <Link href="/categories/category4">
-          <div className={styles.navbarCategory}>Catégorie 4</div>
+          <div className={styles.navbarCategory}>Adult</div>
           </Link>
         </div>
         <div className={styles.navBarSubmitFact}>

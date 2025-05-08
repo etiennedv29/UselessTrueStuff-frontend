@@ -7,7 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";//récupération de l'url
+import { useRouter } from "next/router"; //récupération de l'url
 import Link from "next/link";
 
 function Home() {
@@ -27,7 +27,7 @@ function Home() {
       data = await response.json();
     } else {
       response = await fetch(
-       //`http://localhost:3000/facts/`
+        //`http://localhost:3000/facts/`
         `https://useless-true-stuff-backend.vercel.app/facts/`
       );
       data = await response.json();
@@ -41,7 +41,7 @@ function Home() {
         nbVotesMinus: fact.voteMinus,
         factComments: fact.comments,
         factImage: fact.image,
-        factId:fact._id
+        factId: fact._id,
       };
       return newFactFormat;
     });
@@ -68,7 +68,6 @@ function Home() {
       <Head>
         <title>Useless True Stuff - Home</title>
       </Head>
-      <Header />
 
       <div className={styles.mainContainer}>
         <div className={styles.mainPublicity}></div>

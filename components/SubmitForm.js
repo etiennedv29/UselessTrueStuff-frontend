@@ -131,13 +131,13 @@ function SubmitForm(props) {
                     required
                   >
                     <option value="">Select category</option>
-                    <option value="général">General</option>
-                    <option value="scientifique">Scientific</option>
-                    <option value="géographie">Geography</option>
-                    <option value="histoire">History</option>
-                    <option value="technologique">Technology</option>
+                    <option value="general">General</option>
+                    <option value="scientific">Scientific</option>
+                    <option value="geography">Geography</option>
+                    <option value="history">History</option>
+                    <option value="technology">Technology</option>
                     <option value="humour">Humour</option>
-                    <option value="adulte">Adult</option>
+                    <option value="adult">Adult</option>
                   </select>
                 </div>
               </div>

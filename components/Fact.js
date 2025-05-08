@@ -72,7 +72,7 @@ function Fact(props) {
             >
               <div className={styles.voteText}>Great info!</div>
               <div className={styles.votesBox}>
-                <FontAwesomeIcon icon={faThumbsUp} />
+                <FontAwesomeIcon icon={faThumbsUp} className={styles.voteThumb} />
                 <span className={styles.votesCount}>{nbVotesPlus}</span>
               </div>
             </div>
@@ -83,7 +83,7 @@ function Fact(props) {
             >
               <div className={styles.voteText}>Too useless</div>
               <div className={styles.votesBox}>
-                <FontAwesomeIcon icon={faThumbsDown} />
+                <FontAwesomeIcon icon={faThumbsDown} className={styles.voteThumb}  />
                 <span className={styles.votesCount}>{nbVotesMinus}</span>
               </div>
             </div>
