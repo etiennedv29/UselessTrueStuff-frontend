@@ -33,7 +33,10 @@ function Header() {
             className={styles.userImage}
             style={{ color: "#1ad4ff" }}
           />
-          <div className={styles.userName}>Etienne</div>
+          <Link href="/login">
+          <div className={styles.userName}>Login</div>
+          </Link>
+         
         </div>
       </div>
       <navbar className={styles.navbar}>

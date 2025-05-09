@@ -10,7 +10,7 @@
   top: 0;
 }
 .globalInfo {
-  width: 100%;
+  min-width: 100%;
   height: auto;
   display: flex;
   justify-content: space-between;
@@ -42,7 +42,9 @@
   width: 10vw;
   padding-right: 2vw;
 }
-
+.userName{
+  cursor:pointer;
+}
 .userImage {
   aspect-ratio: auto;
   height: 20px;
@@ -59,6 +61,7 @@
   background-color: #0b0c1a;
   color: #1ad4ff;
   padding: 1%;
+  box-shadow: 0px 5px 5px grey;
 }
 .navbarCategories {
   display: flex;
@@ -141,5 +144,6 @@
 .footerNav{
   cursor:pointer;
 }
+
 
 

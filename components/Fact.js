@@ -21,21 +21,14 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
-    console.log("displaycomments=>", displayComments);
     setCommentsTodisplay(
       props.factComments.slice(0, 3).map((data, i) => {
-        return (
-          <div>
-            <CommentSmall {...data} key={i} />
-          </div>
-        );
+        return <CommentSmall {...data} key={i} />;
       })
     );
-    console.log("comments to display", commentsToDisplay);
   }, [displayComments]);
 
   const handleCommentDisplayClick = () => {
-    console.log("props du fact", props);
     setDisplayComments(displayComments === true ? false : true);
   };
 
@@ -72,7 +65,10 @@ function Fact(props) {
             >
               <div className={styles.voteText}>Great info!</div>
               <div className={styles.votesBox}>
-                <FontAwesomeIcon icon={faThumbsUp} className={styles.voteThumb} />
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  className={styles.voteThumb}
+                />
                 <span className={styles.votesCount}>{nbVotesPlus}</span>
               </div>
             </div>
@@ -83,7 +79,10 @@ function Fact(props) {
             >
               <div className={styles.voteText}>Too useless</div>
               <div className={styles.votesBox}>
-                <FontAwesomeIcon icon={faThumbsDown} className={styles.voteThumb}  />
+                <FontAwesomeIcon
+                  icon={faThumbsDown}
+                  className={styles.voteThumb}
+                />
                 <span className={styles.votesCount}>{nbVotesMinus}</span>
               </div>
             </div>
@@ -94,7 +93,9 @@ function Fact(props) {
         <div className={styles.commentsBox}>
           {displayComments && commentsToDisplay}
         </div>
-        {displayComments && (<div className={styles.seeMoreCommentsButton}> See more comments</div>)}
+        {displayComments && (
+          <div className={styles.seeMoreCommentsButton}> See more comments</div>
+        )}
       </div>
     </div>
   );

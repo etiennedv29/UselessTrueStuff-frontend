@@ -25,7 +25,7 @@
   justify-content: center;
 }
 .factImage {
-  max-width:100%;
+  max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
@@ -55,7 +55,6 @@
   height: 60%;
   padding-top: 1%;
   cursor: pointer;
-  
 }
 
 .factSocialContainer {
@@ -107,16 +106,29 @@
   font-size: 1vw;
 }
 
-.voteThumb{
-  height: 100%;
+.voteThumb {
+  height: 1.2svw;
 }
 
-.voteText{
+.voteText {
   font-size: 1vw;
   object-fit: contain;
 }
+/* Tablettes (par exemple iPad, Surface) */
+@media screen and (max-width: 1024px) {
+  .voteText {
+    font-size: 1.5vw;
+  }
+}
 
-.commentCount{
+/* iPhone X (largeur = 375px en portrait) et petits téléphones */
+@media screen and (max-width: 450px) {
+  .voteText {
+    font-size: 2vw;
+  }
+}
+
+.commentCount {
   font-size: 1vw;
 }
 
@@ -126,12 +138,15 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-  border:1px red solid;
-  
+  border: 1px red solid;
 }
 
 .commentsBox {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .seeMoreCommentsButton {
