@@ -17,6 +17,7 @@ function Login() {
   const [isSignupDisplay, setIsSignupDisplay] = useState(false);
   const [matchingPasswords, setMatchingPasswords] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
+  const [correctCredentials,setCorrectCredentials] = useState(true)
   const [missingFields, setMissingFields] = useState(false);
   let msg = "";
 
@@ -55,7 +56,7 @@ function Login() {
         router.push("/");
       }
       else if (response.status===401) {
-        setExistingUser(false)
+        setCorrectCredentials(false)
       }
     } catch (error) {
       msg = data.error;
@@ -250,8 +251,8 @@ function Login() {
             {missingFields && (
               <p style={{ color: "red" }}>All fields are required</p>
             )}
-             {!existingUser && (
-              <p style={{ color: "red" }}>Your user is not true stuff! Come and join the fun</p>
+             {!correctCredentials && (
+              <p style={{ color: "red" }}>Are your email and password true stuff ? </p>
             )}
             
             <input
