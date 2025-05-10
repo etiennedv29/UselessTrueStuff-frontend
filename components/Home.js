@@ -21,14 +21,14 @@ function Home() {
     let data;
     if (router.query.type) {
       response = await fetch(
-        `http://localhost:3000/facts/${router.query.type}`
-        //`https://useless-true-stuff-backend.vercel.app/facts/${router.query.type}`
+        //`http://localhost:3000/facts/${router.query.type}`
+        `https://useless-true-stuff-backend.vercel.app/facts/${router.query.type}`
       );
       data = await response.json();
     } else {
       response = await fetch(
-        `http://localhost:3000/facts/`
-        //`https://useless-true-stuff-backend.vercel.app/facts/`
+        //`http://localhost:3000/facts/`
+        `https://useless-true-stuff-backend.vercel.app/facts/`
       );
       data = await response.json();
     }
