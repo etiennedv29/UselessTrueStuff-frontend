@@ -54,8 +54,8 @@ function Login() {
         setMissingFields(false);
         router.push("/");
       }
-      else if (response.status===400) {
-        console.log('erreur 400')
+      else if (response.status===401) {
+        setExistingUser(false)
       }
     } catch (error) {
       msg = data.error;
@@ -250,6 +250,10 @@ function Login() {
             {missingFields && (
               <p style={{ color: "red" }}>All fields are required</p>
             )}
+             {!existingUser && (
+              <p style={{ color: "red" }}>Your user is not true stuff! Come and join the fun</p>
+            )}
+            
             <input
               className={styles.loginField}
               type="text"
