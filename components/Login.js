@@ -15,14 +15,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [isSignup, setIsSignup] = useState(false);
   let msg = "";
-  
+
 
   // Fonction de connexion au site
   async function handleSignin() {
     console.log("want to signin");
     const response = await fetch(
       //"http://localhost:3000/users/signin",
-      'https://useless-true-stuff-backend.vercel.app/users/signin'
+      'https://useless-true-stuff-backend.vercel.app/users/signin',
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ function Login() {
       setPassword("");
       router.push("/");
     } catch (error) {
-      msg = data.error;
+      msg = data.error
     }
   }
 
