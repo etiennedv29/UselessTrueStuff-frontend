@@ -14,9 +14,11 @@ function Fact(props) {
 
   const votePlusClick = () => {
     setNbVotesPlus(nbVotesPlus + 1);
+    //add to db
   };
   const voteMinusClick = () => {
     setNbVotesMinus(nbVotesMinus - 1);
+    //add to db
   };
 
   //prepare the comments to be displayed

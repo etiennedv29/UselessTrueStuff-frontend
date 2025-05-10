@@ -8,54 +8,85 @@ import { prefix } from "@fortawesome/free-solid-svg-icons";
 function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [isSignup, setIsSignup] = useState(false);
+  const [isSignupDisplay, setIsSignupDisplay] = useState(false);
+  const [matchingPasswords, setMatchingPasswords] = useState(false);
+  const [existingUser, setExistingUser] = useState(false);
+  const [missingFields, setMissingFields] = useState(false);
   let msg = "";
-
 
   // Fonction de connexion au site
   async function handleSignin() {
     console.log("want to signin");
+    if (password === "" || email === "") {
+      setMissingFields(true);
+      return;
+    }
+
     const response = await fetch(
       //"http://localhost:3000/users/signin",
-      'https://useless-true-stuff-backend.vercel.app/users/signin',
+      "https://useless-true-stuff-backend.vercel.app/users/signin",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       }
     );
     const data = await response.json();
     try {
-      dispatch(
-        login({
-          _id: data._id,
-          firstname: data.firstname,
-          username,
-          token: data.token,
-        })
-      );
-      setusername("");
-      setPassword("");
-      router.push("/");
+      if (response.status === 200) {
+        dispatch(
+          login({
+            _id: data._id,
+            firstName: data.firstName,
+            username,
+            token: data.token,
+          })
+        );
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        setMissingFields(false);
+        router.push("/");
+      }
+      else if (response.status===400) {
+        console.log('erreur 400')
+      }
     } catch (error) {
-      msg = data.error
+      msg = data.error;
     }
   }
 
   async function handleSignup() {
+    console.log("signup try");
+    if (matchingPasswords) {
+      console.log("unmatching passwords");
+      return;
+    }
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      username === "" ||
+      password === "" ||
+      email === ""
+    ) {
+      console.log("missing fields");
+      setMissingFields(true);
+      return;
+    }
     const response = await fetch(
       //"http://localhost:3000/users/signup",
-      'https://useless-true-stuff-backend.vercel.app/users/signup',
+      "https://useless-true-stuff-backend.vercel.app/users/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstname,
+          firstName,
           lastName,
           email,
           username,
@@ -63,47 +94,68 @@ function Login() {
         }),
       }
     );
+
     const data = await response.json();
+
     try {
-      dispatch(
-        login({ _id: data._id, firstname, username, token: data.token })
-      );
-      setusername("");
-      setPassword("");
-      router.push("/");
+      if (response.status === 200) {
+        setExistingUser(false);
+        dispatch(
+          login({ _id: data._id, firstName, username, token: data.token })
+        );
+        setUsername("");
+        setPassword("");
+        setConfirmPassword("");
+        setfirstName("");
+        setLastName("");
+        setEmail("");
+        setMissingFields(false);
+        router.push("/");
+      } else if (response.status === 409) {
+        setExistingUser(true);
+      }
     } catch (error) {
       msg = data.error;
     }
   }
 
   let boxSize = {
-    height: isSignup ? 550 : 300,
+    height: isSignupDisplay ? 550 : 300,
     transition: "height 0.15s ease-out",
   };
   const handleSwitchSignupClick = () => {
-    setIsSignup(!isSignup);
+    setIsSignupDisplay(!isSignupDisplay);
   };
 
   return (
     <div className={styles.connectSectionContainer}>
-      {isSignup && (
-        <div className={styles.registerContainer} style={boxSize}>
+      <div className={styles.registerContainer} style={boxSize}>
+        {isSignupDisplay && (
           <div className={styles.registerSection}>
             <h2 className={styles.loginModalTitle}>
               Come and join UselessTrueStuff!
             </h2>
+            {existingUser && (
+              <p style={{ color: "red" }}>
+                {" "}
+                A user with this email or username already exists
+              </p>
+            )}
+            {missingFields && (
+              <p style={{ color: "red" }}>All fields are required</p>
+            )}
             <input
               className={styles.loginField}
               type="text"
-              placeholder="Firstname"
-              id="signUpFirstname"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstname}
+              placeholder="First name"
+              id="signUpfirstName"
+              onChange={(e) => setfirstName(e.target.value)}
+              value={firstName}
             />
             <input
               className={styles.loginField}
               type="text"
-              placeholder="LastName"
+              placeholder="Last name"
               id="signUpLastName"
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
@@ -121,7 +173,7 @@ function Login() {
               type="text"
               placeholder="Username"
               id="signUpUsername"
-              onChange={(e) => setusername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               value={username}
             />
 
@@ -130,21 +182,50 @@ function Login() {
               type="password"
               placeholder="Password"
               id="signUpPassword"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                confirmPassword === password
+                  ? setMatchingPasswords(true)
+                  : setMatchingPasswords(false);
+              }}
               value={password}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSignup();
                 }
               }}
+              style={
+                confirmPassword != ""
+                  ? password === confirmPassword
+                    ? { "background-color": "lightgreen" }
+                    : { "background-color": "lightcoral" }
+                  : {}
+              }
             />
             <input
               className={styles.loginField}
-              type="text"
+              type="password"
               placeholder="Confirm Password"
-              id="signUpUsername"
-              onChange={(e) => setusername(e.target.value)}
-              value={username}
+              id="signUpConfirmPassword"
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                confirmPassword === password
+                  ? setMatchingPasswords(true)
+                  : setMatchingPasswords(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSignup();
+                }
+              }}
+              value={confirmPassword}
+              style={
+                confirmPassword != ""
+                  ? password === confirmPassword
+                    ? { "background-color": "lightgreen" }
+                    : { "background-color": "lightcoral" }
+                  : {}
+              }
             />
             <button
               className={styles.modalSigninButton}
@@ -162,20 +243,20 @@ function Login() {
             </div>
             <div className={styles.errorMsg}> {msg} </div>
           </div>
-        </div>
-      )}
-
-      {!isSignup && (
-        <div className={styles.registerContainer} style={boxSize}>
+        )}
+        {!isSignupDisplay && (
           <div className={styles.registerSection}>
-            <h2 className={styles.loginModalTitle}>Sign-in</h2>
+            <h2 className={styles.loginModalTitle}>Sign in</h2>
+            {missingFields && (
+              <p style={{ color: "red" }}>All fields are required</p>
+            )}
             <input
               className={styles.loginField}
               type="text"
-              placeholder="Username"
-              id="signInUsername"
-              onChange={(e) => setusername(e.target.value)}
-              value={username}
+              placeholder="Email"
+              id="signInEmail"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
             <input
               className={styles.loginField}
@@ -204,8 +285,8 @@ function Login() {
               Don't have an account yet? More of useless here!
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
