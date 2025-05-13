@@ -1,9 +1,11 @@
 import styles from "../styles/Login.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { login } from "../reducers/users";
-import { prefix } from "@fortawesome/free-solid-svg-icons";
+import { rememberOrigin } from "../reducers/navigations";
+//import { prefix } from "@fortawesome/free-solid-svg-icons";
+//import { useServerInsertedHTML } from "next/dist/shared/lib/server-inserted-html.shared-runtime";
 
 function Login() {
   const router = useRouter();
@@ -17,9 +19,14 @@ function Login() {
   const [isSignupDisplay, setIsSignupDisplay] = useState(false);
   const [matchingPasswords, setMatchingPasswords] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
-  const [correctCredentials,setCorrectCredentials] = useState(true)
+  const [correctCredentials, setCorrectCredentials] = useState(true);
   const [missingFields, setMissingFields] = useState(false);
   let msg = "";
+
+  //récupération de l'url précédente au signin
+
+
+  const previousPage = useSelector((state) => state.navigations.loginOrigin);
 
   // Fonction de connexion au site
   async function handleSignin() {
@@ -53,10 +60,10 @@ function Login() {
         setPassword("");
         setEmail("");
         setMissingFields(false);
-        router.push("/");
-      }
-      else if (response.status===401) {
-        setCorrectCredentials(false)
+        router.push(`${previousPage}`);
+        dispatch(rememberOrigin(""));
+      } else if (response.status === 401) {
+        setCorrectCredentials(false);
       }
     } catch (error) {
       msg = data.error;
@@ -111,7 +118,7 @@ function Login() {
         setLastName("");
         setEmail("");
         setMissingFields(false);
-        router.push("/");
+        router.push(`${previousPage}`);
       } else if (response.status === 409) {
         setExistingUser(true);
       }
@@ -251,10 +258,12 @@ function Login() {
             {missingFields && (
               <p style={{ color: "red" }}>All fields are required</p>
             )}
-             {!correctCredentials && (
-              <p style={{ color: "red" }}>Are your email and password true stuff ? </p>
+            {!correctCredentials && (
+              <p style={{ color: "red" }}>
+                Are your email and password true stuff ?{" "}
+              </p>
             )}
-            
+
             <input
               className={styles.loginField}
               type="text"

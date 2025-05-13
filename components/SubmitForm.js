@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //import styles from "../styles/Home.module.css";
 import styles from "../styles/SubmitForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import {rememberOrigin} from '../reducers/navigations'
 
 function SubmitForm(props) {
+  const dispatch= useDispatch();
+  const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     userID: "",
@@ -12,10 +17,11 @@ function SubmitForm(props) {
     description: "",
     category: "",
   });
+  const user = useSelector((state) => state.users.value);
 
   const handleChange = (e) => {
     console.log(e);
-    
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -52,19 +58,18 @@ function SubmitForm(props) {
       console.log("added fact =>", addedFact);
       console.log("id de l'added fact = ", addedFact._id);
 
-     
-
       await fetch(
-        //"http://localhost:3000/facts/checkFact", 
+        //"http://localhost:3000/facts/checkFact",
         "https://useless-true-stuff-backend.vercel.app/facts/checkFact",
         {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          description: addedFact.description,
-          id: addedFact._id,
-        }),
-      });
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            description: addedFact.description,
+            id: addedFact._id,
+          }),
+        }
+      );
 
       alert("Fact submitted!");
       setFormData({ userID: "", title: "", description: "", category: "" });
@@ -77,7 +82,21 @@ function SubmitForm(props) {
 
   return (
     <div>
-      <span onClick={() => setShowForm(true)} className={styles.openButton}>
+      <span
+        onClick={() => {
+          if (!user.token) {
+            try {
+              dispatch(rememberOrigin(router.pathname))
+              router.push("/login");
+            } catch (error) {
+              console.log("redirection vers login échouée");
+            }
+          } else {
+            setShowForm(true);
+          }
+        }}
+        className={styles.openButton}
+      >
         Submit Fact
       </span>
 

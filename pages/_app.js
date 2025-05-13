@@ -9,8 +9,9 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import users from "../reducers/users";
+import navigations from "../reducers/navigations"
 import storage from 'redux-persist/lib/storage';
-const reducers = combineReducers({ users });
+const reducers = combineReducers({ users,navigations });
 const persistConfig = { key: 'UselessTrueStuff', storage };
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),

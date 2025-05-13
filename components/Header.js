@@ -88,10 +88,10 @@ function Header() {
           <Link href="/categories/scientifique">
             <div className={styles.navbarCategory}>Scientific</div>
           </Link>
-          <Link href="/categories/category3">
+          <Link href="/categories/technology">
             <div className={styles.navbarCategory}>Technology</div>
           </Link>
-          <Link href="/categories/category4">
+          <Link href="/categories/adult">
             <div className={styles.navbarCategory}>Adult</div>
           </Link>
         </div>
