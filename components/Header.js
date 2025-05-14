@@ -38,7 +38,7 @@ function Header() {
           </Link>
           <div className={styles.logoCatchPhrase}>
             <h1 className={styles.logoCatchPhrase}>
-              True stuff you didn't know you needed
+             Des trucs vrais mais vraiment inutiles
             </h1>
           </div>
         </div>
@@ -63,12 +63,12 @@ function Header() {
           )}
           {token === "" ? (
             <Link href="/login"  className={styles.link}>
-              <div className={styles.userName}>Login</div>
+              <div className={styles.userName}>Se connecter</div>
             </Link>
           ) : (
             <Link href="/login"  className={styles.link}>
               <div className={styles.userName} onClick={() => handleLogout()}>
-                Logout
+                Déconnexion
               </div>
             </Link>
           )}
@@ -77,22 +77,22 @@ function Header() {
       <nav className={styles.navbar}>
         <div className={styles.navbarCategories}>
           <Link href="/" className={styles.link}>
-            <div className={styles.navbarCategory}>Latest</div>
+            <div className={styles.navbarCategory}>Dernières</div>
           </Link>
           <Link href="/" className={styles.link}>
             <div className={styles.navbarCategory}>Best of</div>
           </Link>
           <Link href="/categories/général" className={styles.link}>
-            <div className={styles.navbarCategory}>General</div>
+            <div className={styles.navbarCategory}>Général</div>
           </Link>
           <Link href="/categories/scientifique" className={styles.link}>
-            <div className={styles.navbarCategory}>Scientific</div>
+            <div className={styles.navbarCategory}>Science</div>
           </Link>
           <Link href="/categories/technology" className={styles.link}>
-            <div className={styles.navbarCategory}>Technology</div>
+            <div className={styles.navbarCategory}>Technologie</div>
           </Link>
           <Link href="/categories/adult" className={styles.link}>
-            <div className={styles.navbarCategory}>Adult</div>
+            <div className={styles.navbarCategory}>Adulte</div>
           </Link>
         </div>
         <div className={styles.navBarSubmitFact}>

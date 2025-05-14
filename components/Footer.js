@@ -5,13 +5,13 @@ import Link from "next/link";
 function Footer() {
   return (
     <footer className={styles.footerContainer}>
-      <p>&copy; <strong>2025 UselessTrueStuff.</strong> All rights reserved.</p>
+      <p>&copy; <strong>2025 UselessTrueStuff.</strong> Tous droits réservés.</p>
       <div className={styles.footerLinkscontainer}>
         <Link href="/legal/legal-mentions"  className={styles.link}>
-          <div className={styles.footerNav}>Legal mentions</div>
+          <div className={styles.footerNav}>Mentions légales</div>
         </Link>
         <Link href="/legal/confidentiality" className={styles.link}>
-          <div className={styles.footerNav}>Confidentiality</div>
+          <div className={styles.footerNav}>Confidentialité</div>
         </Link>
         <Link href="/legal/cookies" className={styles.link}>
           <div className={styles.footerNav}>Cookies </div>

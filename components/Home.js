@@ -12,7 +12,6 @@ import Link from "next/link";
 
 function Home() {
   const router = useRouter();
-  console.log(router.query.type);
 
   const [factsData, setFactsData] = useState([]);
 

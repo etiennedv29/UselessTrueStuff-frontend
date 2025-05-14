@@ -57,7 +57,7 @@ function SubmitFormComment(props) {
   return (
     <div>
       <span onClick={() => setShowForm(true)} className={styles.openButton}>
-        Submit comment
+        Commenter
       </span>
 
       {showForm && (
@@ -69,7 +69,7 @@ function SubmitFormComment(props) {
               onClick={() => setShowForm(false)}
             />
 
-            <h2 className={styles.popoverTitle}>What do you want to say?</h2>
+            <h2 className={styles.popoverTitle}>Tu réponds à quoi ce truc inutile ?</h2>
             <form className={styles.submitForm} onSubmit={handleSubmit}>
               <div className={styles.formInputsContainer}>
                 <input
@@ -93,7 +93,7 @@ function SubmitFormComment(props) {
               </div>
 
               <button className={styles.formSubmitButton} type="submit">
-                Send
+                Envoyer ton commentaire
               </button>
             </form>
           </div>

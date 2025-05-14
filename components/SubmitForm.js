@@ -141,7 +141,7 @@ function SubmitForm(props) {
                   required
                 />
                 <div className={styles.formCategoryContainer}>
-                  <p className={styles.formCategoryText}>Category:</p>
+                  <p className={styles.formCategoryText}>Catégorie :</p>
                   <select
                     className={styles.formCategorySelector}
                     name="category"
@@ -149,20 +149,20 @@ function SubmitForm(props) {
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Select category</option>
-                    <option value="general">General</option>
-                    <option value="scientific">Scientific</option>
-                    <option value="geography">Geography</option>
-                    <option value="history">History</option>
-                    <option value="technology">Technology</option>
+                    <option value="">Choisir une catégorie</option>
+                    <option value="general">Général</option>
+                    <option value="scientific">Scientifique</option>
+                    <option value="geography">Géographie</option>
+                    <option value="history">Histoire</option>
+                    <option value="technology">Technologie</option>
                     <option value="humour">Humour</option>
-                    <option value="adult">Adult</option>
+                    <option value="adult">Adulte</option>
                   </select>
                 </div>
               </div>
 
               <button className={styles.formSubmitButton} type="submit">
-                Send
+                Envoyer un truc inutile de plus 
               </button>
             </form>
           </div>
