@@ -5,8 +5,10 @@ import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import CommentSmall from "./CommentSmall";
 import SubmitFormComment from "./SubmitFormComment";
+import { useRouter } from "next/router";
 
 function Fact(props) {
+  const router = useRouter();
   const [nbVotesPlus, setNbVotesPlus] = useState(props.nbVotesPlus);
   const [nbVotesMinus, setNbVotesMinus] = useState(props.nbVotesMinus);
   const [displayComments, setDisplayComments] = useState(false);
@@ -56,7 +58,7 @@ function Fact(props) {
               onClick={() => handleCommentDisplayClick()}
             >
               <span className={styles.commentCount}>
-                {props.factComments.length} comments
+                {props.factComments.length} Commentaires
                 {/* <SubmitFormComment factId={props.factId} /> */}
               </span>
             </div>
@@ -65,7 +67,7 @@ function Fact(props) {
               className={styles.votesContainer}
               onClick={() => votePlusClick()}
             >
-              <div className={styles.voteText}>Great info!</div>
+              <div className={styles.voteText}>Top info !</div>
               <div className={styles.votesBox}>
                 <FontAwesomeIcon
                   icon={faThumbsUp}
@@ -79,7 +81,7 @@ function Fact(props) {
               className={styles.votesContainer}
               onClick={() => voteMinusClick()}
             >
-              <div className={styles.voteText}>Too useless</div>
+              <div className={styles.voteText}>Trop inutile</div>
               <div className={styles.votesBox}>
                 <FontAwesomeIcon
                   icon={faThumbsDown}
@@ -96,7 +98,9 @@ function Fact(props) {
           {displayComments && commentsToDisplay}
         </div>
         {displayComments && (
-          <div className={styles.seeMoreCommentsButton}> See more comments</div>
+          <Link href={`/facts/${props.factId}`} className={styles.link}>
+          <div className={styles.seeMoreCommentsButton}> Voir plus de commentaires</div>
+          </Link>
         )}
       </div>
     </div>

@@ -141,16 +141,16 @@ function Login() {
         {isSignupDisplay && (
           <div className={styles.registerSection}>
             <h2 className={styles.loginModalTitle}>
-              Come and join UselessTrueStuff!
+              Crée un compe et rejoins UselessTrueStuff!
             </h2>
             {existingUser && (
               <p style={{ color: "red" }}>
                 {" "}
-                A user with this email or username already exists
+                Il y en a déjà un qui a ton mail ou ton pseudo !
               </p>
             )}
             {missingFields && (
-              <p style={{ color: "red" }}>All fields are required</p>
+              <p style={{ color: "red" }}>Remplis tous les champs stp</p>
             )}
             <input
               className={styles.loginField}
@@ -254,13 +254,13 @@ function Login() {
         )}
         {!isSignupDisplay && (
           <div className={styles.registerSection}>
-            <h2 className={styles.loginModalTitle}>Sign in</h2>
+            <h2 className={styles.loginModalTitle}>Connexion</h2>
             {missingFields && (
-              <p style={{ color: "red" }}>All fields are required</p>
+              <p style={{ color: "red" }}>Remplis tous les champs stp</p>
             )}
             {!correctCredentials && (
               <p style={{ color: "red" }}>
-                Are your email and password true stuff ?{" "}
+                Ton email et/ou ton mot de passe semblent être des fake news {" "}
               </p>
             )}
 
@@ -290,13 +290,13 @@ function Login() {
               id="connection"
               onClick={() => handleSignin()}
             >
-              Sign in
+              Connexion
             </button>
             <div
               className={styles.switchSignup}
               onClick={() => handleSwitchSignupClick()}
             >
-              Don't have an account yet? More of useless here!
+              Toujours pas de compte ? Plein de trucs inutiles par ici 
             </div>
           </div>
         )}
