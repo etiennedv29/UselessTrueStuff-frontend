@@ -67,10 +67,13 @@
   display: flex;
   justify-content: center;
   text-align: left;
+  
+ 
 }
 .navbarCategory:hover {
-  color: #0b0c1a;
+  color: #0b0c1a !important;
   background-color: #1ad4ff;
+
 }
 .navbarCategory {
   margin-right: 10px;
@@ -80,6 +83,12 @@
   display: flex;
   align-items: center;
   border-radius: 3px;
+  color:#1ad4ff !important;
+
+}
+.link{
+  text-decoration: none;
+  color:inherit;
 }
 
 .navBarSubmitFact {
@@ -90,13 +99,15 @@
   align-items: center;
   justify-content: center;
   border: #1ad4ff solid 1px;
+  background-color: #1ad4ff;
+  color: #0b0c1a;
   border-radius: 3px;
   font-weight: 900;
   cursor: pointer;
 }
 .navBarSubmitFact:hover {
-  color: #0b0c1a;
-  background-color: #1ad4ff;
+  color: #1ad4ff;
+  background-color: #0b0c1a;
 }
 .mainContainer {
   width: vh;

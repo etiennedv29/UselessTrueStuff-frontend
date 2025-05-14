@@ -8,26 +8,25 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import {logout} from "../reducers/users";
+import { logout } from "../reducers/users";
 import { useRouter } from "next/router";
-
 
 function Header() {
   const router = useRouter();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const username = useSelector((state) => state.users.value.username);
   const token = useSelector((state) => state.users.value.token);
 
-  const handleLogout=()=>{
-    dispatch(logout())
-    router.push('/')
-  }
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/");
+  };
 
   return (
     <header className={styles.header}>
       <div className={styles.globalInfo}>
         <div className={styles.logoContainer}>
-          <Link href="/">
+          <Link href="/" className={styles.link}>
             <Image
               className={styles.logoImage}
               src="/uselessTrueStuff_logo.jpg"
@@ -43,55 +42,56 @@ function Header() {
             </h1>
           </div>
         </div>
-        
-       
+
         <div className={styles.userInfoContainer}>
-        {token==='' ? (
-             <Link href="/login">
-             <FontAwesomeIcon
-           icon={faUser}
-           className={styles.userImage}
-           style={{ color: "#1ad4ff" ,cursor:'pointer'}}
-         />
-           </Link>
-          ) : (
-            <Link href="/account">
+          {token === "" ? (
+            <Link href="/login" className={styles.link} >
               <FontAwesomeIcon
-            icon={faUser}
-            className={styles.userImage}
-            style={{ color: "#1ad4ff" ,cursor:'pointer'}}
-          />
+                icon={faUser}
+                className={styles.userImage}
+                style={{ color: "#1ad4ff", cursor: "pointer" }}
+              />
+            </Link>
+          ) : (
+            <Link href="/account" className={styles.link}>
+              <FontAwesomeIcon
+                icon={faUser}
+                className={styles.userImage}
+                style={{ color: "#1ad4ff", cursor: "pointer" }}
+              />
             </Link>
           )}
-          {token==='' ? (
-            <Link href="/login">
+          {token === "" ? (
+            <Link href="/login"  className={styles.link}>
               <div className={styles.userName}>Login</div>
             </Link>
           ) : (
-            <Link href="/login">
-              <div className={styles.userName} onClick={()=>handleLogout()}>Logout</div>
+            <Link href="/login"  className={styles.link}>
+              <div className={styles.userName} onClick={() => handleLogout()}>
+                Logout
+              </div>
             </Link>
           )}
         </div>
       </div>
       <nav className={styles.navbar}>
         <div className={styles.navbarCategories}>
-          <Link href="/">
+          <Link href="/" className={styles.link}>
             <div className={styles.navbarCategory}>Latest</div>
           </Link>
-          <Link href="/">
+          <Link href="/" className={styles.link}>
             <div className={styles.navbarCategory}>Best of</div>
           </Link>
-          <Link href="/categories/général">
+          <Link href="/categories/général" className={styles.link}>
             <div className={styles.navbarCategory}>General</div>
           </Link>
-          <Link href="/categories/scientifique">
+          <Link href="/categories/scientifique" className={styles.link}>
             <div className={styles.navbarCategory}>Scientific</div>
           </Link>
-          <Link href="/categories/technology">
+          <Link href="/categories/technology" className={styles.link}>
             <div className={styles.navbarCategory}>Technology</div>
           </Link>
-          <Link href="/categories/adult">
+          <Link href="/categories/adult" className={styles.link}>
             <div className={styles.navbarCategory}>Adult</div>
           </Link>
         </div>

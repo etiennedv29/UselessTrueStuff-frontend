@@ -73,6 +73,7 @@
   width: 22%;
   height: 60%;
   background-color: #1ad4ff;
+  color:#0b0c1a;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -130,7 +131,16 @@
 
 .commentCount {
   font-size: 1vw;
+  color:#0b0c1a;
+
 }
+
+.commentCoun:hover {
+  font-size: 1vw;
+  color:#0b0c1a;
+}
+
+
 
 .commentsModal {
   width: 100%;
