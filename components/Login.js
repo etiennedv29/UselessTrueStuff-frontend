@@ -12,19 +12,17 @@ function Login() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isSignupDisplay, setIsSignupDisplay] = useState(false);
-  const [matchingPasswords, setMatchingPasswords] = useState(false);
+  const [showPassword, setshowPassword] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
   const [correctCredentials, setCorrectCredentials] = useState(true);
   const [missingFields, setMissingFields] = useState(false);
   let msg = "";
 
   //récupération de l'url précédente au signin
-
 
   const previousPage = useSelector((state) => state.navigations.loginOrigin);
 
@@ -72,10 +70,7 @@ function Login() {
 
   async function handleSignup() {
     console.log("signup try");
-    if (matchingPasswords) {
-      console.log("unmatching passwords");
-      return;
-    }
+
     if (
       firstName === "" ||
       lastName === "" ||
@@ -113,7 +108,6 @@ function Login() {
         );
         setUsername("");
         setPassword("");
-        setConfirmPassword("");
         setfirstName("");
         setLastName("");
         setEmail("");
@@ -141,7 +135,7 @@ function Login() {
         {isSignupDisplay && (
           <div className={styles.registerSection}>
             <h2 className={styles.loginModalTitle}>
-              Crée un compe et rejoins UselessTrueStuff!
+              Crée un compte et rejoins UselessTrueStuff!
             </h2>
             {existingUser && (
               <p style={{ color: "red" }}>
@@ -155,7 +149,7 @@ function Login() {
             <input
               className={styles.loginField}
               type="text"
-              placeholder="First name"
+              placeholder="Prénom"
               id="signUpfirstName"
               onChange={(e) => setfirstName(e.target.value)}
               value={firstName}
@@ -163,7 +157,7 @@ function Login() {
             <input
               className={styles.loginField}
               type="text"
-              placeholder="Last name"
+              placeholder="Nom"
               id="signUpLastName"
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
@@ -171,7 +165,7 @@ function Login() {
             <input
               className={styles.loginField}
               type="text"
-              placeholder="email"
+              placeholder="Email"
               id="signUpEmail"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -179,75 +173,61 @@ function Login() {
             <input
               className={styles.loginField}
               type="text"
-              placeholder="Username"
+              placeholder="Pseudo"
               id="signUpUsername"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
             />
 
-            <input
-              className={styles.loginField}
-              type="password"
-              placeholder="Password"
-              id="signUpPassword"
-              onChange={(e) => {
-                setPassword(e.target.value);
-                confirmPassword === password
-                  ? setMatchingPasswords(true)
-                  : setMatchingPasswords(false);
-              }}
-              value={password}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSignup();
+            <div className={styles.passwordArea}>
+              <div>
+                <input
+                  className={styles.loginFieldPassword}
+                  type="password"
+                  placeholder="Mot de passe"
+                  id="signUpPassword"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  value={password}
+                  style={
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                      password
+                    ) || password == ""
+                      ? { backgroundColor: "" }
+                      : { backgroundColor: "lightcoral" }
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignup();
+                    }
+                  }}
+                />
+              </div>
+              <div className={styles.passwordWarning}
+                style={
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+                    password
+                  ) 
+                    ? { color: "lightgreen" }
+                    : { color: "lightcoral" }
                 }
-              }}
-              style={
-                confirmPassword != ""
-                  ? password === confirmPassword
-                    ? { "background-color": "lightgreen" }
-                    : { "background-color": "lightcoral" }
-                  : {}
-              }
-            />
-            <input
-              className={styles.loginField}
-              type="password"
-              placeholder="Confirm Password"
-              id="signUpConfirmPassword"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                confirmPassword === password
-                  ? setMatchingPasswords(true)
-                  : setMatchingPasswords(false);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSignup();
-                }
-              }}
-              value={confirmPassword}
-              style={
-                confirmPassword != ""
-                  ? password === confirmPassword
-                    ? { "background-color": "lightgreen" }
-                    : { "background-color": "lightcoral" }
-                  : {}
-              }
-            />
+              >Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et être d'au moins 8 caractères</div>
+            </div>
+
             <button
               className={styles.modalSigninButton}
               id="register"
               onClick={() => handleSignup()}
             >
               {" "}
-              Sign up{" "}
+              Crée-toi un compte{" "}
             </button>
             <div
               className={styles.switchSignup}
               onClick={() => handleSwitchSignupClick()}
             >
-              Already have an account? Signin here!
+              Déjà un compte ? Connecte-toi ici !
             </div>
             <div className={styles.errorMsg}> {msg} </div>
           </div>
@@ -260,7 +240,7 @@ function Login() {
             )}
             {!correctCredentials && (
               <p style={{ color: "red" }}>
-                Ton email et/ou ton mot de passe semblent être des fake news {" "}
+                Ton email et/ou ton mot de passe semblent être des fake news{" "}
               </p>
             )}
 
@@ -275,7 +255,7 @@ function Login() {
             <input
               className={styles.loginField}
               type="password"
-              placeholder="Password"
+              placeholder="Mot de passe"
               id="signInPassword"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -296,7 +276,7 @@ function Login() {
               className={styles.switchSignup}
               onClick={() => handleSwitchSignupClick()}
             >
-              Toujours pas de compte ? Plein de trucs inutiles par ici 
+              Toujours pas de compte ? Encore plus de trucs inutiles par ici
             </div>
           </div>
         )}
