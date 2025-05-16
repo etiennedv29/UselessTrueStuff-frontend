@@ -17,9 +17,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [isSignupDisplay, setIsSignupDisplay] = useState(false);
   const [showPassword, setshowPassword] = useState(false);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
   const [existingUser, setExistingUser] = useState(false);
   const [correctCredentials, setCorrectCredentials] = useState(true);
   const [missingFields, setMissingFields] = useState(false);
+  const [isCheckedCGU, setIsCheckedCGU] = useState(false);
+  const [displayWarningCGU, setDisplayWarningCGU] = useState(false);
   let msg = "";
 
   //password conditions
@@ -74,7 +77,7 @@ function Login() {
   //Create account
   async function handleSignup() {
     console.log("signup try");
-
+    //missing fields verification
     if (
       firstName === "" ||
       lastName === "" ||
@@ -84,6 +87,12 @@ function Login() {
     ) {
       console.log("missing fields");
       setMissingFields(true);
+      return;
+    }
+
+    //CGU checkbox verification
+    if (!isCheckedCGU) {
+      setDisplayWarningCGU(true);
       return;
     }
     const response = await fetch(
@@ -193,7 +202,6 @@ function Login() {
               onChange={(e) => setUsername(e.target.value)}
               value={username}
             />
-
             <div className={styles.passwordArea}>
               <div className={styles.passwordAreaInput}>
                 <input
@@ -203,13 +211,10 @@ function Login() {
                   id="signUpPassword"
                   onChange={(e) => {
                     setPassword(e.target.value);
+                    setIncorrectPassword(passwordRegex.test(e.target.value));
+                    console.log(incorrectPassword);
                   }}
                   value={password}
-                  //   style={
-                  //     passwordRegex.test(password) || password == ""
-                  //       ? { backgroundColor: "" }
-                  //       : { backgroundColor: "lightcoral" }
-                  //   }
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSignup();
@@ -234,9 +239,9 @@ function Login() {
               <div
                 className={styles.passwordWarning}
                 style={
-                  password.length <8
-                    ? { color: "white" }
-                    : passwordRegex.test(password) 
+                  password.length < 8
+                    ? { color: "#1ad4ff" }
+                    : passwordRegex.test(password)
                     ? { color: "lightgreen" }
                     : { color: "lightcoral" }
                 }
@@ -246,14 +251,31 @@ function Login() {
                 caractères
               </div>
             </div>
-
+            <div className={styles.agreeConditionsCheckboxContainer}>
+              <div className={styles.agreeConditionsCheckbox}>
+                <input
+                  type="checkbox"
+                  Checked={isCheckedCGU}
+                  onChange={() => setIsCheckedCGU(!isCheckedCGU)}
+                />{" "}
+                <div className={styles.agreeConditionsText}>
+                  Accepter les CGU et la politique de confidentialité
+                </div>
+              </div>
+              {displayWarningCGU && (
+                <div className={styles.warningCGU} >
+                  Pour t'inscrire, il faut accepter les conditions d'utilisation
+                  du service !
+                </div>
+              )}
+            </div>
             <button
               className={styles.modalSigninButton}
               id="register"
               onClick={() => handleSignup()}
             >
               {" "}
-              Crée-toi un compte{" "}
+              Crée ton compte{" "}
             </button>
             <div
               className={styles.switchSignup}

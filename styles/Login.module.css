@@ -39,37 +39,59 @@
   height: 30px;
   width: 85%;
 }
-.passwordArea{
+.passwordArea {
   margin-bottom: 10px;
   width: 80%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.passwordAreaInput{
+.passwordAreaInput {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
- 
 }
-.toggleShowPassword{
+.toggleShowPassword {
   display: flex;
   justify-content: center;
   text-align: center;
   width: 15%;
 }
-.passwordWarning{
+.passwordWarning {
   font-size: 9px;
   width: 80%;
   margin-top: 2px;
 }
-.forgotPassword{
+.forgotPassword {
   font-size: 9px;
   cursor: pointer;
   color: #1ad4ff;
 }
+.agreeConditionsCheckboxContainer {
+  display: flex;
+  flex-direction: column;
 
+
+}
+.agreeConditionsText {
+  text-align: left;
+
+}
+.agreeConditionsCheckbox {
+  color: #1ad4ff;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+}
+.warningCGU {
+  color: lightcoral;
+  font-size: 12px;
+}
 .loginModalTitle {
   color: #1ad4ff;
   text-align: center;
@@ -80,6 +102,7 @@
   color: #0b0c1a;
   width: 80%;
   margin-top: 10px;
+  font-weight: 800;
 }
 
 .switchSignup {
