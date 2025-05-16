@@ -126,7 +126,7 @@ function Login() {
   }
 
   //forgot password functionality
-  async function handleForgotPasswordClick(){}
+  async function handleForgotPasswordClick() {}
 
   //signin and signup box design
   let boxSize = {
@@ -138,8 +138,8 @@ function Login() {
   const handleSwitchSignupClick = () => {
     setIsSignupDisplay(!isSignupDisplay);
   };
-    
-//switch to visible password and back
+
+  //switch to visible password and back
   const handleShowPassword = () => {
     setshowPassword(!showPassword);
   };
@@ -205,11 +205,11 @@ function Login() {
                     setPassword(e.target.value);
                   }}
                   value={password}
-                  style={
-                    passwordRegex.test(password) || password == ""
-                      ? { backgroundColor: "" }
-                      : { backgroundColor: "lightcoral" }
-                  }
+                  //   style={
+                  //     passwordRegex.test(password) || password == ""
+                  //       ? { backgroundColor: "" }
+                  //       : { backgroundColor: "lightcoral" }
+                  //   }
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSignup();
@@ -234,7 +234,9 @@ function Login() {
               <div
                 className={styles.passwordWarning}
                 style={
-                  passwordRegex.test(password)
+                  password.length <8
+                    ? { color: "white" }
+                    : passwordRegex.test(password) 
                     ? { color: "lightgreen" }
                     : { color: "lightcoral" }
                 }
@@ -314,7 +316,10 @@ function Login() {
                   )}
                 </div>
               </div>
-              <div className={styles.forgotPassword} onClick={()=>handleForgotPasswordClick()}>
+              <div
+                className={styles.forgotPassword}
+                onClick={() => handleForgotPasswordClick()}
+              >
                 Mot de passe oublié ?
               </div>
             </div>
