@@ -46,11 +46,28 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.passwordAreaInput{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+ 
+}
+.toggleShowPassword{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 15%;
+}
 .passwordWarning{
   font-size: 9px;
   width: 80%;
   margin-top: 2px;
-
+}
+.forgotPassword{
+  font-size: 9px;
+  cursor: pointer;
+  color: #1ad4ff;
 }
 
 .loginModalTitle {

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: { loginOrigin: "",nextPage:"" },
+  value: { loginOrigin: "/",nextPage:"/" },
 };
 
 export const navigationsSlice = createSlice({

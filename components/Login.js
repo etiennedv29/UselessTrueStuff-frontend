@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { login } from "../reducers/users";
 import { rememberOrigin } from "../reducers/navigations";
-//import { prefix } from "@fortawesome/free-solid-svg-icons";
-//import { useServerInsertedHTML } from "next/dist/shared/lib/server-inserted-html.shared-runtime";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   const router = useRouter();
@@ -22,11 +22,14 @@ function Login() {
   const [missingFields, setMissingFields] = useState(false);
   let msg = "";
 
-  //récupération de l'url précédente au signin
+  //password conditions
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$#!%*?&]{8,}$/;
 
+  //get url from page just previous to /login
   const previousPage = useSelector((state) => state.navigations.loginOrigin);
 
-  // Fonction de connexion au site
+  // User connection
   async function handleSignin() {
     console.log("want to signin");
     if (password === "" || email === "") {
@@ -68,6 +71,7 @@ function Login() {
     }
   }
 
+  //Create account
   async function handleSignup() {
     console.log("signup try");
 
@@ -121,12 +125,23 @@ function Login() {
     }
   }
 
+  //forgot password functionality
+  async function handleForgotPasswordClick(){}
+
+  //signin and signup box design
   let boxSize = {
     height: isSignupDisplay ? 550 : 300,
     transition: "height 0.15s ease-out",
   };
+
+  //switch from signin and signup
   const handleSwitchSignupClick = () => {
     setIsSignupDisplay(!isSignupDisplay);
+  };
+    
+//switch to visible password and back
+  const handleShowPassword = () => {
+    setshowPassword(!showPassword);
   };
 
   return (
@@ -180,10 +195,10 @@ function Login() {
             />
 
             <div className={styles.passwordArea}>
-              <div>
+              <div className={styles.passwordAreaInput}>
                 <input
                   className={styles.loginFieldPassword}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Mot de passe"
                   id="signUpPassword"
                   onChange={(e) => {
@@ -191,9 +206,7 @@ function Login() {
                   }}
                   value={password}
                   style={
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-                      password
-                    ) || password == ""
+                    passwordRegex.test(password) || password == ""
                       ? { backgroundColor: "" }
                       : { backgroundColor: "lightcoral" }
                   }
@@ -203,16 +216,33 @@ function Login() {
                     }
                   }}
                 />
+                <div
+                  onClick={() => handleShowPassword()}
+                  className={styles.toggleShowPassword}
+                >
+                  {!showPassword ? (
+                    <FontAwesomeIcon icon={faEye} color="#1ad4ff" size={15} />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faEyeSlash}
+                      color="#1ad4ff"
+                      size={15}
+                    />
+                  )}
+                </div>
               </div>
-              <div className={styles.passwordWarning}
+              <div
+                className={styles.passwordWarning}
                 style={
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-                    password
-                  ) 
+                  passwordRegex.test(password)
                     ? { color: "lightgreen" }
                     : { color: "lightcoral" }
                 }
-              >Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère spécial et être d'au moins 8 caractères</div>
+              >
+                Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1
+                chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8
+                caractères
+              </div>
             </div>
 
             <button
@@ -252,19 +282,42 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <input
-              className={styles.loginField}
-              type="password"
-              placeholder="Mot de passe"
-              id="signInPassword"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSignin();
-                }
-              }}
-            />
+            <div className={styles.passwordArea}>
+              <div className={styles.passwordAreaInput}>
+                <input
+                  className={styles.loginFieldPassword}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Mot de passe"
+                  id="signInPassword"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  value={password}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSignin();
+                    }
+                  }}
+                />
+                <div
+                  onClick={() => handleShowPassword()}
+                  className={styles.toggleShowPassword}
+                >
+                  {!showPassword ? (
+                    <FontAwesomeIcon icon={faEye} color="#1ad4ff" size={15} />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faEyeSlash}
+                      color="#1ad4ff"
+                      size={15}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className={styles.forgotPassword} onClick={()=>handleForgotPasswordClick()}>
+                Mot de passe oublié ?
+              </div>
+            </div>
             <button
               className={styles.modalSigninButton}
               id="connection"

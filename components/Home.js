@@ -15,6 +15,7 @@ function Home() {
 
   const [factsData, setFactsData] = useState([]);
 
+  // fonction d'upload de toutes les photos 
   async function getFacts() {
     let response;
     let data;
