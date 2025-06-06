@@ -46,8 +46,7 @@ function SubmitForm(props) {
 
     try {
       const response = await fetch(
-        //"http://localhost:3000/facts/addFact",
-        "https://useless-true-stuff-backend.vercel.app/facts/addFact",
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/addFact`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -59,8 +58,7 @@ function SubmitForm(props) {
       console.log("id de l'added fact = ", addedFact._id);
 
       await fetch(
-        //"http://localhost:3000/facts/checkFact",
-        "https://useless-true-stuff-backend.vercel.app/facts/checkFact",
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/checkFact`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

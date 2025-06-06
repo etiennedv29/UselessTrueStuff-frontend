@@ -31,8 +31,7 @@ function SubmitFormComment(props) {
 
     try {
       const response = await fetch(
-        //"http://localhost:3000/comments/addComment",
-        "https://useless-true-stuff-backend.vercel.app/comments/addComment",
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/comments/addComment`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

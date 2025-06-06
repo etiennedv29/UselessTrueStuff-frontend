@@ -41,8 +41,7 @@ function Login() {
     }
 
     const response = await fetch(
-      //"http://localhost:3000/users/signin",
-      "https://useless-true-stuff-backend.vercel.app/users/signin",
+      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/signin`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,6 +57,8 @@ function Login() {
             firstName: data.firstName,
             username,
             token: data.token,
+            votePlus: data.votePlus,
+            voteMinus: data.voteMinus,
           })
         );
         setUsername("");
@@ -96,8 +97,7 @@ function Login() {
       return;
     }
     const response = await fetch(
-      //"http://localhost:3000/users/signup",
-      "https://useless-true-stuff-backend.vercel.app/users/signup",
+      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/signup`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -117,7 +117,14 @@ function Login() {
       if (response.status === 200) {
         setExistingUser(false);
         dispatch(
-          login({ _id: data._id, firstName, username, token: data.token })
+          login({
+            _id: data._id,
+            firstName,
+            username,
+            token: data.token,
+            votePlus: data.votePlus,
+            voteMinus: data.voteMinus,
+          })
         );
         setUsername("");
         setPassword("");
@@ -263,7 +270,7 @@ function Login() {
                 </div>
               </div>
               {displayWarningCGU && (
-                <div className={styles.warningCGU} >
+                <div className={styles.warningCGU}>
                   Pour t'inscrire, il faut accepter les conditions d'utilisation
                   du service !
                 </div>

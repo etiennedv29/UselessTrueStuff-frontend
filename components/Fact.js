@@ -6,21 +6,101 @@ import Link from "next/link";
 import CommentSmall from "./CommentSmall";
 import SubmitFormComment from "./SubmitFormComment";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { addUserVote, removeUserVote } from "../reducers/users";
 
 function Fact(props) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [nbVotesPlus, setNbVotesPlus] = useState(props.nbVotesPlus);
   const [nbVotesMinus, setNbVotesMinus] = useState(props.nbVotesMinus);
   const [displayComments, setDisplayComments] = useState(false);
   const [commentsToDisplay, setCommentsTodisplay] = useState([]);
+  const [hasVotedPlus, setHasVotedPlus] = useState(false);
+  const [hasVotedMinus, setHasVotedMinus] = useState(false);
+  const currentUser = useSelector((state) => state.users.value);
 
-  const votePlusClick = () => {
-    setNbVotesPlus(nbVotesPlus + 1);
-    //add to db
+  // Vérifier si hasvoted or not pour plus et moins
+  useEffect(() => {
+    let hasVotedPlusCheck;
+    if (currentUser?.votePlus?.some((id) => id.toString() === props.factId)) {
+      hasVotedPlusCheck = true;
+    } else {
+      hasVotedPlusCheck = false;
+    }
+
+    let hasVotedMinusCheck;
+    if (currentUser?.voteMinus?.some((id) => id.toString() === props.factId)) {
+      hasVotedMinusCheck = true;
+    } else {
+      hasVotedMinusCheck = false;
+    }
+    setHasVotedPlus(hasVotedPlusCheck);
+    setHasVotedMinus(hasVotedMinusCheck);
+  }, [hasVotedPlus, hasVotedMinus]);
+
+  const votePlusClick = async () => {
+    //Update en front du vote avec condition sur le currentuser a déjà voté ou pas
+    if (!hasVotedPlus) {
+      setNbVotesPlus(nbVotesPlus + 1);
+      dispatch(addUserVote({ voteType: "votePlus", factId: props.factId }));
+    } else {
+      console.log("user has already voted plus and reclicks");
+      setNbVotesPlus(nbVotesPlus - 1);
+      dispatch(removeUserVote({ voteType: "votePlus", factId: props.factId }));
+    }
+    setHasVotedPlus(!hasVotedPlus);
+
+    //Update en base de donnée du vote (verif de déjà voté ou pas en back également)
+    const votePlusResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/modifyLikes`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          factId: props.factId,
+          voteType: "votePlus",
+          userId: "681fc5b0d6f664f85733f36c",
+        }),
+      }
+    );
+    let dataVotePlusQuery = await votePlusResponse.json();
+    if (votePlusResponse.status === 200) {
+      console.log("votePlus confirmed");
+    }
   };
-  const voteMinusClick = () => {
-    setNbVotesMinus(nbVotesMinus - 1);
-    //add to db
+  const voteMinusClick = async () => {
+    //ajout condition de "has already voted"
+    if (!hasVotedMinus) {
+      setNbVotesMinus(nbVotesMinus - 1);
+      dispatch(addUserVote({ voteType: "voteMinus", factId: props.factId }));
+    } else {
+      setNbVotesMinus(nbVotesMinus + 1);
+      dispatch(removeUserVote({ voteType: "voteMinus", factId: props.factId }));
+    }
+    setHasVotedMinus(!hasVotedMinus);
+
+    const voteMinusResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/modifyLikes`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          factId: props.factId,
+          voteType: "voteMinus",
+          userId: "681fc5b0d6f664f85733f36c",
+        }),
+      }
+    );
+    let dataVoteMinusQuery = await voteMinusResponse.json();
+    if (voteMinusResponse.status === 200) {
+      console.log(voteMinusResponse.status);
+      console.log("voteMinus confirmed");
+    }
   };
 
   //prepare the comments to be displayed
@@ -99,7 +179,9 @@ function Fact(props) {
         </div>
         {displayComments && (
           <Link href={`/facts/${props.factId}`} className={styles.link}>
-          <div className={styles.seeMoreCommentsButton}> Voir plus de commentaires</div>
+            <div className={styles.seeMoreCommentsButton}>
+              Voir plus de commentaires
+            </div>
           </Link>
         )}
       </div>
