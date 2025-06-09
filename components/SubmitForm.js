@@ -41,7 +41,7 @@ function SubmitForm(props) {
       trueRatio: null,
       status: "pending",
       image: "https://picsum.photos/seed/picsum/200/200",
-      userID: "123456",
+      userID: user._id,
     };
 
     try {
