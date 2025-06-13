@@ -19,7 +19,7 @@ function Fact(props) {
   const [hasVotedPlus, setHasVotedPlus] = useState(false);
   const [hasVotedMinus, setHasVotedMinus] = useState(false);
   const currentUser = useSelector((state) => state.users.value);
-
+console.log({key:props.key})
   // Vérifier si hasvoted or not pour plus et moins
   useEffect(() => {
     let hasVotedPlusCheck;
@@ -122,8 +122,8 @@ function Fact(props) {
         <div className={styles.factImageContainer}>
           <img
             className={styles.factImage}
-            src="https://picsum.photos/200"
-            alt="This fact image "
+            src={`https://picsum.photos/200/200?random=${Math.floor(Math.random()*1084)}`}
+            alt="This fact image"
           />
         </div>
 

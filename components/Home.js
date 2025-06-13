@@ -56,7 +56,7 @@ function Home() {
         key={i}
         {...data}
         //factTitle={`${data.factId} ${data.factTitle}`}
-        factImage={`https://picsum.photos/200/200?random=${i}`}
+        //factImage={`https://picsum.photos/200/200?random=${i}`}
       />
     );
   });
