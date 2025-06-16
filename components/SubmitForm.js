@@ -40,7 +40,7 @@ function SubmitForm(props) {
       validatedAt: null,
       trueRatio: null,
       status: "pending",
-      image: `https://picsum.photos/id/${Math.floor(Math.random()*1084)}/200/200`,
+      image: "",
       userID: user._id,
     };
 
