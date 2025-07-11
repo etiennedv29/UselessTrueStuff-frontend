@@ -38,14 +38,14 @@ function Header() {
           </Link>
           <div className={styles.logoCatchPhrase}>
             <h1 className={styles.logoCatchPhrase}>
-             Des trucs vrais mais vraiment inutiles
+              Des trucs vrais mais vraiment inutiles
             </h1>
           </div>
         </div>
 
         <div className={styles.userInfoContainer}>
           {token === "" ? (
-            <Link href="/login" className={styles.link} >
+            <Link href="/login" className={styles.link}>
               <FontAwesomeIcon
                 icon={faUser}
                 className={styles.userImage}
@@ -61,12 +61,12 @@ function Header() {
               />
             </Link>
           )}
-          {token === "" ? (
-            <Link href="/login"  className={styles.link}>
+          {token === "" || null ? (
+            <Link href="/login" className={styles.link}>
               <div className={styles.userName}>Se connecter</div>
             </Link>
           ) : (
-            <Link href="/login"  className={styles.link}>
+            <Link href="/login" className={styles.link}>
               <div className={styles.userName} onClick={() => handleLogout()}>
                 Déconnexion
               </div>

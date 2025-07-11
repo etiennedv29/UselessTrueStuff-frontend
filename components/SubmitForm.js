@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import {rememberOrigin} from '../reducers/navigations'
+import { rememberOrigin } from "../reducers/navigations";
 
 function SubmitForm(props) {
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -84,7 +84,7 @@ function SubmitForm(props) {
         onClick={() => {
           if (!user.token) {
             try {
-              dispatch(rememberOrigin(router.pathname))
+              dispatch(rememberOrigin(router.pathname));
               router.push("/login");
             } catch (error) {
               console.log("redirection vers login échouée");
@@ -108,7 +108,7 @@ function SubmitForm(props) {
             />
 
             <h2 className={styles.popoverTitle}>
-              Yipee ! Something true and useless
+              Super ! Une info inutile et sûrement vraie
             </h2>
             <form className={styles.submitForm} onSubmit={handleSubmit}>
               <div className={styles.formInputsContainer}>
@@ -116,7 +116,7 @@ function SubmitForm(props) {
                   className={styles.submitFormField}
                   type="text"
                   name="userID"
-                  placeholder="Your nickname"
+                  placeholder="Ton nom"
                   value={formData.userID}
                   onChange={handleChange}
                   required
@@ -125,7 +125,7 @@ function SubmitForm(props) {
                   className={styles.submitFormField}
                   type="text"
                   name="title"
-                  placeholder="Title of your fact"
+                  placeholder="Titre de ton info (entre 10 et 30 caractères)"
                   value={formData.title}
                   onChange={handleChange}
                   required
@@ -133,7 +133,7 @@ function SubmitForm(props) {
                 <textarea
                   className={styles.submitFormField}
                   name="description"
-                  placeholder="What's so true and useless ?"
+                  placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
                   value={formData.description}
                   onChange={handleChange}
                   required
@@ -160,7 +160,7 @@ function SubmitForm(props) {
               </div>
 
               <button className={styles.formSubmitButton} type="submit">
-                Envoyer un truc inutile de plus 
+                Proposer cette info
               </button>
             </form>
           </div>
