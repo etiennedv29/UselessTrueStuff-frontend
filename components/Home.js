@@ -35,6 +35,8 @@ function Home() {
       const newFactFormat = {
         factTitle: fact.title,
         factDescription: fact.description,
+        factAuthor:fact.userID,
+        factSubmittedAt:fact.submittedAt,
         nbVotesPlus: fact.votePlus,
         nbVotesMinus: fact.voteMinus,
         factComments: fact.comments,

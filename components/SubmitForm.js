@@ -57,6 +57,10 @@ function SubmitForm(props) {
       console.log("added fact =>", addedFact);
       console.log("id de l'added fact = ", addedFact._id);
 
+      alert("Fact submitted!");
+      setFormData({ userID: "", title: "", description: "", category: "" });
+      setShowForm(false);
+
       await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/checkFact`,
         {
@@ -68,10 +72,6 @@ function SubmitForm(props) {
           }),
         }
       );
-
-      alert("Fact submitted!");
-      setFormData({ userID: "", title: "", description: "", category: "" });
-      setShowForm(false);
     } catch (error) {
       console.error("Submission failed", error);
       alert("An error occurred. Please try again.");
