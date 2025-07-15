@@ -1,29 +1,45 @@
 import styles from "../styles/Home.module.css";
-import Fact from "./Fact";
 import SubmitForm from "./SubmitForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reducers/users";
 import { useRouter } from "next/router";
+import Modal from "antd/lib/modal";
+import Login from "./Login"
 
 function Header() {
   const router = useRouter();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.users.value.username);
   const token = useSelector((state) => state.users.value.token);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
     router.push("/");
   };
 
+  function changeModalState() {
+    setVisibleModal(!visibleModal);
+  }
+
   return (
     <header className={styles.header}>
+      <Modal
+        getContainer="#react-modals"
+        open={visibleModal}
+        closable={true}
+        footer={null}
+        onCancel={() => setVisibleModal(null)}
+        width={500}
+        className="modal"
+      >
+        {visibleModal && <Login changeVisibleModal={changeModalState} />}
+      </Modal>
       <div className={styles.globalInfo}>
         <div className={styles.logoContainer}>
           <Link href="/" className={styles.link}>
@@ -36,41 +52,35 @@ function Header() {
               style={{ cursor: "pointer" }}
             />
           </Link>
-          <div className={styles.logoCatchPhrase}>
-            <h1 className={styles.logoCatchPhrase}>
-              Des trucs vrais mais vraiment inutiles
-            </h1>
-          </div>
+          <Link href="/" className={styles.link}>
+            <div className={styles.logoCatchPhrase}>
+              <h1 className={styles.logoCatchPhrase}>
+                Des trucs vrais mais vraiment inutiles
+              </h1>
+            </div>
+          </Link>
         </div>
-
         <div className={styles.userInfoContainer}>
-          {token === "" ? (
-            <Link href="/login" className={styles.link}>
-              <FontAwesomeIcon
-                icon={faUser}
-                className={styles.userImage}
-                style={{ color: "#1ad4ff", cursor: "pointer" }}
-              />
-            </Link>
+          {!token ? (
+            <FontAwesomeIcon
+              icon={faUser}
+              className={styles.userImage}
+              style={{ color: "#1ad4ff", cursor: "pointer" }}
+              onClick={() => setVisibleModal(!visibleModal)}
+            />
           ) : (
-            <Link href="/account" className={styles.link}>
-              <FontAwesomeIcon
-                icon={faUser}
-                className={styles.userImage}
-                style={{ color: "#1ad4ff", cursor: "pointer" }}
-              />
-            </Link>
-          )}
-          {token === "" || null ? (
-            <Link href="/login" className={styles.link}>
-              <div className={styles.userName}>Se connecter</div>
-            </Link>
-          ) : (
-            <Link href="/login" className={styles.link}>
+            <div className={styles.userInfoContainer}>
+              <Link href="/account" className={styles.link}>
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className={styles.userImage}
+                  style={{ color: "#1ad4ff", cursor: "pointer" }}
+                />
+              </Link>
               <div className={styles.userName} onClick={() => handleLogout()}>
                 Déconnexion
               </div>
-            </Link>
+            </div>
           )}
         </div>
       </div>
