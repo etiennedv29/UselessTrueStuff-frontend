@@ -2,7 +2,8 @@ import "../styles/globals.css";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+//imports google connect
+import {GoogleOAuthProvider} from "@react-oauth/google"
 //imports redux
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -23,6 +24,7 @@ const store = configureStore({
 function App({ Component, pageProps }) {
   return (
     <>
+    <GoogleOAuthProvider clientId = "501635737631-vhnhpvodr0keh82drk8vstirsi1507hp.apps.googleusercontent.com">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <Head>
@@ -45,6 +47,7 @@ function App({ Component, pageProps }) {
           <Footer />
         </PersistGate>
       </Provider>
+      </GoogleOAuthProvider>
     </>
   );
 }
