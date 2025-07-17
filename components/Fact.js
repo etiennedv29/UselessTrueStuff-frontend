@@ -160,7 +160,10 @@ function Fact(props) {
         </div>
 
         <div className={styles.factInfoContainer}>
-          <h2 className={styles.factTitle}>{props.factTitle}</h2>
+        <div className={styles.factHeader}>
+            <h2 className={styles.factTitle}>{props.factTitle}</h2>
+            <div className = {styles.factAuthor}>Proposé par {props.factAuthor?.username} le {props.factSubmittedAt.slice(0,10)}</div>
+          </div>
           <div className={styles.factSeparator}></div>
           <div className={styles.factDescription}>{props.factDescription}</div>
 
