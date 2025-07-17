@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-function Login({changeVisibleModal}) {
+function Login({ changeVisibleModal }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
@@ -27,19 +27,23 @@ function Login({changeVisibleModal}) {
   let msg = "";
 
   // tous les messages d'erreur
-  const incorrectPasswordErrorMessage = "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères"
-  const existingUserErrorMessage = "Il y en a déjà un qui a ton mail ou ton pseudo !"
-  const missingFieldsErrorMessage = "Remplis tous les champs stp"
-  const correctCredentialsErrorMessage = "Ton email et/ou ton mot de passe semblent incorrects"
-  const displayWarningCGUErrorMessage = "Pour t'inscrire, il faut accepter les conditions d'utilisation du service !"
+  const incorrectPasswordErrorMessage =
+    "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères";
+  const existingUserErrorMessage =
+    "Il y en a déjà un qui a ton mail ou ton pseudo !";
+  const missingFieldsErrorMessage = "Remplis tous les champs stp";
+  const correctCredentialsErrorMessage =
+    "Ton email et/ou ton mot de passe semblent incorrects";
+  const displayWarningCGUErrorMessage =
+    "Pour t'inscrire, il faut accepter les conditions d'utilisation du service !";
 
   //password conditions
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$#!%*?&]{8,}$/;
 
-  useEffect(()=>{
-    setIsSignupDisplay(false)
-  },[changeVisibleModal])
+  useEffect(() => {
+    setIsSignupDisplay(false);
+  }, [changeVisibleModal]);
 
   // User connection
   async function handleSignin(email, password, connectionWithSocials = false) {
@@ -52,7 +56,7 @@ function Login({changeVisibleModal}) {
 
     //abort signin if password is not satisfying regex
     if (!connectionWithSocials && !passwordRegex.test(password)) {
-      setCorrectCredentials(!correctCredentials)
+      setCorrectCredentials(!correctCredentials);
       return;
     }
 
@@ -69,22 +73,14 @@ function Login({changeVisibleModal}) {
       if (response.status === 200) {
         dispatch(
           login({
-            _id: data._id,
-            firstName: data.firstName,
-            username: data.username,
-            token: data.token,
-            avatar: data.avatar,
-            connectionWithSocials: data.connectionWithSocials,
-            email: data.email,
-            roles: data.roles,
+            ...data,
           })
         );
         setUsername("");
         setPassword("");
         setEmail("");
         setCorrectCredentials(true);
-        changeVisibleModal()
-
+        changeVisibleModal();
       } else if (response.status === 401) {
         setCorrectCredentials(false);
       }
@@ -118,7 +114,7 @@ function Login({changeVisibleModal}) {
 
     // Abort signup process if password is not satisfying regex
     if (!connectionWithSocials && !passwordRegex.test(password)) {
-      setCorrectCredentials(!correctCredentials)
+      setCorrectCredentials(!correctCredentials);
       return;
     }
 
@@ -152,14 +148,7 @@ function Login({changeVisibleModal}) {
         setExistingUser(false);
         dispatch(
           login({
-            _id: data._id,
-            firstName,
-            username,
-            token: data.token,
-            avatar: data.avatar,
-            connectionWithSocials: data.connectionWithSocials,
-            email: data.email,
-            roles: data.roles,
+            ...data,
           })
         );
         setUsername("");
@@ -168,7 +157,7 @@ function Login({changeVisibleModal}) {
         setLastName("");
         setEmail("");
         router.push("/");
-        changeVisibleModal()
+        changeVisibleModal();
       } else if (response.status === 409) {
         setExistingUser(true);
       }
@@ -207,9 +196,7 @@ function Login({changeVisibleModal}) {
               Crée un compte Useless True Stuff !
             </h2>
             {existingUser && (
-              <p style={{ color: "lightcoral" }}>
-                {existingUserErrorMessage}
-              </p>
+              <p style={{ color: "lightcoral" }}>{existingUserErrorMessage}</p>
             )}
             {missingFields && (
               <p style={{ color: "lightcoral" }}>{missingFieldsErrorMessage}</p>
