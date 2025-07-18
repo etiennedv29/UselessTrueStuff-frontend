@@ -21,12 +21,12 @@ function Home() {
     let data;
     if (router.query.type) {
       response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/${router.query.type}`
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search/${router.query.type}`
       );
       data = await response.json();
     } else {
       response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/`
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search`
       );
       data = await response.json();
     }
