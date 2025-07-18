@@ -31,7 +31,7 @@ function Fact(props) {
   // Vérifier si hasvoted or not pour plus et moins
   useEffect(() => {
     let hasVotedPlusCheck;
-    console.log(currentUser)
+    // console.log(currentUser)
     if (currentUser?.votePlus?.some((id) => id.toString() === props.factId)) {
       hasVotedPlusCheck = true;
     } else {
