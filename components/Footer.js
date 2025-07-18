@@ -7,7 +7,7 @@ function Footer() {
     <footer className={styles.footerContainer}>
       <div className={styles.SEOText}>
         <strong>UselessTrueStuff : Des faits inutiles mais fascinants à découvrir et
-        partager</strong> 
+        partager</strong> <br />
         Bienvenue sur UselessTrueStuff, votre nouvelle source de faits
         inutiles mais incroyablement intéressants ! 
         Chaque jour, nous vous offrons une sélection de faits étonnants qui ne changeront peut-être pas
