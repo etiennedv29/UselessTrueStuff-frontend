@@ -161,12 +161,17 @@ function Fact(props) {
 
         <div className={styles.factInfoContainer}>
         <div className={styles.factHeader}>
-            <h2 className={styles.factTitle}>{props.factTitle}</h2>
+        <Link href={`/facts/${props.factId}`} className={styles.link}>
+        <h2 className={styles.factTitle}>{props.factTitle}</h2>
+          </Link>
+            
             <div className = {styles.factAuthor}>Proposé par {props.factAuthor?.username} le {props.factSubmittedAt.slice(0,10)}</div>
           </div>
           <div className={styles.factSeparator}></div>
+          <Link href={`/facts/${props.factId}`} className={styles.link}>
           <div className={styles.factDescription}>{props.factDescription}</div>
-
+          </Link>
+         
           <div className={styles.factSocialContainer}>
             <div
               className={styles.commentsContainer}

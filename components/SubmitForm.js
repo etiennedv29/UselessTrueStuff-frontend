@@ -115,15 +115,6 @@ function SubmitForm(props) {
                 <input
                   className={styles.submitFormField}
                   type="text"
-                  name="userID"
-                  placeholder="Ton nom"
-                  value={formData.userID}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  className={styles.submitFormField}
-                  type="text"
                   name="title"
                   placeholder="Titre de ton info (entre 10 et 30 caractères)"
                   value={formData.title}
@@ -138,25 +129,7 @@ function SubmitForm(props) {
                   onChange={handleChange}
                   required
                 />
-                <div className={styles.formCategoryContainer}>
-                  <p className={styles.formCategoryText}>Catégorie :</p>
-                  <select
-                    className={styles.formCategorySelector}
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Choisir une catégorie</option>
-                    <option value="general">Général</option>
-                    <option value="scientific">Scientifique</option>
-                    <option value="geography">Géographie</option>
-                    <option value="history">Histoire</option>
-                    <option value="technology">Technologie</option>
-                    <option value="humour">Humour</option>
-                    <option value="adult">Adulte</option>
-                  </select>
-                </div>
+                
               </div>
 
               <button className={styles.formSubmitButton} type="submit">
