@@ -14,7 +14,7 @@ function SingleFactDetails(props) {
   const pageFactId = router.query.fact;
   console.log({ pageFactId });
   const [factDetails, setfactDetails] = useState({});
-  const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalLogin, setVisibleModalLogin] = useState(false);
 
   const getFactInfo = async (factId) => {
     console.log("into getfactinfo", factId);
@@ -61,7 +61,7 @@ function SingleFactDetails(props) {
   //       })
   //     );
   //   }, [displayComments]);
-  console.log({factDetails});
+  console.log({ factDetails });
   return (
     <>
       <div>{router.query.factId}</div>

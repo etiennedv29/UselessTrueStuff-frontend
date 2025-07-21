@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 //import styles from "../styles/Home.module.css";
 import styles from "../styles/SubmitForm.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { rememberOrigin } from "../reducers/navigations";
+
 
 function SubmitForm(props) {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     userID: "",
     title: "",
@@ -59,7 +53,7 @@ function SubmitForm(props) {
 
       alert("Fact submitted!");
       setFormData({ userID: "", title: "", description: "", category: "" });
-      setShowForm(false);
+      props.changeVisibleModal();
 
       await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/checkFact`,
@@ -79,66 +73,39 @@ function SubmitForm(props) {
   };
 
   return (
-    <div>
-      <span
-        onClick={() => {
-          if (!user.token) {
-            try {
-              dispatch(rememberOrigin(router.pathname));
-              router.push("/login");
-            } catch (error) {
-              console.log("redirection vers login échouée");
-            }
-          } else {
-            setShowForm(true);
-          }
-        }}
-        className={styles.openButton}
-      >
-        Submit Fact
-      </span>
+    <div className={styles.popupOverlay}>
+      <div className={styles.popupContent}>
 
-      {showForm && (
-        <div className={styles.popupOverlay}>
-          <div className={styles.popupContent}>
-            <FontAwesomeIcon
-              icon={faSquareXmark}
-              className={styles.closeButton}
-              onClick={() => setShowForm(false)}
+        <h2 className={styles.popoverTitle}>
+          Super ! Une info inutile et sûrement vraie
+        </h2>
+        <form className={styles.submitForm} onSubmit={handleSubmit}>
+          <div className={styles.formInputsContainer}>
+            <input
+              className={styles.submitFormField}
+              type="text"
+              name="title"
+              placeholder="Titre de ton info (entre 10 et 30 caractères)"
+              value={formData.title}
+              onChange={handleChange}
+              required
             />
-
-            <h2 className={styles.popoverTitle}>
-              Super ! Une info inutile et sûrement vraie
-            </h2>
-            <form className={styles.submitForm} onSubmit={handleSubmit}>
-              <div className={styles.formInputsContainer}>
-                <input
-                  className={styles.submitFormField}
-                  type="text"
-                  name="title"
-                  placeholder="Titre de ton info (entre 10 et 30 caractères)"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                />
-                <textarea
-                  className={styles.submitFormField}
-                  name="description"
-                  placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                />
-                
-              </div>
-
-              <button className={styles.formSubmitButton} type="submit">
-                Proposer cette info
-              </button>
-            </form>
+            <textarea
+              className={styles.submitFormField}
+              name="description"
+              placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              style={{ height: '150px' }}
+            />
           </div>
-        </div>
-      )}
+
+          <button className={styles.formSubmitButton} type="submit">
+            Proposer cette info
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

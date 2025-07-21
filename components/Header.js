@@ -16,7 +16,8 @@ function Header() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.users.value.username);
   const token = useSelector((state) => state.users.value.token);
-  const [visibleModal, setVisibleModal] = useState(false);
+  const [visibleModalLogin, setVisibleModalLogin] = useState(false);
+  const [visibleModalSubmitFact, setVisibleModalSubmitFact] = useState(false);
   const [topCategoriesFromBack, setTopCategoriesFromBack] = useState([]);
 
   const handleLogout = () => {
@@ -24,8 +25,12 @@ function Header() {
     router.push("/");
   };
 
-  function changeModalState() {
-    setVisibleModal(!visibleModal);
+  function changeModalStateLogin() {
+    setVisibleModalLogin(!visibleModalLogin);
+  }
+
+  function changeModalStateSubmitFact() {
+    setVisibleModalSubmitFact(!visibleModalSubmitFact);
   }
 
   useEffect(() => {
@@ -70,14 +75,16 @@ function Header() {
     <header className={styles.header}>
       <Modal
         getContainer="#react-modals"
-        open={visibleModal}
-        closable={true}
+        open={visibleModalLogin}
+        closable={false}
         footer={null}
-        onCancel={() => setVisibleModal(null)}
+        keyboard={true}
+        maskClosable={true}
+        onCancel={changeModalStateLogin}
         width={500}
         className="modal"
       >
-        {visibleModal && <Login changeVisibleModal={changeModalState} />}
+        <Login changeVisibleModal={changeModalStateLogin} />
       </Modal>
       <div className={styles.globalInfo}>
         <div className={styles.logoContainer}>
@@ -105,7 +112,7 @@ function Header() {
               icon={faUser}
               className={styles.userImage}
               style={{ color: "#1ad4ff", cursor: "pointer" }}
-              onClick={() => setVisibleModal(!visibleModal)}
+              onClick={() => setVisibleModalLogin(!visibleModalLogin)}
             />
           ) : (
             <div className={styles.userInfoContainer}>
@@ -129,25 +136,26 @@ function Header() {
             <div className={styles.navbarCategory}>Dernières</div>
           </Link>
           {topCategoriesToDisplay}
-          {/* <Link href="/" className={styles.link}>
-            <div className={styles.navbarCategory}>Best of</div>
-          </Link>
-          <Link href="/categories/général" className={styles.link}>
-            <div className={styles.navbarCategory}>Général</div>
-          </Link>
-          <Link href="/categories/scientifique" className={styles.link}>
-            <div className={styles.navbarCategory}>Science</div>
-          </Link>
-          <Link href="/categories/technology" className={styles.link}>
-            <div className={styles.navbarCategory}>Technologie</div>
-          </Link>
-          <Link href="/categories/adult" className={styles.link}>
-            <div className={styles.navbarCategory}>Adulte</div>
-          </Link> */}
         </div>
-        <div className={styles.navBarSubmitFact}>
-          <SubmitForm />
+        <div
+          className={styles.navBarSubmitFact}
+          onClick={token ? changeModalStateSubmitFact : changeModalStateLogin}
+        >
+          Proposer une info
         </div>
+        <Modal
+          getContainer="#react-modals"
+          open={visibleModalSubmitFact}
+          closable={false}
+          footer={null}
+          keyboard={true}
+          maskClosable={true}
+          onCancel={changeModalStateSubmitFact}
+          width={500}
+          className="modal"
+        >
+          <SubmitForm changeVisibleModal={changeModalStateSubmitFact} />
+        </Modal>
       </nav>
     </header>
   );

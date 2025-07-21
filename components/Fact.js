@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import CommentSmall from "./CommentSmall";
-import Login from "./Login"
+import Login from "./Login";
 import Modal from "antd/lib/modal";
 import SubmitFormComment from "./SubmitFormComment";
 import { useRouter } from "next/router";
@@ -21,11 +21,11 @@ function Fact(props) {
   const [hasVotedPlus, setHasVotedPlus] = useState(false);
   const [hasVotedMinus, setHasVotedMinus] = useState(false);
   const currentUser = useSelector((state) => state.users.value);
-  const [visibleModal,setVisibleModal] = useState(false)
+  const [visibleModalLogin, setVisibleModalLogin] = useState(false);
 
   //état de la modal de connexion pour submit un vote
   function changeModalState() {
-    setVisibleModal(!visibleModal);
+    setVisibleModalLogin(!visibleModalLogin);
   }
 
   // Vérifier si hasvoted or not pour plus et moins
@@ -46,13 +46,13 @@ function Fact(props) {
     }
     setHasVotedPlus(hasVotedPlusCheck);
     setHasVotedMinus(hasVotedMinusCheck);
-  }, [hasVotedPlus, hasVotedMinus,currentUser]);
+  }, [hasVotedPlus, hasVotedMinus, currentUser]);
 
   const votePlusClick = async () => {
     // si user pas connecté, modal de connexion qui s'affiche
-    if (!currentUser.token){
-      changeModalState()
-      return
+    if (!currentUser.token) {
+      changeModalState();
+      return;
     }
 
     //Update en front du vote avec condition sur le currentuser a déjà voté ou pas
@@ -88,9 +88,9 @@ function Fact(props) {
   };
   const voteMinusClick = async () => {
     // si user pas connecté, modal de connexion qui s'affiche
-    if (!currentUser.token){
-      changeModalState()
-      return
+    if (!currentUser.token) {
+      changeModalState();
+      return;
     }
 
     //ajout condition de "has already voted"
@@ -141,14 +141,14 @@ function Fact(props) {
     <div className={styles.factIncludingComments}>
       <Modal
         getContainer="#react-modals"
-        open={visibleModal}
+        open={visibleModalLogin}
         closable={true}
         footer={null}
-        onCancel={() => setVisibleModal(null)}
+        onCancel={() => setVisibleModalLogin(null)}
         width={500}
         className="modal"
       >
-        {visibleModal && <Login changeVisibleModal={changeModalState} />}
+        {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
       </Modal>
       <div className={styles.factBox}>
         <div className={styles.factImageContainer}>
@@ -160,18 +160,23 @@ function Fact(props) {
         </div>
 
         <div className={styles.factInfoContainer}>
-        <div className={styles.factHeader}>
-        <Link href={`/facts/${props.factId}`} className={styles.link}>
-        <h2 className={styles.factTitle}>{props.factTitle}</h2>
-          </Link>
-            
-            <div className = {styles.factAuthor}>Proposé par {props.factAuthor?.username} le {props.factSubmittedAt.slice(0,10)}</div>
+          <div className={styles.factHeader}>
+            <Link href={`/facts/${props.factId}`} className={styles.link}>
+              <h2 className={styles.factTitle}>{props.factTitle}</h2>
+            </Link>
+
+            <div className={styles.factAuthor}>
+              Proposé par {props.factAuthor?.username} le{" "}
+              {props.factSubmittedAt.slice(0, 10)}
+            </div>
           </div>
           <div className={styles.factSeparator}></div>
           <Link href={`/facts/${props.factId}`} className={styles.link}>
-          <div className={styles.factDescription}>{props.factDescription}</div>
+            <div className={styles.factDescription}>
+              {props.factDescription}
+            </div>
           </Link>
-         
+
           <div className={styles.factSocialContainer}>
             <div
               className={styles.commentsContainer}
