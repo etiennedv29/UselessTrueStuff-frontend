@@ -45,6 +45,7 @@
 }
 .userName{
   cursor:pointer;
+  margin-left:3px
 }
 .userImage {
   aspect-ratio: auto;
@@ -160,6 +161,8 @@
   cursor:pointer;
 }
 
-
+.ant-modal-content {
+  padding:0px
+ }
 
 

@@ -8,6 +8,8 @@ const initialState = {
     firstName: null,
     votePlus: null,
     voteMinus: null,
+    email: null,
+    connectionWithSocials: null,
   },
 };
 
@@ -23,6 +25,9 @@ export const usersSlice = createSlice({
       state.value.firstName = action.payload.firstName;
       state.value.votePlus = action.payload.votePlus;
       state.value.voteMinus = action.payload.voteMinus;
+      state.value.email = action.payload.email;
+      state.value.connectionWithSocials = action.payload.connectionWithSocials;
+      state.value.factsSubmitted = action.payload.factsSubmitted;
     },
     logout: (state) => {
       state.value.token = null;
@@ -31,6 +36,9 @@ export const usersSlice = createSlice({
       state.value._id = null;
       state.value.voteMinus = null;
       state.value.votePlus = null;
+      state.value.email = null;
+      state.value.connectionWithSocials = null;
+      state.value.factsSubmitted = null;
     },
     addUserVote: (state, action) => {
       if (

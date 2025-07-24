@@ -119,7 +119,6 @@ function Fact(props) {
     );
     let dataVoteMinusQuery = await voteMinusResponse.json();
     if (voteMinusResponse.status === 200) {
-      console.log(voteMinusResponse.status);
       console.log("voteMinus confirmed");
     }
   };

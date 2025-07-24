@@ -1,8 +1,8 @@
-import SingleFactDetails from "../../components/SingleFactDetails";
-import Fact from "../../components/Fact";
+import SingleFact from "../../components/SingleFactPage";
+
 
 function SingleFactPage() {
-  return <SingleFactDetails />;
+  return <SingleFact />;
 }
 
 export default SingleFactPage;
