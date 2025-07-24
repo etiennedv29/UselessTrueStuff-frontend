@@ -14,7 +14,6 @@ function SubmitForm(props) {
   const user = useSelector((state) => state.users.value);
 
   const handleChange = (e) => {
-    console.log(e);
 
     setFormData({
       ...formData,
@@ -37,7 +36,7 @@ function SubmitForm(props) {
       image: "",
       userID: user._id,
     };
-
+    console.log("fact before POST request", fact)
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/addFact`,
@@ -49,10 +48,10 @@ function SubmitForm(props) {
       );
       const addedFact = await response.json();
       console.log("added fact =>", addedFact);
-      console.log("id de l'added fact = ", addedFact._id);
+
 
       alert("Fact submitted!");
-      setFormData({ userID: "", title: "", description: "", category: "" });
+      setFormData({ title: "", description: ""});
       props.changeVisibleModal();
 
       await fetch(
@@ -67,8 +66,7 @@ function SubmitForm(props) {
         }
       );
     } catch (error) {
-      console.error("Submission failed", error);
-      alert("An error occurred. Please try again.");
+      console.error("Fact check failed", error);
     }
   };
 
