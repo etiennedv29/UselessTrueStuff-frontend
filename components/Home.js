@@ -20,8 +20,9 @@ function Home() {
     let response;
     let data;
     if (router.query.type) {
+      console.log("router.query.type existait")
       response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search/${router.query.type}`
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?tags=${router.query.type}`
       );
       data = await response.json();
     } else {
