@@ -55,10 +55,11 @@ function Footer() {
         occasion de découvrir le monde sous un angle original et amusant, tout
         en échangeant avec d'autres curieux.
       </div>
+
+      <div className={styles.footerLinkscontainer}>
       <p>
         <strong>2025 UselessTrueStuff.</strong> Tous droits réservés.
       </p>
-      <div className={styles.footerLinkscontainer}>
         <Link href="/legal/legal-mentions" className={styles.link}>
           <div className={styles.footerNav}>Mentions légales</div>
         </Link>

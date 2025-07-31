@@ -142,7 +142,7 @@
 }
 
 .footerContainer{
-  color:white;
+  color:rgb(193, 193, 193);
   background-color: #0b0c1a;
   padding:5px;
   padding-left: 10%;
@@ -150,6 +150,10 @@
   padding-top: 50px;
   text-align: justify;
   min-height: 150px;
+  font-size: 12px;
+}
+.SEOText{
+  padding-left: 0.7em;
 }
 .legalContainer{
   height: 60vh;
@@ -165,4 +169,10 @@
   padding:0px
  }
 
+ .footerLinkscontainer{
+  background-color:#ccc;
+  color:#0b0c1a;
+  padding-left: 0.7em;
+
+ }
 
