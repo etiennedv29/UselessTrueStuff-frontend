@@ -106,6 +106,7 @@
   border-radius: 3px;
   font-weight: 800;
   cursor: pointer;
+  padding:2px;
 }
 .navBarSubmitFact:hover {
   color: #1ad4ff;

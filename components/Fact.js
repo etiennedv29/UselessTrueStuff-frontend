@@ -125,6 +125,7 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
+    console.log("factComments= ", props.factComments)
     setCommentsTodisplay(
       props.factComments.slice(0, 3).map((data, i) => {
         return <CommentSmall {...data} key={i} />;
@@ -182,7 +183,7 @@ function Fact(props) {
               onClick={() => handleCommentDisplayClick()}
             >
               <span className={styles.commentCount}>
-                {props.factComments.length} Commentaires
+                {props.factComments?.length} Commentaires
                 {/* <SubmitFormComment factId={props.factId} /> */}
               </span>
             </div>
