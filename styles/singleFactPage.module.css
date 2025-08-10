@@ -1,0 +1,259 @@
+.factIncludingComments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.factBox {
+  background-color: azure;
+  width: 100%;
+  min-width: 250px;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.factImageContainer {
+  width: 20%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+}
+.factImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.factInfoContainer {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.factTitle {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+
+.factAuthor {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 12px;
+}
+
+.factSeparator {
+  height: 0;
+  width: 100%;
+  border: 0.5px solid #0b0c1a;
+}
+
+.factDescription {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  height: 60%;
+  padding-top: 1%;
+  cursor: pointer;
+}
+
+.factSocialContainer {
+  height: 20%;
+  min-height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.commentsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 22%;
+  height: 60%;
+  background-color: #1ad4ff;
+  color: #0b0c1a;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.votesBox {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #1ad4ff;
+  color: #0b0c1a;
+}
+
+.votesContainer {
+  width: 22%;
+  min-width: 30px;
+  height: 60%;
+  min-height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #0b0c1a;
+  margin-left: 1%;
+  color: #0b0c1a;
+  padding: 0% 0 0 1%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.votesCount {
+  margin-left: 1vh;
+  font-size: 1vw;
+}
+
+.voteThumb {
+  height: 1.2svw;
+}
+
+.voteText {
+  font-size: 1vw;
+  object-fit: contain;
+}
+/* Tablettes (par exemple iPad, Surface) */
+@media screen and (max-width: 1024px) {
+  .voteText {
+    font-size: 1.5vw;
+  }
+}
+
+/* iPhone X (largeur = 375px en portrait) et petits téléphones */
+@media screen and (max-width: 450px) {
+  .voteText {
+    font-size: 2vw;
+  }
+}
+
+.commentCount {
+  font-size: 1vw;
+  color: #0b0c1a;
+}
+
+.commentCount:hover {
+  color: white;
+}
+
+.commentsModal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.commentsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.seeMoreCommentsButton {
+  background-color: azure;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  padding: 2px 4px 2px 4px;
+  background-color: #1ad4ff;
+  color: #0b0c1a;
+  border-radius: 5px;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mainContainer {
+    width: 100vw;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    background-color: #0b0c1a;
+
+  }
+
+.mainPublicity {
+  min-width: 15%;
+  min-height: 100%;
+  background-color: lightgray;
+
+}
+
+.factsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  height:100%
+}
+
+.addCommentContainer{
+    width : 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.7em;
+    margin-bottom: 2em;
+}
+
+.addCommentTitle{
+    width:100%;
+    text-align: center;
+    color: #1ad4ff;
+}
+
+
+.globalFactContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addCommentDescription{
+    min-width:80%;
+    min-height: 40px;
+}
+
+.addCommentBtn{
+    background-color:#1ad4ff ;
+    color: #0b0c1a;
+    height:30px;
+    border-radius: 3px;
+    font-weight: 800;
+    cursor: pointer;
+    border:#1ad4ff;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding:5px
+}
+.addCommentBtn:hover{
+    background-color:#0b0c1a;
+    color: #1ad4ff;
+    border:1px solid  #1ad4ff;
+}

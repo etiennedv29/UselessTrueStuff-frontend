@@ -4,13 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import moment from 'moment'
+import "moment/locale/fr";
 
 function Comment(props) {
-  console.log(props)
+  moment.locale("fr")
+
+  console.log("commentSmall props", props)
   return (
     <div className={styles.commentContainer}>
       <div className={styles.commentHeader}>
-            <span className= {styles.commentAuthor}>Soumis par {props.author}  </span><span className={styles.commentSubmissionDate}> le {moment(props.submittedAt).format("Do [of] MMMM YYYY")}</span>
+            <span className= {styles.commentAuthor}>Soumis par {props.author.username} &nbsp;</span><span className={styles.commentSubmissionDate}> le {moment(props.submittedAt).format("Do MMMM YYYY")}</span>
+
       </div>
       <div className={styles.commentContent}>
         {props.text}

@@ -9,7 +9,7 @@ import { login } from "../reducers/users";
 
 function Account(props) {
   let userData = useSelector((state) => state.users.value);
-  console.log({userData})
+
   let msg = "";
   const dispatch = useDispatch();
   const [values, setValues] = useState({
