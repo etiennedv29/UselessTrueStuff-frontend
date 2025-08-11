@@ -13,7 +13,7 @@ function Comment(props) {
   return (
     <div className={styles.commentContainer}>
       <div className={styles.commentHeader}>
-            <span className= {styles.commentAuthor}>Soumis par {props.author.username} &nbsp;</span><span className={styles.commentSubmissionDate}> le {moment(props.submittedAt).format("Do MMMM YYYY")}</span>
+            <span className= {styles.commentAuthor}>Commenté par {props.author.username} &nbsp;</span><span className={styles.commentSubmissionDate}> le {moment(props.submittedAt).format("Do MMMM YYYY")}</span>
 
       </div>
       <div className={styles.commentContent}>
