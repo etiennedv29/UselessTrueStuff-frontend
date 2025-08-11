@@ -8,8 +8,7 @@ import "moment/locale/fr";
 
 function Comment(props) {
   moment.locale("fr")
-
-  console.log("commentSmall props", props)
+  
   return (
     <div className={styles.commentContainer}>
       <div className={styles.commentHeader}>

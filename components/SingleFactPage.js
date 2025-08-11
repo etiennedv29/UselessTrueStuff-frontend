@@ -28,10 +28,7 @@ function SingleFact(props) {
       );
       data = await response.json();
     } else {
-      response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search`
-      );
-      data = await response.json();
+      router.push("/")
     }
 
     let newFactsData = data.map((fact) => {
