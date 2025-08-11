@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/users";
+import Link from "next/link";
 
 function Account(props) {
   let userData = useSelector((state) => state.users.value);
@@ -27,6 +28,7 @@ function Account(props) {
     email: useRef(null),
     username: useRef(null),
   };
+  const [accountFactsData, setAccountFactsData] = useState([]);
 
   useEffect(() => {
     if (activeField && refs[activeField]?.current) {
@@ -85,6 +87,47 @@ function Account(props) {
       msg = updateUserResponse.error;
     }
   }
+
+  async function getAccountFacts() {
+    let response;
+    let data;
+    console.log("getting account facts");
+    if (userData._id) {
+      response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?userId=${userData._id}`
+      );
+      data = await response.json();
+    }
+
+    let newFactsData = data.map((fact) => {
+      const newFactFormat = {
+        factTitle: fact.title,
+        factDescription: fact.description,
+        factAuthor: fact.userID,
+        factSubmittedAt: fact.submittedAt,
+        nbVotesPlus: fact.votePlus,
+        nbVotesMinus: fact.voteMinus,
+        factComments: fact.comments,
+        factImage: fact.image,
+        factId: fact._id,
+      };
+      return newFactFormat;
+    });
+    setAccountFactsData(newFactsData);
+  }
+
+  useEffect(() => {
+    getAccountFacts();
+  }, [userData._id]);
+
+  const factsInfoToDisplay = accountFactsData.map((data, i) => {
+    return (
+      <Link href={`/facts/${data.factId}`} className={styles.link}>
+        <div className={styles.footerNav}>{data.factTitle}</div>
+      </Link>
+    );
+  });
+
 
   return (
     <div className={styles.accountContainer}>
@@ -162,7 +205,6 @@ function Account(props) {
                   onClick={() => handleEdit("email")}
                 />
               </div>
-
             </div>
           </div>
           <button
@@ -187,9 +229,22 @@ function Account(props) {
         </div>
         <div className={styles.sectionContainer}>
           <h2 className={styles.sectionTitle}>Statistiques</h2>
-            <div className = {styles.dataInfo}> Nombre de likes + : {userData.votePlus.length}</div>
-            <div className = {styles.dataInfo}> Nombre de dislikes - : {userData.voteMinus.length}</div>
-            <div className = {styles.dataInfoFactsSubmitted}> Nombre de faits soumis : {userData.factsSubmitted.length}</div>
+          <div className={styles.dataContainer}>
+            <div className={styles.dataInfo}>
+              Nombre de likes + : {userData.votePlus.length}
+            </div>
+            <div className={styles.dataInfo}>
+              Nombre de dislikes - : {userData.voteMinus.length}
+            </div>
+            <div className={styles.factsSubmittedContainer}>
+              <div className={styles.dataInfoFactsSubmitted}>
+                Nombre de faits validés : {userData.factsSubmitted.length}
+              </div>
+              <div className={styles.accountFactsSubmittedValidated}>
+                {factsInfoToDisplay}
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.sectionContainer}>
           <h2 className={styles.sectionTitle}>Préférences</h2>

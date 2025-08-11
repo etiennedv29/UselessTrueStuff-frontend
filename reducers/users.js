@@ -10,6 +10,7 @@ const initialState = {
     voteMinus: null,
     email: null,
     connectionWithSocials: null,
+    factsSubmitted:null
   },
 };
 

@@ -125,7 +125,7 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
-    console.log("factComments= ", props.factComments)
+    
     setCommentsTodisplay(
       props.factComments.slice(0, 3).map((data, i) => {
         return <CommentSmall {...data} key={i} />;

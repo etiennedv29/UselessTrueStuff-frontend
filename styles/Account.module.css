@@ -204,11 +204,33 @@
 }
 
 .dataInfo{
-    color:#1ad4ff
-
+    color:#1ad4ff;
+    font-size: 18px;
 }
 
 .dataInfoFactsSubmitted{
     color:#1ad4ff;
-    margin-top: 15px;
+
+    font-size: 18px;
+}
+
+
+
+.link{
+  text-decoration: none;
+  color:#1ad4ff;
+  cursor: pointer;
+}
+
+.dataContainer{
+  width:60%;
+}
+
+.factsSubmittedContainer{
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  gap:3em;
+  margin-top: 15px;
+
 }
