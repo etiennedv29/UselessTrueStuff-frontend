@@ -65,7 +65,7 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>Useless True Stuff - Home</title>
+        <title>UselessTrueStuff - Home</title>
       </Head>
 
       <div className={styles.mainContainer}>

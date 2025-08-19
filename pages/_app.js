@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import Script from "next/script";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 //imports google connect
