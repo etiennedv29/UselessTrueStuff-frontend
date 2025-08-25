@@ -132,10 +132,9 @@ function Account(props) {
 
   return (
     <div class = "bg-[#0b0c1a] pt-10 justify-center font-[Trebuchet MS] flex flex-row ">
-      <div class = "w-full flex flex-col justify-center items-center text-[#0b0c1a]  gap-10">
-        {/* <div className={styles.sectionContainer}> */}
+      <div class = "w-full flex flex-col justify-center items-center text-[#0b0c1a]  gap-10"> 
         <div class = "w-4/5 flex flex-col items-center justify-center ">
-          <h2 className={styles.sectionTitle}>Profil</h2>
+          <h2 class="border-b-1 border-b-[#1ad4ff] w-full text-center text-[#1ad4ff] pb-1 text-sm sm:text-lg">Profil</h2>
           <div className={styles.profileSection}>
             <div className={styles.profileLeft}>
               <p className={styles.profileUsername}>{userData.username}</p>
@@ -144,7 +143,7 @@ function Account(props) {
           </div>
         </div>
         <div className={styles.sectionContainer}>
-          <h2 className={styles.sectionTitle}>Informations</h2>
+          <h2 class="border-b-1 border-b-[#1ad4ff] w-full text-center text-[#1ad4ff] pb-1 text-sm sm:text-lg">Informations</h2>
           <div className={styles.detailedInfoData}>
             <div className={styles.detailedInfoDataLeft}>
               <div className={styles.detailedInfoFieldName}>Pseudo</div>
@@ -230,7 +229,7 @@ function Account(props) {
           <div className={styles.errorMsg}> {msg} </div>
         </div>
         <div className={styles.sectionContainer}>
-          <h2 className={styles.sectionTitle}>Statistiques</h2>
+          <h2 class="border-b-1 border-b-[#1ad4ff] w-full text-center text-[#1ad4ff] pb-1 text-sm sm:text-lg">Statistiques</h2>
           <div className={styles.dataContainer}>
             <div className={styles.dataInfo}>
               Nombre de likes + : {userData.votePlus.length}
