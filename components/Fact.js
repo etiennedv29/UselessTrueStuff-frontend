@@ -6,7 +6,6 @@ import Link from "next/link";
 import CommentSmall from "./CommentSmall";
 import Login from "./Login";
 import Modal from "antd/lib/modal";
-import SubmitFormComment from "./SubmitFormComment";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserVote, removeUserVote } from "../reducers/users";

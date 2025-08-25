@@ -69,9 +69,9 @@ function Home() {
       </Head>
 
       <div className={styles.mainContainer}>
-        <div className={styles.mainPublicity}></div>
-        <div className={styles.factsContainer}>{facts}</div>
-        <div className={styles.mainPublicity}></div>
+        <div  class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div class = "w-full m:w-3/5 p-5 flex flex-col justify-center" >{facts}</div>
+        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
       </div>
     </div>
   );

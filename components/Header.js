@@ -65,14 +65,20 @@ function Header() {
 
   const topCategoriesToDisplay = topCategoriesFromBack.map((cat, i) => {
     return (
-      <Link href={`/categories/${cat}`} key={i} className={styles.link}>
-        <div className={styles.navbarCategory}>{cat}</div>
+      <Link
+        href={`/categories/${cat}`}
+        key={i}
+        class="no-underline text-inherit"
+      >
+        <div class="hidden sm:flex mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
+          {cat}
+        </div>
       </Link>
     );
   });
 
   return (
-    <header className={styles.header}>
+    <header class="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a] ">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}
@@ -86,11 +92,11 @@ function Header() {
       >
         <Login changeVisibleModal={changeModalStateLogin} />
       </Modal>
-      <div className={styles.globalInfo}>
-        <div className={styles.logoContainer}>
-          <Link href="/" className={styles.link}>
+      <div class="h-auto w-full flex justify-between items-center pr-2">
+        <div class="flex items-center h-full ml-2">
+          <Link href="/" class="no-underline text-inherit">
             <Image
-              className={styles.logoImage}
+              class="h-full aspect-auto min-w-[90px]"
               src="/uselessTrueStuff_logo.jpg"
               alt="UselessTrueStuff logo"
               width={133}
@@ -98,28 +104,26 @@ function Header() {
               style={{ cursor: "pointer" }}
             />
           </Link>
-          <Link href="/" className={styles.link}>
-            <div className={styles.logoCatchPhrase}>
-              <h1 className={styles.logoCatchPhrase}>
-                Des trucs vrais mais vraiment inutiles
-              </h1>
-            </div>
+          <Link href="/" class="no-underline text-inherit">
+            <h1 class="text-[#1ad4ff] ml-1 text-xl lg:text-2xl hidden sm:block">
+              Des trucs vrais et pas toujours utiles
+            </h1>
           </Link>
         </div>
-        <div className={styles.userInfoContainer}>
+        <div class="flex justify-around text-[#1ad4ff] flex-row gap-1  ">
           {!token ? (
             <FontAwesomeIcon
               icon={faUser}
-              className={styles.userImage}
+              class="aspect-auto h-[20px] "
               style={{ color: "#1ad4ff", cursor: "pointer" }}
               onClick={() => setVisibleModalLogin(!visibleModalLogin)}
             />
           ) : (
-            <div className={styles.userInfoContainer}>
-              <Link href="/account" className={styles.link}>
+            <div class="flex justify-around text-[#1ad4ff] gap-1 w-auto items-baseline">
+              <Link href="/account" class="no-underline text-inherit">
                 <FontAwesomeIcon
                   icon={faUser}
-                  className={styles.userImage}
+                  class="aspect-auto h-[20px]"
                   style={{ color: "#1ad4ff", cursor: "pointer" }}
                 />
               </Link>
@@ -130,15 +134,17 @@ function Header() {
           )}
         </div>
       </div>
-      <nav className={styles.navbar}>
-        <div className={styles.navbarCategories}>
-          <Link href="/" className={styles.link}>
-            <div className={styles.navbarCategory}>Dernières</div>
+      <nav class = "w-full h-auto flex flex-row items-center justify-between pl-8 pr-2 pb-2  shadow-md shadow-gray-500">
+        <div class = "flex flex-wrap justify-center text-center">
+          <Link href="/" class="no-underline text-inherit">
+            <div class="mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
+              Dernières
+            </div>
           </Link>
           {topCategoriesToDisplay}
         </div>
         <div
-          className={styles.navBarSubmitFact}
+          class = "h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer p-0.5 font-medium sm:font-bold"
           onClick={token ? changeModalStateSubmitFact : changeModalStateLogin}
         >
           Proposer une info
