@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../reducers/users";
 import Link from "next/link";
 
+
 function Account(props) {
   let userData = useSelector((state) => state.users.value);
 
@@ -130,13 +131,14 @@ function Account(props) {
 
 
   return (
-    <div className={styles.accountContainer}>
-      <div className={styles.accountRight}>
-        <div className={styles.sectionContainer}>
+    <div class = "bg-[#0b0c1a] pt-10 justify-center font-[Trebuchet MS] flex flex-row ">
+      <div class = "w-full flex flex-col justify-center items-center text-[#0b0c1a]  gap-10">
+        {/* <div className={styles.sectionContainer}> */}
+        <div class = "w-4/5 flex flex-col items-center justify-center ">
           <h2 className={styles.sectionTitle}>Profil</h2>
           <div className={styles.profileSection}>
             <div className={styles.profileLeft}>
-              <div className={styles.profileUsername}>{userData.username}</div>
+              <p className={styles.profileUsername}>{userData.username}</p>
             </div>
             <div className={styles.profileRight}></div>
           </div>

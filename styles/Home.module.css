@@ -1,48 +1,7 @@
-.header {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0b0c1a;
-  position: sticky;
-  top: 0;
-}
-.globalInfo {
-  min-width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0b0c1a;
-  border-bottom: 1px solid #1ad4ff;
-  padding-right:1%;
 
-}
 
-.logoContainer {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-left: 2vh;
-}
 
-.logoImage {
-  aspect-ratio: auto;
-  height: 100%;
-}
-.logoCatchPhrase {
-  color: #1ad4ff;
-  margin-left: 2vh;
-  font-size: 20px;
-}
-.userInfoContainer {
-  display: flex;
-  justify-content: space-around;
-  color: #1ad4ff;
-  width: auto;
-}
+
 .userName{
   cursor:pointer;
   margin-left:3px
@@ -65,30 +24,7 @@
   padding: 1%;
   box-shadow: 0px 5px 5px grey;
 }
-.navbarCategories {
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: center;
-  text-align: left;
-  
- 
-}
-.navbarCategory:hover {
-  color: #0b0c1a !important;
-  background-color: #1ad4ff;
 
-}
-.navbarCategory {
-  margin-right: 10px;
-  margin-left: 10px;
-  cursor: pointer;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  border-radius: 3px;
-  color:#1ad4ff !important;
-
-}
 .link{
   text-decoration: none;
   color:inherit;
@@ -121,19 +57,6 @@
   
 }
 
-.factsContainer {
-  width: 60%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-}
-
-.mainPublicity {
-  width: 20%;
-  background-color: grey;
-}
 
 .submitFactButton {
   padding: 10px 20px;

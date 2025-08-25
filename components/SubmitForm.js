@@ -71,16 +71,16 @@ function SubmitForm(props) {
   };
 
   return (
-    <div className={styles.popupOverlay}>
-      <div className={styles.popupContent}>
+    <div class = "z-1000 flex justify-center items-center w-full h-full ">
+      <div class = " bg-[#0b0c1a] p-5 w-[500px] h-auto border-[#1ad4ff] border-1 rounded-xl relative shadow-[0_2px_10px_rgba(0,0,0,0.1)] ">
 
-        <h2 className={styles.popoverTitle}>
+        <h2 class = "text-[#1ad4ff] text-center text-sm sm:text-lg font-bold mb-2">
           Super ! Une info inutile et sûrement vraie
         </h2>
-        <form className={styles.submitForm} onSubmit={handleSubmit}>
-          <div className={styles.formInputsContainer}>
+        <form class ="flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+          <div class = "flex flex-col justify-center w-full">
             <input
-              className={styles.submitFormField}
+              class = "w-full p-2 border-1 border-[#1ad4ff] rounded-xs mb-2 text-white text-xs sm:text-sm"
               type="text"
               name="title"
               placeholder="Titre de ton info (entre 10 et 30 caractères)"
@@ -89,7 +89,7 @@ function SubmitForm(props) {
               required
             />
             <textarea
-              className={styles.submitFormField}
+              class="p-2 border-1 border-[#1ad4ff] rounded-xs mb-2 text-white text-xs sm:text-sm"
               name="description"
               placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
               value={formData.description}
@@ -99,7 +99,7 @@ function SubmitForm(props) {
             />
           </div>
 
-          <button className={styles.formSubmitButton} type="submit">
+          <button class="p-2 rounded-md bg-[#1ad4ff] hover:bg-[#0b0c1a] text-[#0b0c1a] hover:text-[#1ad4ff] cursor-pointer mt-4 text-sm sm:text-lg font-bold w-4/5 border-1 border-[#0b0c1a] hover:border-[#1ad4ff]" type="submit">
             Proposer cette info
           </button>
         </form>
