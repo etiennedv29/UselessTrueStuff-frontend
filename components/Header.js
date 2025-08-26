@@ -144,7 +144,7 @@ function Header() {
           {topCategoriesToDisplay}
         </div>
         <div
-          class = "h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer p-0.5 font-medium sm:font-bold"
+          class = "h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer px-2 sm:px-4 py-0.5 font-medium sm:font-bold"
           onClick={token ? changeModalStateSubmitFact : changeModalStateLogin}
         >
           Proposer une info

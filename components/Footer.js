@@ -4,8 +4,8 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className={styles.footerContainer}>
-      <div className={styles.SEOText}>
+    <footer class = "bg-[#0b0c1a] px-5 sm:px-10 pt-30 text-justify text-gray-200 h-autro w-full text-xs sm:text-md">
+      <div >
         <strong>UselessTrueStuff : Des faits inutiles mais fascinants à découvrir et
         partager</strong> <br />
         Bienvenue sur UselessTrueStuff, votre nouvelle source de faits
@@ -56,21 +56,21 @@ function Footer() {
         en échangeant avec d'autres curieux.
       </div>
 
-      <div className={styles.footerLinkscontainer}>
+      <div class = "bg-gray-200 text-[#0b0c1a] mt-4 pt-2 pl-4">
       <p>
         <strong>2025 UselessTrueStuff.</strong> Tous droits réservés.
       </p>
-        <Link href="/legal/legal-mentions" className={styles.link}>
-          <div className={styles.footerNav}>Mentions légales</div>
+        <Link href="/legal/legal-mentions" class="decoration-none">
+          <div class="cursor-pointer">Mentions légales</div>
         </Link>
-        <Link href="/legal/confidentiality" className={styles.link}>
-          <div className={styles.footerNav}>Confidentialité</div>
+        <Link href="/legal/confidentiality" class="decoration-none">
+          <div class="cursor-pointer">Confidentialité</div>
         </Link>
-        <Link href="/legal/cookies" className={styles.link}>
-          <div className={styles.footerNav}>Cookies </div>
+        <Link href="/legal/cookies" class="decoration-none">
+          <div class="cursor-pointer">Cookies </div>
         </Link>
-        <Link href="/legal/CGU" className={styles.link}>
-          <div className={styles.footerNav}>CGU</div>
+        <Link href="/legal/CGU" class="decoration-none">
+          <div class="cursor-pointer">CGU</div>
         </Link>
       </div>
     </footer>

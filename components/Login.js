@@ -25,7 +25,7 @@ function Login({ changeVisibleModal }) {
   const [isCheckedCGU, setIsCheckedCGU] = useState(false);
   const [displayWarningCGU, setDisplayWarningCGU] = useState(false);
   let msg = "";
-
+console.log("signup display = ", isSignupDisplay)
   // tous les messages d'erreur
   const incorrectPasswordErrorMessage =
     "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères";
@@ -35,7 +35,7 @@ function Login({ changeVisibleModal }) {
   const correctCredentialsErrorMessage =
     "Ton email et/ou ton mot de passe semblent incorrects";
   const displayWarningCGUErrorMessage =
-    "Pour t'inscrire, il faut accepter les conditions d'utilisation du service !";
+    "Pour t'inscrire, il faut accepter les conditions d'utilisation stp";
 
   //password conditions
   const passwordRegex =
@@ -188,23 +188,23 @@ function Login({ changeVisibleModal }) {
   };
 
   return (
-    <div className={styles.connectSectionContainer}>
-      <div className={styles.registerContainer} style={boxSize}>
+    <div class = " text-[#1ad4ff] w-full h-full flex flex-row justify-around items-start bg-[#0b0c1a] rounded-md pb-8 border-1 border-[#1ad4ff]">
+      <div class = "flex flex-row justify-center w-full ease" style={boxSize}>
         {isSignupDisplay && (
-          <div className={styles.registerSection}>
-            <h2 className={styles.loginModalTitle}>
+          <div class = "flex flex-col justify-center items-center w-full rounded-lg">
+            <h2 class = "text-center text-xl sm:text-xl font-bold mb-5">
               Crée un compte Useless True Stuff !
             </h2>
             {existingUser && (
-              <p style={{ color: "lightcoral" }}>{existingUserErrorMessage}</p>
+              <p class="text-red-300">{existingUserErrorMessage}</p>
             )}
             {missingFields && (
-              <p style={{ color: "lightcoral" }}>{missingFieldsErrorMessage}</p>
+              <p class="text-red-300">{missingFieldsErrorMessage}</p>
             )}
-            <div className={styles.traditionalSigninContainer}>
-              <div className={styles.inputFieldsArea}>
+            <div class = "flex flex-col items-center justify-between w-full">
+              <div class="flex flex-col justify-between text-center items-center w-full gap-2 mb-2">
                 <input
-                  className={styles.loginField}
+                  class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Prénom"
                   id="signUpfirstName"
@@ -212,7 +212,7 @@ function Login({ changeVisibleModal }) {
                   value={firstName}
                 />
                 <input
-                  className={styles.loginField}
+                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Nom"
                   id="signUpLastName"
@@ -220,7 +220,7 @@ function Login({ changeVisibleModal }) {
                   value={lastName}
                 />
                 <input
-                  className={styles.loginField}
+                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Email"
                   id="signUpEmail"
@@ -228,7 +228,7 @@ function Login({ changeVisibleModal }) {
                   value={email}
                 />
                 <input
-                  className={styles.loginField}
+                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Pseudo"
                   id="signUpUsername"
@@ -236,10 +236,10 @@ function Login({ changeVisibleModal }) {
                   value={username}
                 />
               </div>
-              <div className={styles.passwordArea}>
-                <div className={styles.passwordAreaInput}>
+              <div class="w-4/5 flex flex-col justify-center items-center ">
+                <div class ="h-10 w-full sm:w-4/5 flex flex-row justify-around items-center text-center ">
                   <input
-                    className={styles.loginFieldPassword}
+                    class="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
                     type={showPassword ? "text" : "password"}
                     placeholder="Mot de passe"
                     id="signUpPassword"
@@ -263,7 +263,7 @@ function Login({ changeVisibleModal }) {
                   />
                   <div
                     onClick={() => handleShowPassword()}
-                    className={styles.toggleShowPassword}
+                    class="flex justify-center text-center w-1/5 "
                   >
                     {!showPassword ? (
                       <FontAwesomeIcon
@@ -283,7 +283,7 @@ function Login({ changeVisibleModal }) {
                   </div>
                 </div>
                 <div
-                  className={styles.passwordWarning}
+                  class ="ml-2 text-xs sm:text-md w-full sm:w-4/5"
                   style={
                     password.length < 8
                       ? { color: "#1ad4ff" }
@@ -295,25 +295,26 @@ function Login({ changeVisibleModal }) {
                   {incorrectPasswordErrorMessage}
                 </div>
               </div>
-              <div className={styles.agreeConditionsCheckboxContainer}>
-                <div className={styles.agreeConditionsCheckbox}>
+              <div class="flex flex-col justify-center items-center mt-4 mb-1">
+                <div class=" w-4/5 flex flex-row text-baseline items-center gap-1">
                   <input
                     type="checkbox"
                     checked={isCheckedCGU}
                     onChange={() => setIsCheckedCGU(!isCheckedCGU)}
-                  />{" "}
-                  <div className={styles.agreeConditionsText}>
+                    class = "pt-2"
+                  />
+                  <div class="text-baseline text-md sm:text-base items-start">
                     Accepter les CGU et la politique de confidentialité
                   </div>
                 </div>
                 {displayWarningCGU && (
-                  <div className={styles.warningCGU}>
+                  <div class="text-red-300 text-sm sm:text-md">
                     {displayWarningCGUErrorMessage}
                   </div>
                 )}
               </div>
               <button
-                className={styles.modalSigninButton}
+                class="bg-[#1ad4ff] hover:bg-[#0b0c1a] text-[#0b0c1a] hover:text-[#1ad4ff] border-1 border-[#1ad4ff] my-5 font-bold w-2/5 h-10 rounded-md cursor-pointer"
                 id="register"
                 onClick={() =>
                   handleSignup(
@@ -329,20 +330,20 @@ function Login({ changeVisibleModal }) {
                 Crée ton compte
               </button>
               <div
-                className={styles.switchSignup}
+                class="cursor-pointer hover:text-white text-center"
                 onClick={() => handleSwitchSignupClick()}
               >
                 Déjà un compte ? Connecte-toi ici !
               </div>
             </div>
-            <div className={styles.connectsSeparator}>
-              <div className={styles.connectsSeparatorLine}></div>
-              <p className={styles.connectsSeparatorText}>OU</p>
-              <div className={styles.connectsSeparatorLine}></div>
+            <div class="flex flex-row w-4/5 items-center justify-center my-3">
+              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+              <p class="text-md sm:text-lg">OU</p>
+              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
             </div>
-            <div className={styles.connectsContainer}>
+            <div>
               <GoogleLogin
-                className={styles.googleConnect}
+                class=""
                 text="continue_with"
                 onSuccess={(credentialResponse) => {
                   let googleUserInfo = jwtDecode(credentialResponse.credential);
@@ -358,24 +359,24 @@ function Login({ changeVisibleModal }) {
               />
             </div>
 
-            <div className={styles.errorMsg}> {msg} </div>
+            <div class="text-red-300 text-sm sm:text-md"> {msg} </div>
           </div>
         )}
         {!isSignupDisplay && (
-          <div className={styles.registerSection}>
-            <h2 className={styles.loginModalTitle}>Connexion</h2>
+          <div class ="flex flex-col justify-center items-center w-full rounded-lg ">
+            <h2 class = "text-center text-xl sm:text-2xl font-bold">Connexion</h2>
             {missingFields && (
-              <p style={{ color: "lightcoral" }}>{missingFieldsErrorMessage}</p>
+              <p class = "text-red-300">{missingFieldsErrorMessage}</p>
             )}
             {!correctCredentials && (
-              <p style={{ color: "lightcoral" }}>
+              <p class = "text-red-300">
                 {correctCredentialsErrorMessage}
               </p>
             )}
-            <div className={styles.traditionalSigninContainer}>
-              <div className={styles.inputFieldsArea}>
+            <div class= "flex flex-col items-center justify-between w-full  gap-2">
+              <div class="h-10 w-4/5 flex flex-col justify-between text-center items-center ">
                 <input
-                  className={styles.loginField}
+                  class="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5 "
                   type="text"
                   placeholder="Email"
                   id="signInEmail"
@@ -383,10 +384,10 @@ function Login({ changeVisibleModal }) {
                   value={email}
                 />
               </div>
-              <div className={styles.passwordArea}>
-                <div className={styles.passwordAreaInput}>
+              <div class="w-full sm:w-4/5 flex flex-col justify-between items-center  ">
+                <div class="h-10 w-4/5 flex flex-row justify-around items-center text-center ">
                   <input
-                    className={styles.loginFieldPassword}
+                    class ="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
                     type={showPassword ? "text" : "password"}
                     placeholder="Mot de passe"
                     id="signInPassword"
@@ -406,7 +407,7 @@ function Login({ changeVisibleModal }) {
                   />
                   <div
                     onClick={() => handleShowPassword()}
-                    className={styles.toggleShowPassword}
+                    class="flex justify-center text-center w-1/5 "
                   >
                     {!showPassword ? (
                       <FontAwesomeIcon
@@ -426,14 +427,14 @@ function Login({ changeVisibleModal }) {
                   </div>
                 </div>
                 <div
-                  className={styles.forgotPassword}
+                  class="text-xs sm:text-md cursor-pointer "
                   onClick={() => handleForgotPasswordClick()}
                 >
                   Mot de passe oublié ?
                 </div>
               </div>
               <button
-                className={styles.modalSigninButton}
+                class="bg-[#1ad4ff] text-[#0b0c1a] hover:text-[#1ad4ff] hover:bg-[#0b0c1a] my-5 font-bold text-lg sm:text-xl w-2/5 h-10 rounded-md cursor-pointer px-3 items-center text-center justify-center flex "
                 id="connection"
                 onClick={() => {
                   handleSignin(email, password, false);
@@ -442,20 +443,20 @@ function Login({ changeVisibleModal }) {
                 Connexion
               </button>
               <div
-                className={styles.switchSignup}
+                class="cursor-pointer text-center text-md sm:text-base hover:text-white"
                 onClick={() => handleSwitchSignupClick()}
               >
                 Toujours pas de compte ? Sois collaboratif et crées-en un !
               </div>
             </div>
-            <div className={styles.connectsSeparator}>
-              <div className={styles.connectsSeparatorLine}></div>
-              <p className={styles.connectsSeparatorText}>OU</p>
-              <div className={styles.connectsSeparatorLine}></div>
+            <div class="flex flex-row w-4/5 items-center justify-center my-3">
+              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+              <p class="text-md sm:text-lg">OU</p>
+              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
             </div>
-            <div className={styles.connectsContainer}>
+            <div class="">
               <GoogleLogin
-                className={styles.googleConnect}
+                class=""
                 text="continue_with"
                 onSuccess={(credentialResponse) => {
                   let googleUserInfo = jwtDecode(credentialResponse.credential);

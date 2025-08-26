@@ -96,20 +96,20 @@ function SingleFact(props) {
   return (
     <div>
       <Head>
-        <title>Useless True Stuff - Home</title>
+        <title>Useless True Stuff - Passionnant</title>
       </Head>
 
-      <div className={styles.mainContainer}>
-        <div className={styles.mainPublicity}></div>
-        <div className={styles.globalFactContainer}>
-          <div className={styles.factsContainer}>{facts}</div>
-          <div className={styles.addCommentContainer}>
-            <div className={styles.addCommentTitle}>
+      <div class ="w-full flex flex-row justify-between bg-[#0b0c1a] ">
+        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div class="flex flex-col justify-center items-center">
+          <div class="w-full flex flex-col justify-center p-4 h-full">{facts}</div>
+          <div class="w-full flex flex-col justify-center items-center gap-1 mb-2">
+            <div class="w-full text-center text-[#1ad4ff] text-base">
               Tu réponds quoi à cette info ?
             </div>
             <textarea
               id="commentText"
-              className={styles.addCommentDescription}
+              class="w-4/5 h-30 bg-white rounded-md pl-5 pt-1"
               name="description"
               placeholder="Vas-y lâche-toi ! Sache quand même que ça sera modéré si besoin"
               value={commentText}
@@ -117,7 +117,7 @@ function SingleFact(props) {
             ></textarea>
 
             <div
-              className={styles.addCommentBtn}
+              class="bg-[#1ad4ff] hover:bg-[#0b0c1a] text-[#0b0c1a] hover:text-[#1ad4ff] h-auto font-bold rounded-sm cursor-pointer flex text-align items-center justify-center py-2 px-5 text-base sm:text-lg"
               onClick={(e) => {
                 handleCommentSubmit(e);
               }}
@@ -126,7 +126,7 @@ function SingleFact(props) {
             </div>
           </div>
         </div>
-        <div className={styles.mainPublicity}></div>
+        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
       </div>
     </div>
   );

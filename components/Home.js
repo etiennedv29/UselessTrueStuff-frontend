@@ -68,9 +68,9 @@ function Home() {
         <title>UselessTrueStuff - Home</title>
       </Head>
 
-      <div className={styles.mainContainer}>
+      <div class="w-full flex justify-between bg-[#0b0c1a]">
         <div  class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
-        <div class = "w-full m:w-3/5 p-5 flex flex-col justify-center" >{facts}</div>
+        <div class = "w-full m:w-3/5 p-5 flex flex-col justify-center gap-4" >{facts}</div>
         <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
       </div>
     </div>
