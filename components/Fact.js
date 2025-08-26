@@ -27,7 +27,7 @@ function Fact(props) {
     setVisibleModalLogin(!visibleModalLogin);
   }
 
-  // Vérifier si hasvoted or not pour plus et moins
+  // Vérifier si has voted or not pour plus et moins
   useEffect(() => {
     let hasVotedPlusCheck;
     // console.log(currentUser)
@@ -124,7 +124,7 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
-    
+ 
     setCommentsTodisplay(
       props.factComments.slice(0, 3).map((data, i) => {
         return <CommentSmall {...data} key={i} />;
@@ -137,7 +137,7 @@ function Fact(props) {
   };
 
   return (
-    <div className={styles.factIncludingComments}>
+    <div class="flex flex-col justify-center items-center gap-1">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}
@@ -149,81 +149,82 @@ function Fact(props) {
       >
         {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
       </Modal>
-      <div className={styles.factBox}>
-        <div className={styles.factImageContainer}>
+      <div class = "w-full h-full flex justify-between items-center p-3 rounded-md bg-sky-50 gap-3">
+        <div class ="hidden sm:flex justify-center w-1/5 ">
           <img
-            className={styles.factImage}
+            class="w-full h-full object-contain rounded-md"
             src={props.factImage}
             alt="This fact image"
           />
         </div>
 
-        <div className={styles.factInfoContainer}>
-          <div className={styles.factHeader}>
-            <Link href={`/facts/${props.factId}`} className={styles.link}>
-              <h2 className={styles.factTitle}>{props.factTitle}</h2>
+        <div class="w-full sm:w-4/5 h-full flex flex-col justify-between gap-3">
+          <div class = "w-full h-full flex flex-col justify-start">
+          <div class= "">
+            <Link href={`/facts/${props.factId}`} class="decoration-non cursor-pointer">
+              <h2 class="flex items-center cursor-pointer font-bold text-base ">{props.factTitle}</h2>
             </Link>
 
-            <div className={styles.factAuthor}>
+            <div class = "text-xs ">
               Proposé par {props.factAuthor?.username} le{" "}
               {props.factSubmittedAt.slice(0, 10)}
             </div>
           </div>
-          <div className={styles.factSeparator}></div>
-          <Link href={`/facts/${props.factId}`} className={styles.link}>
-            <div className={styles.factDescription}>
+          <div class="h-0 w-full border-[0.5px] border-[#0b0c1a]"></div>
+          <Link href={`/facts/${props.factId}`} class="decoration-none cursor-pointer ">
+            <div class = "h-full pt-1 cursor-pointer break-normal wrap-break-word ">
               {props.factDescription}
             </div>
           </Link>
-
-          <div className={styles.factSocialContainer}>
+          </div>
+          <div class = "h-1/5 flex justify-center sm:justify-end items-center gap-1">
             <div
-              className={styles.commentsContainer}
+              class = "flex flex-row justify-center text-center items-center w-auto p-0.5 h-full sm:h-4/5 bg-[#1ad4ff] rounded-sm cursor-pointer"
               onClick={() => handleCommentDisplayClick()}
             >
-              <span className={styles.commentCount}>
-                {props.factComments?.length} Commentaires
-                {/* <SubmitFormComment factId={props.factId} /> */}
+              <span class="text-xs sm:text-md">
+                {props.factComments?.length} commentaires
+         
               </span>
             </div>
 
             <div
-              className={styles.votesContainer}
+              class="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs "
               onClick={() => votePlusClick()}
             >
-              <div className={styles.voteText}>Top info !</div>
-              <div className={styles.votesBox}>
+              <div class = "text-xs sm:text-md object-contain">Top info !</div>
+              <div class = "w-2/5 h-full flex flex-row justify-center items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsUp}
-                  className={styles.voteThumb}
+                  class ="w-2/5 sm:w-[30%]"
                 />
-                <span className={styles.votesCount}>{nbVotesPlus}</span>
+                <span class = "ml-1 text-xs sm:text-md">{nbVotesPlus}</span>
               </div>
             </div>
 
             <div
-              className={styles.votesContainer}
+              class="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs "
               onClick={() => voteMinusClick()}
             >
-              <div className={styles.voteText}>Trop inutile</div>
-              <div className={styles.votesBox}>
+              <div class = "text-xs sm:text-md object-contain ">Inutile</div>
+              <div class = "w-2/5 h-full flex flex-row justify-center items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsDown}
-                  className={styles.voteThumb}
+                  class ="w-2/5 sm:w-[30%]"
                 />
-                <span className={styles.votesCount}>{nbVotesMinus}</span>
+                <span class = "ml-1 text-xs sm:text-md">{nbVotesMinus}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={styles.commentsModal}>
-        <div className={styles.commentsBox}>
+      <div class = "w-full flex flex-col items-center ">
+        <div class ="w-full flex flex-col items-center justify-center ">
           {displayComments && commentsToDisplay}
         </div>
         {displayComments && (
-          <Link href={`/facts/${props.factId}`} className={styles.link}>
-            <div className={styles.seeMoreCommentsButton}>
+          <Link href={`/facts/${props.factId}`} class="decoration-none cursor-pointer">
+            <div class = "text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 text-sm sm:text-md ">
               Voir plus de commentaires
             </div>
           </Link>

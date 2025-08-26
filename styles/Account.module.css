@@ -1,62 +1,46 @@
-.accountContainer {
+/* .accountContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  /* border: 1px solid red */
+  border: 1px solid red 
   background-color: #0b0c1a;
-}
+} */
 
-.accountRight {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: #0b0c1a;
-}
-
-.sectionContainer {
+/* .sectionContainer {
   width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin-bottom: 20px;
   padding-bottom: 5px;
-}
+} */
 
-.sectionTitle {
+/* .sectionTitle {
   border-bottom: 1px solid #1ad4ff;
   text-align: center;
   color: #1ad4ff;
   width: 100%;
   padding-bottom: 5px;
-}
+} */
 
-.detailedInfoData {
+/* .detailedInfoData {
   width: 100%;
   display: flex;
-  flex-direction: row;
-}
+  flex-direction: column;
+ 
+} */
 
-.detailedInfoDataLeft {
+/* .detailedInfoDataLeft {
   width: 25%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-left: 40px;
-}
+} */
 
-.detailedInfoDataRight {
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.detailedInfoFieldName,
+/* .detailedInfoFieldName,
 .detailedInfoUserDataContainer {
   height: 50px;
   margin-bottom: 5px;
@@ -65,10 +49,10 @@
   align-items: center;
   font-size: 18px;
   color: #1ad4ff
-}
-.detailedInfoUserDataField {
+} */
+/* .detailedInfoUserDataField {
   height: 46px;
-  width: 289px;
+  width: 100%;
   border-radius: 5px;
   border: 1px solid #0b0c1a;
   background: #fff;
@@ -79,33 +63,33 @@
   align-items: center;
   color: #0b0c1a;
   cursor: default;
-}
-.detailedInfoUserDataField:hover {
+
+} */
+/* .detailedInfoUserDataField:hover {
   border: 1px solid #4a90e2;
-}
-.detailedInfoUSerDataField:disabled {
+} */
+/* .detailedInfoUSerDataField:disabled {
   caret-color: transparent;
   background-color: #b0b5ba;
-}
-.modifyAccountInfoIcon {
+} */
+/* .modifyAccountInfoIcon {
   margin-left: 10px;
   margin-right: 5px;
   cursor: pointer;
-}
+} */
 
-.modifyPasswordButton {
+/* .modifyPasswordButton {
   background-color: #1ad4ff;
   color: #0b0c1a;
   font-weight: 800;
-  width: 186px;
+  width: 20%;
   height: 46px;
   flex-shrink: 0;
   border-radius: 8px;
   font-size: 18px;
-  margin-left: 10px;
   cursor: pointer;
-}
-.modifyPasswordButton:hover {
+} */
+/* .modifyPasswordButton:hover {
   color: #fff;
   background-color: #1ad4ff;
 }
@@ -113,71 +97,37 @@
   background-color: #b0b5ba;
   color: #0b0c1a;
   cursor: default;
-}
+} */
 
-.profileSection {
+/* .profileSection {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
-}
-.profileLeft {
+  border: 1px red solid
+} */
+/* .profileLeft {
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.profileRight {
+  border: 1px solid green
+} */
+/* .profileRight {
   width: 50%;
-}
-
-.profileAvatarUsername {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-.profileAvatarPicture {
-  border-radius: 50%;
-  border: 1px solid #1ad4ff;
-  margin-right: 15px;
-}
-.profileUsername {
+  border: 1px solid green
+} */
+
+/* .profileUsername {
   font-size: 25px;
   color: #1ad4ff;
-}
-.profileChangeAvatarContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.modifyAvatarPictureButton {
-  background-color: #1ad4ff;
-  color: #0b0c1a;
-  font-weight: 800;
-  width: 186px;
-  height: 46px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  font-size: 18px;
-}
-.modifyAvatarPictureButton:hover {
-  color: #fff;
-  background-color: #1ad4ff;
-}
-.warningAvatarChangePremiumOnly {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 18px;
-}
-.avatarChangePremiumIcon {
-  margin-right: 5px;
-}
+} */
 
-.validationButtonEnabled {
+/* .validationButtonEnabled {
   font-size: 20px;
   margin-top: 25px;
   width: 150px;
@@ -201,36 +151,36 @@
   background-color: #b0b5ba;
   color: #0b0c1a;
   border-radius: 8px;
-}
+} */
 
-.dataInfo{
-    color:#1ad4ff;
-    font-size: 18px;
-}
+/* .dataInfo {
+  color: #1ad4ff;
+  font-size: 18px;
+  border:2px solid blue
+} */
 
-.dataInfoFactsSubmitted{
-    color:#1ad4ff;
+/* .dataInfoFactsSubmitted {
+  color: #1ad4ff;
+  font-size: 18px;
+  border:1px solid yellow
+} */
 
-    font-size: 18px;
-}
-
-
-
-.link{
+/* .link {
   text-decoration: none;
-  color:#1ad4ff;
+  color: #1ad4ff;
   cursor: pointer;
-}
+} */
 
-.dataContainer{
-  width:60%;
-}
+/* .dataContainer {
+  width: 60%;
+  border:1px solid green
+} */
 
-.factsSubmittedContainer{
+/* .factsSubmittedContainer {
   display: flex;
   flex-direction: row;
   text-align: left;
-  gap:3em;
+  gap: 3em;
   margin-top: 15px;
-
-}
+  border:1px solid red
+} */

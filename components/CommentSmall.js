@@ -8,14 +8,14 @@ import "moment/locale/fr";
 
 function Comment(props) {
   moment.locale("fr")
-  
+   console.log("props=> ", props)
   return (
-    <div className={styles.commentContainer}>
-      <div className={styles.commentHeader}>
-            <span className= {styles.commentAuthor}>Commenté par {props.author.username} &nbsp;</span><span className={styles.commentSubmissionDate}> le {moment(props.submittedAt).format("Do MMMM YYYY")}</span>
+    <div class = "mb-2 bg-sky-50 h-full p-1 rounded-md w-[90%]">
+      <div class ="bg-[#1ad4ff] h-auto flex items-center pl-2 rounded-sm text-sm sm:text-md">
+            <span class ="text-sm sm:text-md font-bold hidden sm:flex">Commenté par &nbsp;</span> <span class ="text-sm sm:text-md font-bold">{props.author.username} &nbsp; </span><span class ="text-sm sm:text-md"> le {moment(props.submittedAt).format("Do MMMM YYYY")}</span>
 
       </div>
-      <div className={styles.commentContent}>
+      <div class = "pl-3 text-sm sm:text-md">
         {props.text}
       </div>
     </div>
