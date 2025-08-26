@@ -193,7 +193,7 @@ function Fact(props) {
               onClick={() => votePlusClick()}
             >
               <div class = "text-xs sm:text-md object-contain">Top info !</div>
-              <div class = "w-2/5 h-full flex flex-row justify-center items-center bg-[#1ad4ff]">
+              <div class = "w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsUp}
                   class ="w-2/5 sm:w-[30%]"
@@ -207,7 +207,7 @@ function Fact(props) {
               onClick={() => voteMinusClick()}
             >
               <div class = "text-xs sm:text-md object-contain ">Inutile</div>
-              <div class = "w-2/5 h-full flex flex-row justify-center items-center bg-[#1ad4ff]">
+              <div class = "w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsDown}
                   class ="w-2/5 sm:w-[30%]"
