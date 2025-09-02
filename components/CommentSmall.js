@@ -8,7 +8,7 @@ import "moment/locale/fr";
 
 function Comment(props) {
   moment.locale("fr")
-   console.log("props=> ", props)
+   //console.log("props=> ", props)
   return (
     <div class = "mb-2 bg-sky-50 h-full p-1 rounded-md w-[90%]">
       <div class ="bg-[#1ad4ff] h-auto flex items-center pl-2 rounded-sm text-sm sm:text-md">

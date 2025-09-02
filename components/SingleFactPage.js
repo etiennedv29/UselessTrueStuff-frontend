@@ -1,58 +1,16 @@
-import styles from "../styles/singleFactPage.module.css";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { users } from "../reducers/users";
 import Fact from "./Fact";
 import Head from "next/head";
-import Login from "./Login";
-import Modal from "antd/lib/modal";
+//note : on passe maintenant par la récupération de props côté serveur avant le chargement de la page pour ne plus dépendre de router.query
 
 function SingleFact(props) {
-  const router = useRouter();
-  const [factsData, setFactsData] = useState([]);
   const [commentText, setCommentText] = useState("");
 
   const user = useSelector((state) => state.users.value);
 
-
-  async function getFacts() {
-    let response;
-    let data;
-
-    if (router.query.fact) {
-      console.log("router.query.fact existait");
-      response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?factId=${router.query.fact}`
-      );
-      data = await response.json();
-    } else {
-      router.push("/")
-    }
-
-    let newFactsData = data.map((fact) => {
-      const newFactFormat = {
-        factTitle: fact.title,
-        factDescription: fact.description,
-        factAuthor: fact.userID,
-        factSubmittedAt: fact.submittedAt,
-        nbVotesPlus: fact.votePlus,
-        nbVotesMinus: fact.voteMinus,
-        factComments: fact.comments,
-        factImage: fact.image,
-        factId: fact._id,
-      };
-      return newFactFormat;
-    });
-    setFactsData(newFactsData);
-  }
-
-  useEffect(() => {
-    getFacts();
-  }, [router.query]);
-
-  let facts = factsData.map((data, i) => {
+  let facts = props.factsData.map((data, i) => {
     return <Fact key={i} {...data} />;
   });
 
@@ -68,7 +26,7 @@ function SingleFact(props) {
       author: user._id,
       text: commentText,
       submittedAt: new Date(),
-      factId: router.query.fact,
+      factId: props.factId
     };
 
     try {
@@ -84,9 +42,9 @@ function SingleFact(props) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const addedComment = await response.json();
-      console.log("addedComment = ", addedComment)
+      console.log("addedComment = ", addedComment);
       alert("Comment submitted! Thanks");
-      setCommentText("")
+      setCommentText("");
     } catch (error) {
       console.error("Submission failed", error);
       alert("An error occurred. Please try again.");
@@ -99,10 +57,12 @@ function SingleFact(props) {
         <title>Useless True Stuff - Passionnant</title>
       </Head>
 
-      <div class ="w-full flex flex-row justify-between bg-[#0b0c1a] ">
-        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+      <div class="w-full flex flex-row justify-between bg-[#0b0c1a] ">
+        <div class="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
         <div class="flex flex-col justify-center items-center">
-          <div class="w-full flex flex-col justify-center p-4 h-full">{facts}</div>
+          <div class="w-full flex flex-col justify-center p-4 h-full">
+            {facts}
+          </div>
           <div class="w-full flex flex-col justify-center items-center gap-1 mb-2">
             <div class="w-full text-center text-[#1ad4ff] text-base">
               Tu réponds quoi à cette info ?
@@ -126,10 +86,11 @@ function SingleFact(props) {
             </div>
           </div>
         </div>
-        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div class="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
       </div>
     </div>
   );
 }
 
 export default SingleFact;
+

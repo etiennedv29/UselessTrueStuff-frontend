@@ -446,7 +446,7 @@ console.log("signup display = ", isSignupDisplay)
                 class="cursor-pointer text-center text-md sm:text-base hover:text-white"
                 onClick={() => handleSwitchSignupClick()}
               >
-                Toujours pas de compte ? Sois collaboratif et crées-en un !
+                Pas encore de compte ? Inscris-toi !
               </div>
             </div>
             <div class="flex flex-row w-4/5 items-center justify-center my-3">

@@ -49,8 +49,7 @@ function SubmitForm(props) {
       const addedFact = await response.json();
       console.log("added fact =>", addedFact);
 
-
-      alert("Fact submitted!");
+      alert("Merci pour cette info !");
       setFormData({ title: "", description: ""});
       props.changeVisibleModal();
 
