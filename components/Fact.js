@@ -124,7 +124,6 @@ function Fact(props) {
 
   //prepare the comments to be displayed
   useEffect(() => {
- 
     setCommentsTodisplay(
       props.factComments.slice(0, 3).map((data, i) => {
         return <CommentSmall {...data} key={i} />;
@@ -137,7 +136,7 @@ function Fact(props) {
   };
 
   return (
-    <div class="flex flex-col justify-center items-center gap-1">
+    <div className="flex flex-col justify-center items-center gap-1">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}
@@ -149,82 +148,94 @@ function Fact(props) {
       >
         {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
       </Modal>
-      <div class = "w-full h-full flex justify-between items-center p-3 rounded-md bg-sky-50 gap-3">
-        <div class ="hidden sm:flex justify-center w-1/5 ">
+      <div className="w-full h-full flex justify-between items-center p-3 rounded-md bg-sky-50 gap-3">
+        <div className="hidden sm:flex justify-center w-1/5 ">
           <img
-            class="w-full h-full object-contain rounded-md"
+            className="w-full h-full object-contain rounded-md"
             src={props.factImage}
             alt="This fact image"
           />
         </div>
 
-        <div class="w-full sm:w-4/5 h-full flex flex-col justify-between gap-3">
-          <div class = "w-full h-full flex flex-col justify-start">
-          <div class= "">
-            <Link href={`/facts/${props.factId}`} class="decoration-non cursor-pointer">
-              <h2 class="flex items-center cursor-pointer font-bold text-base ">{props.factTitle}</h2>
-            </Link>
+        <div className="w-full sm:w-4/5 h-full flex flex-col justify-between gap-3">
+          <div className="w-full h-full flex flex-col justify-start">
+            <div className="">
+              <Link
+                href={`/facts/${props.factId}`}
+                className="decoration-non cursor-pointer"
+              >
+                <h2 className="flex items-center cursor-pointer font-bold text-base ">
+                  {props.factTitle}
+                </h2>
+              </Link>
 
-            <div class = "text-xs ">
-              Proposé par {props.factAuthor?.username} le{" "}
-              {props.factSubmittedAt.slice(0, 10)}
+              <div className="text-xs ">
+                Proposé par {props.factAuthor?.username} le{" "}
+                {props.factSubmittedAt.slice(0, 10)}
+              </div>
             </div>
+            <div className="h-0 w-full border-[0.5px] border-[#0b0c1a]"></div>
+            <Link
+              href={`/facts/${props.factId}`}
+              className="decoration-none cursor-pointer "
+            >
+              <div className="h-full pt-1 cursor-pointer break-normal wrap-break-word ">
+                {props.factDescription}
+              </div>
+            </Link>
           </div>
-          <div class="h-0 w-full border-[0.5px] border-[#0b0c1a]"></div>
-          <Link href={`/facts/${props.factId}`} class="decoration-none cursor-pointer ">
-            <div class = "h-full pt-1 cursor-pointer break-normal wrap-break-word ">
-              {props.factDescription}
-            </div>
-          </Link>
-          </div>
-          <div class = "h-1/5 flex justify-center sm:justify-end items-center gap-1">
+          <div className="h-1/5 flex justify-center sm:justify-end items-center gap-1">
             <div
-              class = "flex flex-row justify-center text-center items-center w-auto p-0.5 h-full sm:h-4/5 bg-[#1ad4ff] rounded-sm cursor-pointer"
+              className="flex flex-row justify-center text-center items-center w-auto p-0.5 h-full sm:h-4/5 bg-[#1ad4ff] rounded-sm cursor-pointer"
               onClick={() => handleCommentDisplayClick()}
             >
-              <span class="text-xs sm:text-md">
+              <span className="text-xs sm:text-md">
                 {props.factComments?.length} commentaires
-         
               </span>
             </div>
 
             <div
-              class="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs "
+              className="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
               onClick={() => votePlusClick()}
             >
-              <div class = "text-xs sm:text-md object-contain">Top info !</div>
-              <div class = "w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
+              <div className="text-xs sm:text-md object-contain">
+                Top info !
+              </div>
+              <div className="w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsUp}
-                  class ="w-2/5 sm:w-[30%]"
+                  className="w-2/5 sm:w-[30%] "
                 />
-                <span class = "ml-1 text-xs sm:text-md">{nbVotesPlus}</span>
+                <span className="ml-1 text-xs sm:text-md">{nbVotesPlus}</span>
               </div>
             </div>
 
             <div
-              class="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs "
+              className="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
               onClick={() => voteMinusClick()}
             >
-              <div class = "text-xs sm:text-md object-contain ">Inutile</div>
-              <div class = "w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
+              <div className="text-xs sm:text-md object-contain ">Inutile</div>
+              <div className="w-2/5 h-full flex flex-row justify-center rounded-r-md items-center bg-[#1ad4ff]">
                 <FontAwesomeIcon
                   icon={faThumbsDown}
-                  class ="w-2/5 sm:w-[30%]"
+                  className="w-2/5 sm:w-[30%]"
                 />
-                <span class = "ml-1 text-xs sm:text-md">{nbVotesMinus}</span>
+                <span className="ml-1 text-xs sm:text-md">{nbVotesMinus}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class = "w-full flex flex-col items-center ">
-        <div class ="w-full flex flex-col items-center justify-center ">
+      <div className="w-full flex flex-col items-center ">
+        <div className="w-full flex flex-col items-center justify-center ">
           {displayComments && commentsToDisplay}
         </div>
         {displayComments && (
-          <Link href={`/facts/${props.factId}`} class="decoration-none cursor-pointer">
-            <div class = "text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 text-sm sm:text-md ">
+          <Link
+            href={`/facts/${props.factId}`}
+            className="decoration-none cursor-pointer"
+          >
+            <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 text-sm sm:text-md ">
               Voir plus de commentaires
             </div>
           </Link>
