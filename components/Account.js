@@ -254,7 +254,7 @@ function Account(props) {
           <h2 className="border-b-1 border-b-[#1ad4ff] w-full text-center text-[#1ad4ff] pb-1 text-md sm:text-lg">
             Statistiques
           </h2>
-          <div className="w-full pl-1 text-sm sm:text-base border-2 border-amber-500 flex flex-col text-[#1ad4ff]">
+          <div className="w-full pl-1 text-sm sm:text-base flex flex-col text-[#1ad4ff]">
             <div>Nombre de likes + : {userData.votePlus.length}</div>
             <div>Nombre de dislikes - : {userData.voteMinus.length}</div>
             <div className="flex flex-row text-baseline gap-4 mt-3">
