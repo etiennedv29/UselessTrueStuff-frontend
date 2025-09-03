@@ -7,6 +7,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { message } from "antd";
 
 function Login({ changeVisibleModal }) {
   const router = useRouter();
@@ -25,7 +26,7 @@ function Login({ changeVisibleModal }) {
   const [isCheckedCGU, setIsCheckedCGU] = useState(false);
   const [displayWarningCGU, setDisplayWarningCGU] = useState(false);
   let msg = "";
-console.log("signup display = ", isSignupDisplay)
+  console.log("signup display = ", isSignupDisplay);
   // tous les messages d'erreur
   const incorrectPasswordErrorMessage =
     "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères";
@@ -46,7 +47,12 @@ console.log("signup display = ", isSignupDisplay)
   }, [changeVisibleModal]);
 
   // User connection
-  async function handleSignin(email, password, connectionWithSocials = false) {
+  async function handleSignin(
+    email,
+    password,
+    connectionWithSocials = false,
+    extraData = {}
+  ) {
     if ((!connectionWithSocials && password === "") || email === "") {
       setMissingFields(true);
       return;
@@ -65,7 +71,12 @@ console.log("signup display = ", isSignupDisplay)
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, connectionWithSocials }),
+        body: JSON.stringify({
+          email,
+          password,
+          connectionWithSocials,
+          ...extraData,
+        }),
       }
     );
     const data = await response.json();
@@ -126,6 +137,7 @@ console.log("signup display = ", isSignupDisplay)
       setDisplayWarningCGU(false);
     }
     // Calling signup route
+    console.log("calling signup route");
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/signup`,
       {
@@ -168,7 +180,8 @@ console.log("signup display = ", isSignupDisplay)
 
   // Forgot password functionality -> Nice to have
   async function handleForgotPasswordClick() {
-    alert("this functionality is not available yet");
+    //alert("this functionality is not available yet");
+    message.info("Fonctionnalité à venir ;)");
   }
 
   // Signin and signup box design
@@ -188,23 +201,23 @@ console.log("signup display = ", isSignupDisplay)
   };
 
   return (
-    <div class = " text-[#1ad4ff] w-full h-full flex flex-row justify-around items-start bg-[#0b0c1a] rounded-md pb-8 border-1 border-[#1ad4ff]">
-      <div class = "flex flex-row justify-center w-full ease" style={boxSize}>
+    <div className=" text-[#1ad4ff] w-full h-full flex flex-row justify-around items-start bg-[#0b0c1a] rounded-md pb-8 border-1 border-[#1ad4ff]">
+      <div className="flex flex-row justify-center w-full ease" style={boxSize}>
         {isSignupDisplay && (
-          <div class = "flex flex-col justify-center items-center w-full rounded-lg">
-            <h2 class = "text-center text-xl sm:text-xl font-bold mb-5">
+          <div className="flex flex-col justify-center items-center w-full rounded-lg">
+            <h2 className="text-center text-xl sm:text-xl font-bold mb-5">
               Crée un compte Useless True Stuff !
             </h2>
             {existingUser && (
-              <p class="text-red-300">{existingUserErrorMessage}</p>
+              <p className="text-red-300">{existingUserErrorMessage}</p>
             )}
             {missingFields && (
-              <p class="text-red-300">{missingFieldsErrorMessage}</p>
+              <p className="text-red-300">{missingFieldsErrorMessage}</p>
             )}
-            <div class = "flex flex-col items-center justify-between w-full">
-              <div class="flex flex-col justify-between text-center items-center w-full gap-2 mb-2">
+            <div className="flex flex-col items-center justify-between w-full">
+              <div className="flex flex-col justify-between text-center items-center w-full gap-2 mb-2">
                 <input
-                  class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
+                  className="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Prénom"
                   id="signUpfirstName"
@@ -212,7 +225,7 @@ console.log("signup display = ", isSignupDisplay)
                   value={firstName}
                 />
                 <input
-                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
+                  className="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Nom"
                   id="signUpLastName"
@@ -220,7 +233,7 @@ console.log("signup display = ", isSignupDisplay)
                   value={lastName}
                 />
                 <input
-                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
+                  className="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Email"
                   id="signUpEmail"
@@ -228,7 +241,7 @@ console.log("signup display = ", isSignupDisplay)
                   value={email}
                 />
                 <input
-                   class="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
+                  className="w-4/5 sm:w-3/5 h-10 rounded-md bg-white text-base pl-5"
                   type="text"
                   placeholder="Pseudo"
                   id="signUpUsername"
@@ -236,10 +249,10 @@ console.log("signup display = ", isSignupDisplay)
                   value={username}
                 />
               </div>
-              <div class="w-4/5 flex flex-col justify-center items-center ">
-                <div class ="h-10 w-full sm:w-4/5 flex flex-row justify-around items-center text-center ">
+              <div className="w-4/5 flex flex-col justify-center items-center ">
+                <div className="h-10 w-full sm:w-4/5 flex flex-row justify-around items-center text-center ">
                   <input
-                    class="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
+                    className="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
                     type={showPassword ? "text" : "password"}
                     placeholder="Mot de passe"
                     id="signUpPassword"
@@ -263,7 +276,7 @@ console.log("signup display = ", isSignupDisplay)
                   />
                   <div
                     onClick={() => handleShowPassword()}
-                    class="flex justify-center text-center w-1/5 "
+                    className="flex justify-center text-center w-1/5 "
                   >
                     {!showPassword ? (
                       <FontAwesomeIcon
@@ -283,7 +296,7 @@ console.log("signup display = ", isSignupDisplay)
                   </div>
                 </div>
                 <div
-                  class ="ml-2 text-xs sm:text-md w-full sm:w-4/5"
+                  className="ml-2 text-xs sm:text-md w-full sm:w-4/5"
                   style={
                     password.length < 8
                       ? { color: "#1ad4ff" }
@@ -295,26 +308,26 @@ console.log("signup display = ", isSignupDisplay)
                   {incorrectPasswordErrorMessage}
                 </div>
               </div>
-              <div class="flex flex-col justify-center items-center mt-4 mb-1">
-                <div class=" w-4/5 flex flex-row text-baseline items-center gap-1">
+              <div className="flex flex-col justify-center items-center mt-4 mb-1">
+                <div className=" w-4/5 flex flex-row text-baseline items-center gap-1">
                   <input
                     type="checkbox"
                     checked={isCheckedCGU}
                     onChange={() => setIsCheckedCGU(!isCheckedCGU)}
-                    class = "pt-2"
+                    className="pt-2"
                   />
-                  <div class="text-baseline text-md sm:text-base items-start">
+                  <div className="text-baseline text-md sm:text-base items-start">
                     Accepter les CGU et la politique de confidentialité
                   </div>
                 </div>
                 {displayWarningCGU && (
-                  <div class="text-red-300 text-sm sm:text-md">
+                  <div className="text-red-300 text-sm sm:text-md">
                     {displayWarningCGUErrorMessage}
                   </div>
                 )}
               </div>
               <button
-                class="bg-[#1ad4ff] hover:bg-[#0b0c1a] text-[#0b0c1a] hover:text-[#1ad4ff] border-1 border-[#1ad4ff] my-5 font-bold w-2/5 h-10 rounded-md cursor-pointer"
+                className="bg-[#1ad4ff] hover:bg-[#0b0c1a] text-[#0b0c1a] hover:text-[#1ad4ff] border-1 border-[#1ad4ff] my-5 font-bold w-2/5 h-10 rounded-md cursor-pointer"
                 id="register"
                 onClick={() =>
                   handleSignup(
@@ -330,20 +343,20 @@ console.log("signup display = ", isSignupDisplay)
                 Crée ton compte
               </button>
               <div
-                class="cursor-pointer hover:text-white text-center"
+                className="cursor-pointer hover:text-white text-center"
                 onClick={() => handleSwitchSignupClick()}
               >
                 Déjà un compte ? Connecte-toi ici !
               </div>
             </div>
-            <div class="flex flex-row w-4/5 items-center justify-center my-3">
-              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
-              <p class="text-md sm:text-lg">OU</p>
-              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+            <div className="flex flex-row w-4/5 items-center justify-center my-3">
+              <div className=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+              <p className="text-md sm:text-lg">OU</p>
+              <div className=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
             </div>
             <div>
               <GoogleLogin
-                class=""
+                className=""
                 text="continue_with"
                 onSuccess={(credentialResponse) => {
                   let googleUserInfo = jwtDecode(credentialResponse.credential);
@@ -359,24 +372,24 @@ console.log("signup display = ", isSignupDisplay)
               />
             </div>
 
-            <div class="text-red-300 text-sm sm:text-md"> {msg} </div>
+            <div className="text-red-300 text-sm sm:text-md"> {msg} </div>
           </div>
         )}
         {!isSignupDisplay && (
-          <div class ="flex flex-col justify-center items-center w-full rounded-lg ">
-            <h2 class = "text-center text-xl sm:text-2xl font-bold">Connexion</h2>
+          <div className="flex flex-col justify-center items-center w-full rounded-lg ">
+            <h2 className="text-center text-xl sm:text-2xl font-bold">
+              Connexion
+            </h2>
             {missingFields && (
-              <p class = "text-red-300">{missingFieldsErrorMessage}</p>
+              <p className="text-red-300">{missingFieldsErrorMessage}</p>
             )}
             {!correctCredentials && (
-              <p class = "text-red-300">
-                {correctCredentialsErrorMessage}
-              </p>
+              <p className="text-red-300">{correctCredentialsErrorMessage}</p>
             )}
-            <div class= "flex flex-col items-center justify-between w-full  gap-2">
-              <div class="h-10 w-4/5 flex flex-col justify-between text-center items-center ">
+            <div className="flex flex-col items-center justify-between w-full  gap-2">
+              <div className="h-10 w-4/5 flex flex-col justify-between text-center items-center ">
                 <input
-                  class="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5 "
+                  className="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5 "
                   type="text"
                   placeholder="Email"
                   id="signInEmail"
@@ -384,10 +397,10 @@ console.log("signup display = ", isSignupDisplay)
                   value={email}
                 />
               </div>
-              <div class="w-full sm:w-4/5 flex flex-col justify-between items-center  ">
-                <div class="h-10 w-4/5 flex flex-row justify-around items-center text-center ">
+              <div className="w-full sm:w-4/5 flex flex-col justify-between items-center  ">
+                <div className="h-10 w-4/5 flex flex-row justify-around items-center text-center ">
                   <input
-                    class ="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
+                    className="w-full sm:w-4/5 h-full rounded-md border-1 border-[#0b0c1a] bg-white text-base pl-5"
                     type={showPassword ? "text" : "password"}
                     placeholder="Mot de passe"
                     id="signInPassword"
@@ -407,7 +420,7 @@ console.log("signup display = ", isSignupDisplay)
                   />
                   <div
                     onClick={() => handleShowPassword()}
-                    class="flex justify-center text-center w-1/5 "
+                    className="flex justify-center text-center w-1/5 "
                   >
                     {!showPassword ? (
                       <FontAwesomeIcon
@@ -427,14 +440,14 @@ console.log("signup display = ", isSignupDisplay)
                   </div>
                 </div>
                 <div
-                  class="text-xs sm:text-md cursor-pointer "
+                  className="text-xs sm:text-md cursor-pointer "
                   onClick={() => handleForgotPasswordClick()}
                 >
                   Mot de passe oublié ?
                 </div>
               </div>
               <button
-                class="bg-[#1ad4ff] text-[#0b0c1a] hover:text-[#1ad4ff] hover:bg-[#0b0c1a] my-5 font-bold text-lg sm:text-xl w-2/5 h-10 rounded-md cursor-pointer px-3 items-center text-center justify-center flex "
+                className="bg-[#1ad4ff] text-[#0b0c1a] hover:text-[#1ad4ff] hover:bg-[#0b0c1a] my-5 font-bold text-lg sm:text-xl w-2/5 h-10 rounded-md cursor-pointer px-3 items-center text-center justify-center flex "
                 id="connection"
                 onClick={() => {
                   handleSignin(email, password, false);
@@ -443,24 +456,33 @@ console.log("signup display = ", isSignupDisplay)
                 Connexion
               </button>
               <div
-                class="cursor-pointer text-center text-md sm:text-base hover:text-white"
+                className="cursor-pointer text-center text-md sm:text-base hover:text-white"
                 onClick={() => handleSwitchSignupClick()}
               >
-                Toujours pas de compte ? Sois collaboratif et crées-en un !
+                Pas encore de compte ? Inscris-toi !
               </div>
             </div>
-            <div class="flex flex-row w-4/5 items-center justify-center my-3">
-              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
-              <p class="text-md sm:text-lg">OU</p>
-              <div class=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+            <div className="flex flex-row w-4/5 items-center justify-center my-3">
+              <div className=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
+              <p className="text-md sm:text-lg">OU</p>
+              <div className=" w-2/5 border-1 border-[#1ad4ff] m-1"></div>
             </div>
-            <div class="">
+            <div className="">
               <GoogleLogin
-                class=""
+                className=""
                 text="continue_with"
                 onSuccess={(credentialResponse) => {
                   let googleUserInfo = jwtDecode(credentialResponse.credential);
-                  handleSignin(googleUserInfo.email, "", true);
+                  handleSignin(
+                    googleUserInfo.email,
+                    "",
+                    true,
+                     {
+                      firstName: googleUserInfo.given_name,
+                      lastName: googleUserInfo.family_name,
+                      username:googleUserInfo.name,
+                    }
+                  );
                 }}
               />
             </div>

@@ -15,12 +15,12 @@ function Home() {
 
   const [factsData, setFactsData] = useState([]);
 
-  // fonction d'upload de toutes les photos 
+  // fonction d'upload de toutes les photos
   async function getFacts() {
     let response;
     let data;
     if (router.query.type) {
-      console.log("router.query.type existait")
+      console.log("router.query.type existait");
       response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?tags=${router.query.type}`
       );
@@ -36,8 +36,8 @@ function Home() {
       const newFactFormat = {
         factTitle: fact.title,
         factDescription: fact.description,
-        factAuthor:fact.userID,
-        factSubmittedAt:fact.submittedAt,
+        factAuthor: fact.userID,
+        factSubmittedAt: fact.submittedAt,
         nbVotesPlus: fact.votePlus,
         nbVotesMinus: fact.voteMinus,
         factComments: fact.comments,
@@ -54,12 +54,7 @@ function Home() {
   }, [router.query]);
 
   let facts = factsData.map((data, i) => {
-    return (
-      <Fact
-        key={i}
-        {...data}
-      />
-    );
+    return <Fact key={i} {...data} />;
   });
 
   return (
@@ -68,10 +63,12 @@ function Home() {
         <title>UselessTrueStuff - Home</title>
       </Head>
 
-      <div class="w-full flex justify-between bg-[#0b0c1a]">
-        <div  class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
-        <div class = "w-full m:w-3/5 p-5 flex flex-col justify-center gap-4" >{facts}</div>
-        <div class = "w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+      <div className="w-full flex justify-between bg-[#0b0c1a]">
+        <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div className="w-full m:w-3/5 p-5 flex flex-col justify-center gap-4">
+          {facts}
+        </div>
+        <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
       </div>
     </div>
   );

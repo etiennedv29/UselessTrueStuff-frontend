@@ -68,9 +68,9 @@ function Header() {
       <Link
         href={`/categories/${cat}`}
         key={i}
-        class="no-underline text-inherit"
+        className="no-underline text-inherit"
       >
-        <div class="hidden sm:flex mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
+        <div className="hidden sm:flex mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
           {cat}
         </div>
       </Link>
@@ -78,7 +78,7 @@ function Header() {
   });
 
   return (
-    <header class="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a] ">
+    <header className="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a] ">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}
@@ -92,11 +92,11 @@ function Header() {
       >
         <Login changeVisibleModal={changeModalStateLogin} />
       </Modal>
-      <div class="h-auto w-full flex justify-between items-center pr-2">
-        <div class="flex items-center h-full ml-2">
-          <Link href="/" class="no-underline text-inherit">
+      <div className="h-auto w-full flex justify-between items-center pr-2">
+        <div className="flex items-center h-full ml-2">
+          <Link href="/" className="no-underline text-inherit">
             <Image
-              class="h-full aspect-auto min-w-[90px]"
+              className="h-full aspect-auto min-w-[90px]"
               src="/uselessTrueStuff_logo.jpg"
               alt="UselessTrueStuff logo"
               width={133}
@@ -104,47 +104,47 @@ function Header() {
               style={{ cursor: "pointer" }}
             />
           </Link>
-          <Link href="/" class="no-underline text-inherit">
-            <h1 class="text-[#1ad4ff] ml-1 text-xl lg:text-2xl hidden sm:block">
+          <Link href="/" className="no-underline text-inherit">
+            <h1 className="text-[#1ad4ff] ml-1 text-xl lg:text-2xl hidden sm:block">
               Des trucs vrais et pas toujours utiles
             </h1>
           </Link>
         </div>
-        <div class="flex justify-around text-[#1ad4ff] flex-row gap-1  ">
+        <div className="flex justify-around text-[#1ad4ff] flex-row gap-1  ">
           {!token ? (
             <FontAwesomeIcon
               icon={faUser}
-              class="aspect-auto h-[20px] "
+              className="aspect-auto h-[20px] "
               style={{ color: "#1ad4ff", cursor: "pointer" }}
               onClick={() => setVisibleModalLogin(!visibleModalLogin)}
             />
           ) : (
-            <div class="flex justify-around text-[#1ad4ff] gap-1 w-auto items-baseline">
-              <Link href="/account" class="no-underline text-inherit">
+            <div className="flex justify-around text-[#1ad4ff] gap-1 w-auto items-baseline">
+              <Link href="/account" className="no-underline text-inherit">
                 <FontAwesomeIcon
                   icon={faUser}
-                  class="aspect-auto h-[20px]"
+                  className="aspect-auto h-[20px]"
                   style={{ color: "#1ad4ff", cursor: "pointer" }}
                 />
               </Link>
-              <div className={styles.userName} onClick={() => handleLogout()}>
+              <div className="cursor-pointer" onClick={() => handleLogout()}>
                 Déconnexion
               </div>
             </div>
           )}
         </div>
       </div>
-      <nav class = "w-full h-auto flex flex-row items-center justify-between pl-8 pr-2 pb-2  shadow-md shadow-gray-500">
-        <div class = "flex flex-wrap justify-center text-center">
-          <Link href="/" class="no-underline text-inherit">
-            <div class="mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
+      <nav className="w-full h-auto flex flex-row items-center justify-between pl-8 pr-2 pb-2  shadow-md shadow-gray-500">
+        <div className="flex flex-wrap justify-center text-center">
+          <Link href="/" className="no-underline text-inherit">
+            <div className="mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
               Dernières
             </div>
           </Link>
           {topCategoriesToDisplay}
         </div>
         <div
-          class = "h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer px-2 sm:px-4 py-0.5 font-medium sm:font-bold"
+          className="h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer px-2 sm:px-4 py-0.5 font-medium sm:font-bold"
           onClick={token ? changeModalStateSubmitFact : changeModalStateLogin}
         >
           Proposer une info
