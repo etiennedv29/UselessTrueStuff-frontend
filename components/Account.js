@@ -7,10 +7,13 @@ import { faPenToSquare, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/users";
 import Link from "next/link";
+import { Popconfirm, message } from "antd";
+import { useRouter } from "next/router";
+import { logout } from "../reducers/users";
 
 function Account(props) {
+  const router = useRouter();
   let userData = useSelector((state) => state.users.value);
-
   let msg = "";
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -29,6 +32,8 @@ function Account(props) {
     username: useRef(null),
   };
   const [accountFactsData, setAccountFactsData] = useState([]);
+  const [openDeletePopUp, setOpenDeletePopUp] = useState(false);
+  const [loadingDeletePopUp, setLoadingDeletePopUp] = useState(false);
 
   useEffect(() => {
     if (activeField && refs[activeField]?.current) {
@@ -124,13 +129,54 @@ function Account(props) {
     return (
       <Link
         href={`/facts/${data.factId}`}
-        className="decoration-none cursor-pointer"
+        className="decoration-none cursor-pointer hover:text-white"
       >
         <div>{data.factTitle}</div>
       </Link>
     );
   });
 
+  async function handleConfirmDelete() {
+    if (!userData?._id) {
+      message.error("Utilisateur introuvable.");
+      return;
+    }
+
+    try {
+      setLoadingDeletePopUp(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/softDelete`, // Route générique pour le soft delete
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(userData?.token
+              ? { Authorization: `Bearer ${userData.token}` }
+              : {}),
+          },
+          body: JSON.stringify({
+            userId: userData._id, // ID de l'utilisateur à supprimer
+            email: userData.email, // Email pour validation (optionnel)
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || `HTTP ${res.status}`);
+      }
+
+      message.success("Ton compte a bien été supprimé.");
+      await router.push("/");
+      dispatch(logout());
+
+      setLoadingDeletePopUp(false);
+      setOpenDeletePopUp(false);
+    } catch (e) {
+      console.error("Erreur suppression de compte", e);
+    }
+  }
   return (
     <div className="bg-[#0b0c1a] pt-10 justify-center font-[Trebuchet MS] flex flex-row ">
       <div className="w-full flex flex-col justify-center items-center text-[#0b0c1a]  gap-10">
@@ -246,8 +292,7 @@ function Account(props) {
             Enregistrer
           </button>
           <div className="text-red-300 text-center items-center text-sm sm:text-md">
-            {" "}
-            {msg}{" "}
+            {msg}
           </div>
         </div>
         <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-1">
@@ -267,10 +312,29 @@ function Account(props) {
             </div>
           </div>
         </div>
-        <div className="w-4/5 flex flex-col items-center justify-center ">
+        <div className="w-full sm:w-1/2 flex flex-col items-center justify-center gap-1w-4/5 flex flex-col items-center justify-center ">
           <h2 className="border-b-1 border-b-[#1ad4ff] w-full text-center text-[#1ad4ff] pb-1 text-md sm:text-lg">
             Préférences
           </h2>
+          <div className="w-full pl-1">
+            <Popconfirm
+              title="Supprimer mon compte"
+              description="Action irréversible. Confirme pour supprimer ton compte."
+              okText="Oui, supprimer"
+              cancelText="Annuler"
+              okButtonProps={{ danger: true, loadingDeletePopUp }}
+              open={openDeletePopUp}
+              onConfirm={handleConfirmDelete}
+              onCancel={() => setOpenDeletePopUp(false)}
+            >
+              <p
+                className="text-[#1ad4ff] cursor-pointer hover:text-red-300"
+                onClick={() => setOpenDeletePopUp(true)}
+              >
+                Supprimer mon compte
+              </p>
+            </Popconfirm>
+          </div>
         </div>
       </div>
     </div>

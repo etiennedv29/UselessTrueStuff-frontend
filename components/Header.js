@@ -20,9 +20,10 @@ function Header() {
   const [visibleModalSubmitFact, setVisibleModalSubmitFact] = useState(false);
   const [topCategoriesFromBack, setTopCategoriesFromBack] = useState([]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await router.push("/");
     dispatch(logout());
-    router.push("/");
+    
   };
 
   function changeModalStateLogin() {
