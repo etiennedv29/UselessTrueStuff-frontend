@@ -70,23 +70,25 @@ function SubmitForm(props) {
   };
 
   return (
-    <div class="z-1000 flex justify-center items-center w-full h-full ">
-      <div class=" bg-[#0b0c1a] p-5 w-[500px] h-auto border-[#1ad4ff] border-1 rounded-xl relative shadow-[0_2px_10px_rgba(0,0,0,0.1)] ">
-        <h2 class="text-[#1ad4ff] text-center text-sm sm:text-lg font-bold mb-2">
+    <div className="z-1000 flex justify-center items-center w-full h-full ">
+      <div className=" bg-[#0b0c1a] p-5 w-[500px] h-auto border-[#1ad4ff] border-1 rounded-xl relative shadow-[0_2px_10px_rgba(0,0,0,0.1)] ">
+        <h2 className="text-[#1ad4ff] text-center text-sm sm:text-lg font-bold mb-2">
           Super ! Une info inutile et sûrement vraie
         </h2>
         <form
-          class="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center"
           onSubmit={handleSubmit}
         >
-          <div class="flex flex-col justify-center w-full">
+          <div className="flex flex-col justify-center w-full">
             <input
-              class="w-full p-2 border-1 border-[#1ad4ff] rounded-xs mb-2 text-white text-xs sm:text-sm"
+              className="w-full p-2 rounded-xs mb-2 text-white text-xs sm:text-sm border-[#1ad4ff] border-1"
               type="text"
               name="title"
               placeholder="Titre de ton info (entre 10 et 30 caractères)"
               value={formData.title}
               onChange={handleChange}
+              minLength="10"
+              maxLength="30"
               required
             />
             <textarea

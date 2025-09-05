@@ -7,7 +7,8 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { message } from "antd";
+import { message, Modal } from "antd";
+import ForgotPassword from "./ForgotPassword.js"
 
 function Login({ changeVisibleModal }) {
   const router = useRouter();
@@ -25,6 +26,11 @@ function Login({ changeVisibleModal }) {
   const [missingFields, setMissingFields] = useState(false);
   const [isCheckedCGU, setIsCheckedCGU] = useState(false);
   const [displayWarningCGU, setDisplayWarningCGU] = useState(false);
+  const [visibleForgotPasswordModal, setVisibleForgotPasswordModal] = useState(false);
+
+
+    useState(false);
+
   let msg = "";
   console.log("signup display = ", isSignupDisplay);
   // tous les messages d'erreur
@@ -178,11 +184,17 @@ function Login({ changeVisibleModal }) {
     }
   }
 
-  // Forgot password functionality -> Nice to have
+  // open modal for forgot Password functionnality
   async function handleForgotPasswordClick() {
-    //alert("this functionality is not available yet");
-    message.info("Fonctionnalité à venir ;)");
+    setOpenForgotPasswordModal(true);
+    //message.info("Fonctionnalité à venir ;)");
   }
+
+  function changeModalStateForgotPassword() {
+    setVisibleForgotPasswordModal(!visibleForgotPasswordModal);
+  }
+
+ 
 
   // Signin and signup box design
   let boxSize = {
@@ -201,7 +213,20 @@ function Login({ changeVisibleModal }) {
   };
 
   return (
-    <div className=" text-[#1ad4ff] w-full h-full flex flex-row justify-around items-start bg-[#0b0c1a] rounded-md pb-8 border-1 border-[#1ad4ff]">
+    <div className="text-[#1ad4ff] w-full h-full flex flex-row justify-around items-start bg-[#0b0c1a] rounded-md pb-8 border-1 border-[#1ad4ff]">
+      <Modal
+        getContainer="#react-modals"
+        open={visibleForgotPasswordModal}
+        closable={false}
+        footer={null}
+        keyboard={true}
+        maskClosable={true}
+        onCancel={changeModalStateForgotPassword}
+        width={500}
+        className="modal"
+      >
+        <ForgotPassword changeVisibleModal={changeModalStateForgotPassword} />
+      </Modal>
       <div className="flex flex-row justify-center w-full ease" style={boxSize}>
         {isSignupDisplay && (
           <div className="flex flex-col justify-center items-center w-full rounded-lg">
@@ -441,7 +466,7 @@ function Login({ changeVisibleModal }) {
                 </div>
                 <div
                   className="text-xs sm:text-md cursor-pointer "
-                  onClick={() => handleForgotPasswordClick()}
+                  onClick={changeModalStateForgotPassword}
                 >
                   Mot de passe oublié ?
                 </div>
@@ -473,16 +498,11 @@ function Login({ changeVisibleModal }) {
                 text="continue_with"
                 onSuccess={(credentialResponse) => {
                   let googleUserInfo = jwtDecode(credentialResponse.credential);
-                  handleSignin(
-                    googleUserInfo.email,
-                    "",
-                    true,
-                     {
-                      firstName: googleUserInfo.given_name,
-                      lastName: googleUserInfo.family_name,
-                      username:googleUserInfo.name,
-                    }
-                  );
+                  handleSignin(googleUserInfo.email, "", true, {
+                    firstName: googleUserInfo.given_name,
+                    lastName: googleUserInfo.family_name,
+                    username: googleUserInfo.name,
+                  });
                 }}
               />
             </div>
