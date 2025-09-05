@@ -195,7 +195,7 @@ function Fact(props) {
             </div>
 
             <div
-              className="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
+              className="flex flex-row justify-between w-[33%] sm:w-[25%] h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
               onClick={() => votePlusClick()}
             >
               <div className="text-xs sm:text-md object-contain">
@@ -211,7 +211,7 @@ function Fact(props) {
             </div>
 
             <div
-              className="flex flex-row justify-between w-[33%] sm:w-1/5 h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
+              className="flex flex-row justify-between w-[33%] sm:w-[25%] h-full sm:h-4/5 items-center border-[#0b0c1a] border-1 pl-1 rounded-md text-xs cursor-pointer"
               onClick={() => voteMinusClick()}
             >
               <div className="text-xs sm:text-md object-contain ">Inutile</div>
