@@ -76,7 +76,7 @@ function Fact(props) {
         body: JSON.stringify({
           factId: props.factId,
           voteType: "votePlus",
-          userId: "681fc5b0d6f664f85733f36c",
+          userId: currentUser._id,
         }),
       }
     );
@@ -112,7 +112,7 @@ function Fact(props) {
         body: JSON.stringify({
           factId: props.factId,
           voteType: "voteMinus",
-          userId: "681fc5b0d6f664f85733f36c",
+          userId: currentUser._id,
         }),
       }
     );
