@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function ForgotPassword({ changeVisibleModal }) {
   const [email, setEmail] = useState("");
@@ -19,10 +19,14 @@ function ForgotPassword({ changeVisibleModal }) {
         }
       );
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      setForgottenPasswordErrorMessage(data.message);
+
+
+      if (res.status === 401) {
+        //enregistré avec un social login
+        setForgottenPasswordErrorMessage(data.message);
+      }
     } catch (err) {
-      setForgottenPasswordErrorMessage(err.message);
+      setForgottenPasswordErrorMessage("Internal Servor Error");
     }
   }
 
@@ -43,6 +47,7 @@ function ForgotPassword({ changeVisibleModal }) {
             id="forgotPasswordEmail"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            minLength={4}
           />
           <p className="text w-auto h-auto text-red-300">
             {forgottenPasswordErrorMessage}
