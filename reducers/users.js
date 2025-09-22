@@ -10,7 +10,8 @@ const initialState = {
     voteMinus: null,
     email: null,
     connectionWithSocials: null,
-    factsSubmitted:null
+    factsSubmitted:null,
+    preferences:null,
   },
 };
 
@@ -20,6 +21,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
+      console.log("beginning of  login, preferences = ", state.value.preferences);
       state.value._id = action.payload._id;
       state.value.token = action.payload.token;
       state.value.username = action.payload.username;
@@ -29,8 +31,10 @@ export const usersSlice = createSlice({
       state.value.email = action.payload.email;
       state.value.connectionWithSocials = action.payload.connectionWithSocials;
       state.value.factsSubmitted = action.payload.factsSubmitted;
+      state.value.preferences = action.payload.preferences;
     },
     logout: (state) => {
+      console.log("beginning of logout, preferences = ",state.value.preferences )
       state.value.token = null;
       state.value.username = null;
       state.value.firstName = null;
@@ -40,6 +44,8 @@ export const usersSlice = createSlice({
       state.value.email = null;
       state.value.connectionWithSocials = null;
       state.value.factsSubmitted = null;
+      state.value.preferences=null;
+      console.log("after logout, preferences = ",state.value.preferences )
     },
     addUserVote: (state, action) => {
       if (
