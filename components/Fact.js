@@ -190,7 +190,8 @@ function Fact(props) {
               onClick={() => handleCommentDisplayClick()}
             >
               <span className="text-xs sm:text-md">
-                {props.factComments?.length} commentaires
+                {props.factComments?.length} commentaire
+                {props.factComments?.length > 1 && "s"}
               </span>
             </div>
 
