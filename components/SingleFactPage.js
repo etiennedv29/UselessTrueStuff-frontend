@@ -90,13 +90,13 @@ function SingleFact(props) {
           </div>
           <div className="w-full flex flex-col justify-center items-center gap-1 mb-2">
             <div className="w-full text-center text-[#1ad4ff] text-base">
-              Tu réponds quoi à cette info ?
+              Tu penses quoi de cette info ?
             </div>
             <textarea
               id="commentText"
               className="w-4/5 h-30 bg-white rounded-md pl-5 pt-1"
               name="description"
-              placeholder="Vas-y lâche-toi ! Sache quand même que ça sera modéré si besoin"
+              placeholder="Vas-y dis ce que ça t'inspire ! Sache quand même que ça sera modéré si besoin"
               value={commentText}
               onChange={handleChange}
             ></textarea>
