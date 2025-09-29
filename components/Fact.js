@@ -237,7 +237,7 @@ function Fact(props) {
             href={`/facts/${props.factId}`}
             className="decoration-none cursor-pointer"
           >
-            <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 text-sm sm:text-md ">
+            <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 mb-3 text-sm sm:text-md ">
               Voir plus de commentaires
             </div>
           </Link>
