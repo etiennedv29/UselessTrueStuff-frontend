@@ -24,14 +24,6 @@ const persistor = persistStore(store);
 function App({ Component, pageProps }) {
   return (
     <>
-      {/* Charge AdSense globalement (une seule fois) */}
-      <Script
-        id="adsense-script"
-        async
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX"
-        crossOrigin="anonymous"
-      />
       <GoogleOAuthProvider clientId="501635737631-vhnhpvodr0keh82drk8vstirsi1507hp.apps.googleusercontent.com">
         <Provider store={store}>
           <PersistGate persistor={persistor}>
@@ -68,14 +60,14 @@ function App({ Component, pageProps }) {
               />
               <meta name="robots" content="index, follow" />
 
-              <link rel="icon" href="uselessTrueStuff_logo.jpg" />
-              <link rel="canonical" href="https://www.uselesstruestuff.info" />
+              <link rel="icon" href="/uselessTrueStuff_logo.jpg" />
+              <link rel="canonical" href="https://www.uselesstruestuff.info/" />
               <title>
                 UselessTrueStuff - Des faits originaux et fascinants
               </title>
             </Head>
 
-            <Header />
+            <Header  />
             <Component {...pageProps} />
             <Footer />
           </PersistGate>
