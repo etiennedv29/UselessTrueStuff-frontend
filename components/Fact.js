@@ -9,6 +9,8 @@ import Modal from "antd/lib/modal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserVote, removeUserVote } from "../reducers/users";
+import { apiFetch } from "../utils/apiFetch";
+
 
 function Fact(props) {
   const router = useRouter();
