@@ -1,4 +1,5 @@
 import SingleFact from "../../components/SingleFactPage";
+import { apiFetch } from "../../utils/apiFetch";
 
 function SingleFactPage({ factsData, factId }) {
   return <SingleFact factsData={factsData} factId={factId} />;
@@ -8,22 +9,18 @@ export default SingleFactPage;
 
 /**
  *    On va chercher dans le serveur les infos : on lit l'id dynamiquement depuis l’URL (/fact/[fact])
- *    via context.params.fact, on fetch les données, et on les passe au composant.
+ *    via context.params.fact, on fetche les données, et on les passe au composant.
  *    Ainsi, l’accès direct au singleFactPage fonctionne (pas de 404 / pas de router.query vide).
  */
 export async function getServerSideProps(context) {
   try {
     const { fact } = context.params; //  l'id de l'URL (= le factId)
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?factId=${fact}`
-    );
+    const data = await apiFetch(`/facts/search?factId=${fact}`);
 
-    if (!response.ok) {
+    if (!data || data.length === 0) {
       return { notFound: true }; // renvoie une 404 propre si le fact n’existe pas
     }
-
-    const data = await response.json();
 
     // 🔄 On remet au format utilisé quand on avait router.query
     const factsData = data.map((fact) => ({

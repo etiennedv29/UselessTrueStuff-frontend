@@ -7,19 +7,8 @@ import Footer from "../components/Footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 //imports redux
 import { Provider } from "react-redux";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import users from "../reducers/users";
-import storage from "redux-persist/lib/storage";
-const reducers = combineReducers({ users });
-const persistConfig = { key: "UselessTrueStuff", storage };
-const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
-});
-const persistor = persistStore(store);
+import { store, persistor } from "../store";
 
 function App({ Component, pageProps }) {
   return (
@@ -67,7 +56,7 @@ function App({ Component, pageProps }) {
               </title>
             </Head>
 
-            <Header  />
+            <Header />
             <Component {...pageProps} />
             <Footer />
           </PersistGate>

@@ -5,6 +5,8 @@ import Head from "next/head";
 import { message } from "antd";
 import Login from "./Login";
 import Modal from "antd/lib/modal";
+import { apiFetch } from "../utils/apiFetch"; // ✅ import apiFetch
+
 //note : on passe maintenant par la récupération de props côté serveur avant le chargement de la page pour ne plus dépendre de router.query
 
 function SingleFact(props) {
@@ -29,7 +31,7 @@ function SingleFact(props) {
     e.preventDefault();
 
     // si user pas connecté, modal de connexion qui s'affiche
-    if (!user.token) {
+    if (!user.accessToken) {
       changeModalState();
       return;
     }
@@ -42,25 +44,16 @@ function SingleFact(props) {
     };
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/comments/addComment`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(comment),
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const addedComment = await response.json();
-      console.log("addedComment = ", addedComment);
-      //alert("Comment submitted! Thanks");
+      const data = await apiFetch("/comments/addComment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(comment),
+      });
+      console.log("addedComment = ", data);
       message.success("Commentaire envoyé ! ");
       setCommentText("");
     } catch (error) {
       console.error("Fail envoi du commentaire", error);
-      //alert("An error occurred. Please try again.");
       message.error("Echec de l'envoi du commentaire, réessaie plus tard !");
     }
   };
@@ -79,7 +72,7 @@ function SingleFact(props) {
         {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
       </Modal>
       <Head>
-        <title>Useless True Stuff - Passionnant</title>
+        <title>Useless True Stuff - Infos insolites, passionnantes et amusantes</title>
       </Head>
 
       <div className="w-full flex flex-row justify-between bg-[#0b0c1a] ">

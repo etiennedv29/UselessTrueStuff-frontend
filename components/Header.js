@@ -10,12 +10,13 @@ import { logout } from "../reducers/users";
 import { useRouter } from "next/router";
 import Modal from "antd/lib/modal";
 import Login from "./Login";
+import { apiFetch } from "../utils/apiFetch";
 
 function Header() {
   const router = useRouter();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.users.value.username);
-  const token = useSelector((state) => state.users.value.token);
+  const accessToken = useSelector((state) => state.users.value.accessToken);
   const [visibleModalLogin, setVisibleModalLogin] = useState(false);
   const [visibleModalSubmitFact, setVisibleModalSubmitFact] = useState(false);
   const [topCategoriesFromBack, setTopCategoriesFromBack] = useState([]);
@@ -23,7 +24,6 @@ function Header() {
   const handleLogout = async () => {
     await router.push("/");
     dispatch(logout());
-    
   };
 
   function changeModalStateLogin() {
@@ -38,28 +38,22 @@ function Header() {
     const fetchTopCategories = async () => {
       try {
         const topCategoriesFromBackRaw = await getTopTags();
-
         setTopCategoriesFromBack(topCategoriesFromBackRaw);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchTopCategories();
   }, []);
 
   const getTopTags = async () => {
     try {
-      const topCategoriesResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/topTags`
-      );
-      if (!topCategoriesResponse.ok) {
-        throw new Error(`Erreur HTTP : ${topCategoriesResponse.status}`);
-      }
-      const topCategoriesRaw = await topCategoriesResponse.json();
-      return topCategoriesRaw;
+      const topCategoriesResponse = await apiFetch("/facts/topTags", {
+        method: "GET",
+      });
+      return topCategoriesResponse;
     } catch (error) {
-      console.log("Erreur lors de la récupérationd des top catégories", error);
+      console.log("Erreur lors de la récupération des top catégories", error);
       return [];
     }
   };
@@ -79,7 +73,7 @@ function Header() {
   });
 
   return (
-    <header className="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a] ">
+    <header className="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a]">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}
@@ -93,6 +87,7 @@ function Header() {
       >
         <Login changeVisibleModal={changeModalStateLogin} />
       </Modal>
+
       <div className="h-auto w-full flex justify-between items-center pr-2">
         <div className="flex items-center h-full ml-2">
           <Link href="/" className="no-underline text-inherit">
@@ -111,11 +106,12 @@ function Header() {
             </h1>
           </Link>
         </div>
-        <div className="flex justify-around text-[#1ad4ff] flex-row gap-1  ">
-          {!token ? (
+
+        <div className="flex justify-around text-[#1ad4ff] flex-row gap-1">
+          {!accessToken ? (
             <FontAwesomeIcon
               icon={faUser}
-              className="aspect-auto h-[20px] "
+              className="aspect-auto h-[20px]"
               style={{ color: "#1ad4ff", cursor: "pointer" }}
               onClick={() => setVisibleModalLogin(!visibleModalLogin)}
             />
@@ -135,7 +131,8 @@ function Header() {
           )}
         </div>
       </div>
-      <nav className="w-full h-auto flex flex-row items-center justify-between pl-8 pr-2 pb-2  shadow-md shadow-gray-500">
+
+      <nav className="w-full h-auto flex flex-row items-center justify-between pl-8 pr-2 pb-2 shadow-md shadow-gray-500">
         <div className="flex flex-wrap justify-center text-center">
           <Link href="/" className="no-underline text-inherit">
             <div className="mr-1 lg:mr-1.5 ml-1 lg:ml-1.5 cursor-pointer h-5 md:h-7 flex flex-row items-center text-center rounded-sm text-[#1ad4ff] hover:text-[#0b0c1a] text-sm md:text-base bg-[#0b0c1a] hover:bg-[#1ad4ff]">
@@ -144,12 +141,16 @@ function Header() {
           </Link>
           {topCategoriesToDisplay}
         </div>
+
         <div
           className="h-auto w-auto flex flex-row justify-center items-center text-center border-1 text-[#0b0c1a] bg-[#1ad4ff] rounded-md hover:text-[#1ad4ff] hover:bg-[#0b0c1a] cursor-pointer px-2 sm:px-4 py-0.5 font-medium sm:font-bold"
-          onClick={token ? changeModalStateSubmitFact : changeModalStateLogin}
+          onClick={
+            accessToken ? changeModalStateSubmitFact : changeModalStateLogin
+          }
         >
           Proposer une info
         </div>
+
         <Modal
           getContainer="#react-modals"
           open={visibleModalSubmitFact}

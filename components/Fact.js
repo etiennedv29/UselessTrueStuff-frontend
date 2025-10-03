@@ -48,13 +48,13 @@ function Fact(props) {
   }, [hasVotedPlus, hasVotedMinus, currentUser]);
 
   const votePlusClick = async () => {
-    // si user pas connecté, modal de connexion qui s'affiche
-    if (!currentUser.token) {
+    // si user pas connecté (pas d'accessToken en mémoire) -> modal de connexion qui s'affiche
+    if (!currentUser?.accessToken) {
       changeModalState();
       return;
     }
-
-    //Update en front du vote avec condition sur le currentuser a déjà voté ou pas
+  
+    // Update en front du vote avec condition sur le currentuser a déjà voté ou pas
     if (!hasVotedPlus) {
       setNbVotesPlus(nbVotesPlus + 1);
       dispatch(addUserVote({ voteType: "votePlus", factId: props.factId }));
@@ -64,35 +64,32 @@ function Fact(props) {
       dispatch(removeUserVote({ voteType: "votePlus", factId: props.factId }));
     }
     setHasVotedPlus(!hasVotedPlus);
-
-    //Update en base de donnée du vote (verif de déjà voté ou pas en back également)
-    const votePlusResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/modifyLikes`,
-      {
+  
+    try {
+      // Update en base de donnée du vote (avec apiFetch → gère le token/refresh automatiquement)
+      const votePlusResponse = await apiFetch("/facts/modifyLikes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           factId: props.factId,
           voteType: "votePlus",
           userId: currentUser._id,
         }),
-      }
-    );
-    let dataVotePlusQuery = await votePlusResponse.json();
-    if (votePlusResponse.status === 200) {
-      console.log("votePlus confirmed");
+      });
+  
+      console.log("votePlus confirmed", votePlusResponse);
+    } catch (err) {
+      console.error("Erreur lors du votePlus :", err);
     }
   };
+  
   const voteMinusClick = async () => {
-    // si user pas connecté, modal de connexion qui s'affiche
-    if (!currentUser.token) {
+    // si user pas connecté (pas d'accessToken en mémoire) -> modal de connexion qui s'affiche
+    if (!currentUser?.accessToken) {
       changeModalState();
       return;
     }
-
-    //ajout condition de "has already voted"
+  
+    // Ajout condition de "has already voted"
     if (!hasVotedMinus) {
       setNbVotesMinus(nbVotesMinus - 1);
       dispatch(addUserVote({ voteType: "voteMinus", factId: props.factId }));
@@ -101,26 +98,24 @@ function Fact(props) {
       dispatch(removeUserVote({ voteType: "voteMinus", factId: props.factId }));
     }
     setHasVotedMinus(!hasVotedMinus);
-
-    const voteMinusResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/modifyLikes`,
-      {
+  
+    try {
+      // Update en base via apiFetch (gère token + refresh)
+      const voteMinusResponse = await apiFetch("/facts/modifyLikes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           factId: props.factId,
           voteType: "voteMinus",
           userId: currentUser._id,
         }),
-      }
-    );
-    let dataVoteMinusQuery = await voteMinusResponse.json();
-    if (voteMinusResponse.status === 200) {
-      console.log("voteMinus confirmed");
+      });
+  
+      console.log("voteMinus confirmed", voteMinusResponse);
+    } catch (err) {
+      console.error("Erreur lors du voteMinus :", err);
     }
   };
+  
 
   //prepare the comments to be displayed
   useEffect(() => {
