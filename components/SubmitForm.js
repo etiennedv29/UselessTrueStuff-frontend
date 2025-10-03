@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/SubmitForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
+import { apiFetch } from "../utils/apiFetch";
 
 function SubmitForm(props) {
   const [formData, setFormData] = useState({
@@ -36,34 +37,23 @@ function SubmitForm(props) {
       userID: user._id,
     };
     console.log("fact before POST request", fact);
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/addFact`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(fact),
-        }
-      );
-      const addedFact = await response.json();
-      console.log("added fact =>", addedFact);
 
-      //alert("Merci pour cette info !");
+    try {
+      const addedFact = await apiFetch("/facts/addFact", {
+        method: "POST",
+        body: JSON.stringify(fact),
+      });
+     
+      console.log("added fact =>", addedFact?.description?.slice(0, 30));
+
       message.success("Merci pour cette info ! On la vérifie vite fait");
-      setFormData({ title: "", description: "" });
+      // on réinitialise le formulaire
+      setFormData(Object.fromEntries(Object.keys(formData).map(key => [key, ""])));
+
+      //on ferme la modale
       props.changeVisibleModal();
 
-      await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/checkFact`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            description: addedFact.description,
-            id: addedFact._id,
-          }),
-        }
-      );
+      //on n'appelle plus checkFacts car la verif se fait en back
     } catch (error) {
       console.error("Fact check failed", error);
     }

@@ -3,27 +3,33 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: {
     _id: null,
-    token: null,
+    accessToken: null,
+    accessTokenExpirationDate: null,
+    refreshToken: null,
+    refreshTokenExpirationDate: null,
     username: null,
     firstName: null,
     votePlus: null,
     voteMinus: null,
     email: null,
     connectionWithSocials: null,
-    factsSubmitted:null,
-    preferences:null,
+    factsSubmitted: null,
+    preferences: null,
   },
 };
 
 export const usersSlice = createSlice({
   name: "users",
-
   initialState,
   reducers: {
     login: (state, action) => {
-      console.log("beginning of  login, preferences = ", state.value.preferences);
       state.value._id = action.payload._id;
-      state.value.token = action.payload.token;
+      state.value.accessToken = action.payload.accessToken;
+      state.value.accessTokenExpirationDate =
+        action.payload.accessTokenExpirationDate;
+      state.value.refreshToken = action.payload.refreshToken;
+      state.value.refreshTokenExpirationDate =
+        action.payload.refreshTokenExpirationDate;
       state.value.username = action.payload.username;
       state.value.firstName = action.payload.firstName;
       state.value.votePlus = action.payload.votePlus;
@@ -33,20 +39,11 @@ export const usersSlice = createSlice({
       state.value.factsSubmitted = action.payload.factsSubmitted;
       state.value.preferences = action.payload.preferences;
     },
+
     logout: (state) => {
-      console.log("beginning of logout, preferences = ",state.value.preferences )
-      state.value.token = null;
-      state.value.username = null;
-      state.value.firstName = null;
-      state.value._id = null;
-      state.value.voteMinus = null;
-      state.value.votePlus = null;
-      state.value.email = null;
-      state.value.connectionWithSocials = null;
-      state.value.factsSubmitted = null;
-      state.value.preferences=null;
-      console.log("after logout, preferences = ",state.value.preferences )
+      state.value = { ...initialState.value };
     },
+
     addUserVote: (state, action) => {
       if (
         !state.value[action.payload.voteType]?.includes(action.payload.factId)
@@ -54,14 +51,26 @@ export const usersSlice = createSlice({
         state.value[action.payload.voteType]?.push(action.payload.factId);
       }
     },
+
     removeUserVote: (state, action) => {
       state.value[action.payload.voteType] = state.value[
         action.payload.voteType
       ].filter((id) => id !== action.payload.factId);
     },
+
+    refreshAccessToken: (state, action) => {
+      state.value.accessToken = action.payload.accessToken;
+      state.value.accessTokenExpirationDate =
+        action.payload.accessTokenExpirationDate;
+    },
   },
 });
 
-export const { login, logout, addUserVote, removeUserVote } =
-  usersSlice.actions;
+export const {
+  login,
+  logout,
+  addUserVote,
+  removeUserVote,
+  refreshAccessToken,
+} = usersSlice.actions;
 export default usersSlice.reducer;

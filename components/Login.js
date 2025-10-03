@@ -8,7 +8,8 @@ import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { message, Modal } from "antd";
-import ForgotPassword from "./ForgotPassword.js"
+import ForgotPassword from "./ForgotPassword.js";
+import { apiFetch } from "../utils/apiFetch";
 
 function Login({ changeVisibleModal }) {
   const router = useRouter();
@@ -26,10 +27,10 @@ function Login({ changeVisibleModal }) {
   const [missingFields, setMissingFields] = useState(false);
   const [isCheckedCGU, setIsCheckedCGU] = useState(false);
   const [displayWarningCGU, setDisplayWarningCGU] = useState(false);
-  const [visibleForgotPasswordModal, setVisibleForgotPasswordModal] = useState(false);
-
-
+  const [visibleForgotPasswordModal, setVisibleForgotPasswordModal] =
     useState(false);
+
+  useState(false);
 
   let msg = "";
   console.log("signup display = ", isSignupDisplay);
@@ -72,9 +73,8 @@ function Login({ changeVisibleModal }) {
       return;
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/signin`,
-      {
+    try {
+      const data = await apiFetch("/users/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -83,26 +83,25 @@ function Login({ changeVisibleModal }) {
           connectionWithSocials,
           ...extraData,
         }),
-      }
-    );
-    const data = await response.json();
-    try {
-      if (response.status === 200) {
-        dispatch(
-          login({
-            ...data,
-          })
-        );
-        setUsername("");
-        setPassword("");
-        setEmail("");
-        setCorrectCredentials(true);
-        changeVisibleModal();
-      } else if (response.status === 401) {
-        setCorrectCredentials(false);
-      }
+      });
+
+      dispatch(
+        login({
+          ...data,
+        })
+      );
+      setUsername("");
+      setPassword("");
+      setEmail("");
+      setCorrectCredentials(true);
+      changeVisibleModal();
     } catch (error) {
-      msg = data.error;
+      // gestion spécifique 401 (mauvais identifiants)
+      if (error.message.includes("401")) {
+        setCorrectCredentials(false);
+      } else {
+        msg = error.message;
+      }
     }
   }
 
@@ -144,9 +143,9 @@ function Login({ changeVisibleModal }) {
     }
     // Calling signup route
     console.log("calling signup route");
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/signup`,
-      {
+
+    try {
+      const data = await apiFetch("/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -157,30 +156,28 @@ function Login({ changeVisibleModal }) {
           password,
           connectionWithSocials,
         }),
-      }
-    );
-    const data = await response.json();
+      });
 
-    try {
-      if (response.status === 200) {
-        setExistingUser(false);
-        dispatch(
-          login({
-            ...data,
-          })
-        );
-        setUsername("");
-        setPassword("");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        router.push("/");
-        changeVisibleModal();
-      } else if (response.status === 409) {
-        setExistingUser(true);
-      }
+      setExistingUser(false);
+      dispatch(
+        login({
+          ...data,
+        })
+      );
+      setUsername("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      router.push("/");
+      changeVisibleModal();
     } catch (error) {
-      msg = data.error;
+      // gestion spécifique 409 (utilisateur déjà existant)
+      if (error.message.includes("409")) {
+        setExistingUser(true);
+      } else {
+        msg = error.message;
+      }
     }
   }
 
@@ -193,8 +190,6 @@ function Login({ changeVisibleModal }) {
   function changeModalStateForgotPassword() {
     setVisibleForgotPasswordModal(!visibleForgotPasswordModal);
   }
-
- 
 
   // Signin and signup box design
   let boxSize = {

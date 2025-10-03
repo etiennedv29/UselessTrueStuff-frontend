@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { apiFetch } from "../utils/apiFetch";
 
 function ForgotPassword({ changeVisibleModal }) {
   const searchParams = useSearchParams();
@@ -12,16 +13,14 @@ function ForgotPassword({ changeVisibleModal }) {
   const incorrectRulesPasswordError =
     "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères";
   const missingFieldsErrorMessage = "Les 2 champs doivent être renseignés";
-  const expiredTokenErrorMEssage =
-    "Le lien de réinitilisation a expiré, tu peux recommencer stp ?";
+  const expiredTokenErrorMessage =
+    "Le lien de réinitialisation a expiré, tu peux recommencer stp ?";
 
   //password conditions
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$#!%*?&]{8,}$/;
 
   async function handleForgotPasswordSubmit(password1, password2) {
-
-    
     // cas champ manquant
     if (!password1 || !password2) {
       setErrorMessage(missingFieldsErrorMessage);
@@ -33,26 +32,30 @@ function ForgotPassword({ changeVisibleModal }) {
       return;
     }
 
-    //le mot de passe1 ne satisfait pas toutes les conditions( pas besoin de tester le 2, cela tombe dans le cas précédent)
+    //le mot de passe1 ne satisfait pas toutes les conditions
     if (!passwordRegex.test(password1)) {
+      setErrorMessage(incorrectRulesPasswordError);
       return;
     }
 
-    // appel à la fonction ici
+    // appel API avec apiFetch
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/resetPassword`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token:tokenResetPassword, newPassword: password1 }),
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      setErrorMessage(data.message);
+      const data = await apiFetch("/users/resetPassword", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: tokenResetPassword,
+          newPassword: password1,
+        }),
+      });
+      setErrorMessage(data.message); // success message renvoyé par le back
     } catch (err) {
-      setErrorMessage("Internal Server Error");
+      // gestion des erreurs spécifiques
+      if (err.message.includes("401")) {
+        setErrorMessage(expiredTokenErrorMessage);
+      } else {
+        setErrorMessage("Internal Server Error");
+      }
     }
   }
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="bg-[#0b0c1a] px-5 sm:px-10 pt-30 text-justify text-gray-200 h-autro w-full text-xs sm:text-md">
+    <footer className="bg-[#0b0c1a] px-5 sm:px-10 pt-30 text-justify text-gray-200 h-auto w-full text-xs sm:text-md">
       <div>
         <strong>
           UselessTrueStuff : Des faits inutiles mais fascinants à découvrir et

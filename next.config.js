@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  productionBrowserSourceMaps: true, //pour BestPractices sur lighthouse google (risque mineur de sécurité)
 };
 
 module.exports = nextConfig;

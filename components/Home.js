@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/router"; //récupération de l'url
 import InfiniteScroll from "react-infinite-scroll-component"; //pour le chargement au fur et à mesure
+import { apiFetch } from "../utils/apiFetch"; // le wrapper de fetch pour la gestion des accessToken et refreshToken à chaque appel fetch
 
 function Home() {
   const router = useRouter();
@@ -32,14 +33,10 @@ function Home() {
         params.set("tags", String(router.query.type));
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_BACKEND_ADDRESS
-        }/facts/search?${params.toString()}`
-      );
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await apiFetch(`/facts/search?${params.toString()}`, {
+        method: "GET",
+      });
 
-      const data = await response.json();
       const array = Array.isArray(data) ? data : [];
 
       // Formatage des données (comme dans votre code original)
@@ -100,66 +97,7 @@ function Home() {
     return () => clearTimeout(timer);
   }, [router.isReady, router.query.type, loadMoreFacts]);
 
-  //OLD
-  // // fonction de récupération de TOUS les facts
-  // async function getFacts() {
-  //   let response;
-  //   let data;
-  //   if (router.query.type) {
-  //     console.log("router.query.type existait");
-  //     response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search?tags=${router.query.type}`
-  //     );
-  //     data = await response.json();
-  //   } else {
-  //     response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/facts/search`
-  //     );
-  //     data = await response.json();
-  //   }
-  //
-  //   //Formatage des données
-  //   let newFactsData = data.map((fact) => {
-  //     const newFactFormat = {
-  //       factTitle: fact.title,
-  //       factDescription: fact.description,
-  //       factAuthor: fact.userID,
-  //       factSubmittedAt: fact.submittedAt,
-  //       nbVotesPlus: fact.votePlus,
-  //       nbVotesMinus: fact.voteMinus,
-  //       factComments: fact.comments,
-  //       factImage: fact.image,
-  //       factId: fact._id,
-  //     };
-  //     return newFactFormat;
-  //   });
-  //   setFactsData(newFactsData);
-  // }
-  //
-  // // Chargement des facts au montage (ou quand router.query change)
-  // useEffect(() => {
-  //   getFacts();
-  // }, [router.query]);
-  //
-  // let facts = factsData.map((data, i) => {
-  //   return <Fact key={i} {...data} />;
-  // });
-  //
-  // return (
-  //   <div>
-  //     <Head>
-  //       <title>UselessTrueStuff - Home</title>
-  //     </Head>
-  //
-  //     <div className="w-full flex justify-between bg-[#0b0c1a]">
-  //       <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
-  //       <div className="w-full m:w-3/5 p-5 flex flex-col justify-center gap-4">
-  //         {facts}
-  //       </div>
-  //       <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
-  //     </div>
-  //   </div>
-  // );
+  
 
   return (
     <div>
@@ -168,7 +106,7 @@ function Home() {
       </Head>
 
       <div className="w-full flex justify-between bg-[#0b0c1a]">
-        <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div className="w-0 md:w-1/5 bg-gray-500"></div>
 
         {/* 
           Variante conteneur scrollable : remets un div avec id et style={{ height: `calc(100vh - 80px)`, overflow: 'auto' }}
@@ -198,7 +136,7 @@ function Home() {
           </InfiniteScroll>
         </div>
 
-        <div className="w-0 md:w-1/10 xl:w-1/5 bg-gray-500"></div>
+        <div className="w-0 md:w-1/5 bg-gray-500"></div>
       </div>
     </div>
   );

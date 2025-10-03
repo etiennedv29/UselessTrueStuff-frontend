@@ -1,32 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { message } from "antd";
+import { apiFetch } from "../utils/apiFetch";
 
 function ForgotPassword({ changeVisibleModal }) {
   const [email, setEmail] = useState("");
   const [forgottenPasswordErrorMessage, setForgottenPasswordErrorMessage] =
     useState("");
 
-  //Forgot password functionnality
+  // Forgot password functionnality
   async function handleForgotPasswordSubmit(email) {
     console.log("envoi email au back");
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_ADDRESS}/users/forgotPassword`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }
-      );
-      const data = await res.json();
+      const res = await apiFetch("/users/forgotPassword", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }, // route publique → pas besoin d'accessToken
+        body: JSON.stringify({ email }),
+      });
 
-
-      if (res.status === 401) {
-        //enregistré avec un social login
-        setForgottenPasswordErrorMessage(data.message);
-      }
+      // Si on arrive ici, la requête est 200
+      message.success("Email envoyé, vérifie ta boîte mail !");
+      setForgottenPasswordErrorMessage("");
     } catch (err) {
-      setForgottenPasswordErrorMessage("Internal Servor Error");
+      if (err.status === 401) {
+        // enregistré avec un social login → message du back
+        setForgottenPasswordErrorMessage(
+          err.message || "Compte social login détecté"
+        );
+      } else {
+        console.error("Erreur forgotPassword =", err);
+        setForgottenPasswordErrorMessage("Internal Server Error");
+      }
     }
   }
 
