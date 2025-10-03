@@ -73,7 +73,7 @@ function Header() {
   });
 
   return (
-    <header className="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a]">
+    <header className="w-full h-auto flex flex-col justify-between sticky top-0 items-center bg-[#0b0c1a] z-1000">
       <Modal
         getContainer="#react-modals"
         open={visibleModalLogin}

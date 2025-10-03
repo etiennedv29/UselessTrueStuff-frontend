@@ -143,7 +143,7 @@ function Fact(props) {
       >
         {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
       </Modal>
-      <div className="w-full h-full flex justify-between items-center p-3 rounded-md bg-sky-50 gap-3">
+      <div className="w-full h-full max-h-96 flex justify-between items-center p-3 rounded-md bg-sky-50 gap-3">
         <div className="hidden sm:flex justify-center w-1/5 ">
           <img
             className="w-full h-full object-contain rounded-md"

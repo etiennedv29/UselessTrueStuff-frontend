@@ -106,7 +106,7 @@ function Home() {
       </Head>
 
       <div className="w-full flex justify-between bg-[#0b0c1a]">
-        <div className="w-0 md:w-1/5 bg-gray-500"></div>
+        <div className="w-0 md:w-1/5 bg-gray-500 ad-slot"></div>
 
         {/* 
           Variante conteneur scrollable : remets un div avec id et style={{ height: `calc(100vh - 80px)`, overflow: 'auto' }}
@@ -136,7 +136,7 @@ function Home() {
           </InfiniteScroll>
         </div>
 
-        <div className="w-0 md:w-1/5 bg-gray-500"></div>
+        <div className="w-0 md:w-1/5 bg-gray-500 ad-slot"></div>
       </div>
     </div>
   );
