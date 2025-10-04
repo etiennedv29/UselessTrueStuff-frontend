@@ -18,6 +18,14 @@ function Home() {
   const hasMoreRef = useRef(true); // <- miroir de hasMore pour éviter la closure périmée
   const LIMIT = 20;
 
+  //Google référence la page "/categories/Adulte" très haut sans raison mais je souhaite plutôt renvoyer vers la home 
+  // Redirection si catégorie "Adulte"
+  useEffect(() => {
+    if (router.isReady && router.query?.type?.toLowerCase() === "adulte") {
+      router.replace("/"); // redirection silencieuse sans nouvelle entrée dans l'historique
+    }
+  }, [router.isReady, router.query?.type]);
+
   // Fonction pour charger les facts (20 par 20)
   const loadMoreFacts = useCallback(async () => {
     if (isLoadingRef.current || !hasMoreRef.current) return; // Évite les appels multiples
