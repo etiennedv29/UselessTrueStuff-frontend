@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserVote, removeUserVote } from "../reducers/users";
 import { apiFetch } from "../utils/apiFetch";
 
-
 function Fact(props) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -19,10 +18,15 @@ function Fact(props) {
   const [nbVotesMinus, setNbVotesMinus] = useState(props.nbVotesMinus);
   const [displayComments, setDisplayComments] = useState(false);
   const [commentsToDisplay, setCommentsTodisplay] = useState([]);
+  const defaultCommentsToDisplayQuantity = 3; //on affiche 3 commentaires si on n'est pas sur une singleFactPage
   const [hasVotedPlus, setHasVotedPlus] = useState(false);
   const [hasVotedMinus, setHasVotedMinus] = useState(false);
   const currentUser = useSelector((state) => state.users.value);
   const [visibleModalLogin, setVisibleModalLogin] = useState(false);
+
+  //On vérifie si on est sur une singleFactPage
+  const isSingleFactPage = router.pathname.startsWith("/facts/[fact]");
+  console.log("isSingleFactPAge = ", isSingleFactPage);
 
   //état de la modal de connexion pour submit un vote
   function changeModalState() {
@@ -55,7 +59,7 @@ function Fact(props) {
       changeModalState();
       return;
     }
-  
+
     // Update en front du vote avec condition sur le currentuser a déjà voté ou pas
     if (!hasVotedPlus) {
       setNbVotesPlus(nbVotesPlus + 1);
@@ -66,7 +70,7 @@ function Fact(props) {
       dispatch(removeUserVote({ voteType: "votePlus", factId: props.factId }));
     }
     setHasVotedPlus(!hasVotedPlus);
-  
+
     try {
       // Update en base de donnée du vote (avec apiFetch → gère le token/refresh automatiquement)
       const votePlusResponse = await apiFetch("/facts/modifyLikes", {
@@ -77,20 +81,20 @@ function Fact(props) {
           userId: currentUser._id,
         }),
       });
-  
+
       console.log("votePlus confirmed", votePlusResponse);
     } catch (err) {
       console.error("Erreur lors du votePlus :", err);
     }
   };
-  
+
   const voteMinusClick = async () => {
     // si user pas connecté (pas d'accessToken en mémoire) -> modal de connexion qui s'affiche
     if (!currentUser?.accessToken) {
       changeModalState();
       return;
     }
-  
+
     // Ajout condition de "has already voted"
     if (!hasVotedMinus) {
       setNbVotesMinus(nbVotesMinus - 1);
@@ -100,7 +104,7 @@ function Fact(props) {
       dispatch(removeUserVote({ voteType: "voteMinus", factId: props.factId }));
     }
     setHasVotedMinus(!hasVotedMinus);
-  
+
     try {
       // Update en base via apiFetch (gère token + refresh)
       const voteMinusResponse = await apiFetch("/facts/modifyLikes", {
@@ -111,18 +115,23 @@ function Fact(props) {
           userId: currentUser._id,
         }),
       });
-  
+
       console.log("voteMinus confirmed", voteMinusResponse);
     } catch (err) {
       console.error("Erreur lors du voteMinus :", err);
     }
   };
-  
 
   //prepare the comments to be displayed
   useEffect(() => {
+    //si on est sur une singleFactPage, on passe directement displayComments à true
+    isSingleFactPage && setDisplayComments(true);
+    //nombre de commentaires affichés dépend de si on est sur une singleFactPage ou plusieurs facts type Home
+    const limitCommentsDisplay = isSingleFactPage
+      ? props.factComments.length
+      : defaultCommentsToDisplayQuantity;
     setCommentsTodisplay(
-      props.factComments.slice(0, 3).map((data, i) => {
+      props.factComments.slice(0, limitCommentsDisplay).map((data, i) => {
         return <CommentSmall {...data} key={i} />;
       })
     );
@@ -199,7 +208,11 @@ function Fact(props) {
               <div className="text-xs sm:text-md object-contain">
                 Top info !
               </div>
-              <div className={`w-2/5 h-full flex flex-row justify-center rounded-r-md items-center ${hasVotedPlus ? "bg-emerald-400" : "bg-[#1ad4ff]"}`}>
+              <div
+                className={`w-2/5 h-full flex flex-row justify-center rounded-r-md items-center ${
+                  hasVotedPlus ? "bg-emerald-400" : "bg-[#1ad4ff]"
+                }`}
+              >
                 <FontAwesomeIcon
                   icon={faThumbsUp}
                   className="w-2/5 sm:w-[30%] "
@@ -213,8 +226,10 @@ function Fact(props) {
               onClick={() => voteMinusClick()}
             >
               <div className="text-xs sm:text-md object-contain ">Inutile</div>
-              <div className={`w-2/5 h-full flex flex-row justify-center rounded-r-md items-center 
-    ${hasVotedMinus ? "bg-red-400" : "bg-[#1ad4ff]"}`}>
+              <div
+                className={`w-2/5 h-full flex flex-row justify-center rounded-r-md items-center 
+    ${hasVotedMinus ? "bg-red-400" : "bg-[#1ad4ff]"}`}
+              >
                 <FontAwesomeIcon
                   icon={faThumbsDown}
                   className="w-2/5 sm:w-[30%]"
@@ -229,15 +244,25 @@ function Fact(props) {
         <div className="w-full flex flex-col items-center justify-center ">
           {displayComments && commentsToDisplay}
         </div>
-        {displayComments && (
-          <Link
-            href={`/facts/${props.factId}`}
-            className="decoration-none cursor-pointer"
-          >
-            <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 mb-3 text-sm sm:text-md ">
-              Voir plus de commentaires
-            </div>
-          </Link>
+        {!isSingleFactPage && displayComments && (
+          <>
+            {props.factComments.length > 0 ? (
+              // Si des commentaires existent -> bouton “Voir plus de commentaires”
+
+              <Link href={`/facts/${props.factId}`}>
+                <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 mb-3 text-sm sm:text-md ">
+                  Voir plus de commentaires
+                </div>
+              </Link>
+            ) : (
+              // 💬 Aucun commentaire -> "sois le premier"
+              <Link href={`/facts/${props.factId}`}>
+                <div className="text-center cursor-pointer w-full bg-[#1ad4ff] rounded-md py-1 px-3 mb-3 text-sm sm:text-md ">
+                  Sois le premier à commenter !
+                </div>
+              </Link>
+            )}
+          </>
         )}
       </div>
     </div>
