@@ -31,7 +31,7 @@ export async function apiFetch(endpoint, options = {}) {
 
   // 3️⃣ Si token expiré → tente un refresh (uniquement côté client)
   if (!isServer && response.status === 401 && refreshToken) {
-    console.log("⚠️ Access token expiré, tentative de refresh...");
+    console.log("accessToken expiré, tentative de refresh");
 
     const refreshResponse = await fetch(`${API_URL}/users/refresh`, {
       method: "POST",

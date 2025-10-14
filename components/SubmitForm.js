@@ -36,7 +36,7 @@ function SubmitForm(props) {
       image: "",
       userID: user._id,
     };
-    console.log("fact before POST request", fact);
+    //console.log("fact before POST request", fact);
 
     try {
       const addedFact = await apiFetch("/facts/addFact", {
@@ -44,7 +44,7 @@ function SubmitForm(props) {
         body: JSON.stringify(fact),
       });
      
-      console.log("added fact =>", addedFact?.description?.slice(0, 30));
+      //console.log("added fact =>", addedFact?.description?.slice(0, 30));
 
       message.success("Merci pour cette info ! On la vérifie vite fait");
       // on réinitialise le formulaire

@@ -64,8 +64,6 @@ function Fact(props) {
     //En anticipation de potentiels rollback aux votes on stabilise les valeurs initiales
     hasVotedPlusRef.current = hasVotedPlus;
     nbVotesPlusRef.current = nbVotesPlus;
-    console.log(" nbVotesPlusRef.current = ", nbVotesPlusRef.current);
-    console.log("hasVotedPlusRef.current = ", hasVotedPlusRef.current);
 
     // Update en front du vote avec condition sur le currentuser a déjà voté ou pas
     if (!hasVotedPlus) {
@@ -95,8 +93,6 @@ function Fact(props) {
         ? nbVotesPlus + 1
         : nbVotesPlus - 1;
       hasVotedPlusRef.current = !hasVotedPlus;
-      console.log(" nbVotesPlusRef.current = ", nbVotesPlusRef.current);
-      console.log("hasVotedPlusRef.current = ", hasVotedPlusRef.current);
     } catch (err) {
       console.error("Erreur lors du votePlus :", err);
 
@@ -124,8 +120,6 @@ function Fact(props) {
     //En anticipation de potentiels rollback aux votes on stabilise les valeurs initiales
     hasVotedMinusRef.current = hasVotedMinus;
     nbVotesMinusRef.current = nbVotesMinus;
-    console.log("hasVotedMinusRef = ", hasVotedMinusRef.current);
-    console.log("nbVotesMinusRef = ", nbVotesMinusRef.current);
     // Ajout condition de "has already voted"
     if (!hasVotedMinus) {
       setNbVotesMinus(nbVotesMinus - 1);
@@ -153,8 +147,6 @@ function Fact(props) {
         ? nbVotesMinus - 1
         : nbVotesMinus + 1;
       hasVotedMinusRef.current = !hasVotedMinus;
-      console.log("hasVotedMinusRef = ", hasVotedMinusRef.current);
-      console.log("nbVotesMinusRef = ", nbVotesMinusRef.current);
     } catch (err) {
       console.error("Erreur lors du voteMinus :", err);
       //Rollback du voteMinus en front
