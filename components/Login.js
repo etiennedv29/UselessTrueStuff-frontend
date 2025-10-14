@@ -33,7 +33,7 @@ function Login({ changeVisibleModal }) {
   useState(false);
 
   let msg = "";
-  console.log("signup display = ", isSignupDisplay);
+  //console.log("signup display = ", isSignupDisplay);
   // tous les messages d'erreur
   const incorrectPasswordErrorMessage =
     "Le mot de passe doit contenir 1 minuscule, 1 majuscule, 1 chiffre, 1 caractère parmi #@$!%*?& et être d'au moins 8 caractères";
@@ -95,6 +95,9 @@ function Login({ changeVisibleModal }) {
       setEmail("");
       setCorrectCredentials(true);
       changeVisibleModal();
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
     } catch (error) {
       // gestion spécifique 401 (mauvais identifiants)
       if (error.message.includes("401")) {
@@ -171,9 +174,14 @@ function Login({ changeVisibleModal }) {
       setEmail("");
       router.push("/");
       changeVisibleModal();
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
     } catch (error) {
+      console.log("error = ",error)
+      console.log("error.message  =", error.message)
       // gestion spécifique 409 (utilisateur déjà existant)
-      if (error.message.includes("409")) {
+      if (error.status===409) {
         setExistingUser(true);
       } else {
         msg = error.message;

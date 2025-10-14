@@ -63,7 +63,10 @@ export const usersSlice = createSlice({
       state.value.accessTokenExpirationDate =
         action.payload.accessTokenExpirationDate;
     },
-  },
+    setUserData : (state,action)=>{
+      state.value = {...state.value, ...action.payload}
+    }
+   },
 });
 
 export const {
@@ -72,5 +75,6 @@ export const {
   addUserVote,
   removeUserVote,
   refreshAccessToken,
+  setUserData
 } = usersSlice.actions;
 export default usersSlice.reducer;
