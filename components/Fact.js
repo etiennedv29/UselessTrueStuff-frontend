@@ -1,5 +1,4 @@
-import styles from "../styles/Fact.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
@@ -23,10 +22,14 @@ function Fact(props) {
   const [hasVotedMinus, setHasVotedMinus] = useState(false);
   const currentUser = useSelector((state) => state.users.value);
   const [visibleModalLogin, setVisibleModalLogin] = useState(false);
+  const hasVotedPlusRef = useRef(null);
+  const nbVotesPlusRef = useRef(null);
+  const hasVotedMinusRef = useRef(null);
+  const nbVotesMinusRef = useRef(null);
 
   //On vérifie si on est sur une singleFactPage
   const isSingleFactPage = router.pathname.startsWith("/facts/[fact]");
-  console.log("isSingleFactPAge = ", isSingleFactPage);
+  //console.log("isSingleFactPAge = ", isSingleFactPage);
 
   //état de la modal de connexion pour submit un vote
   function changeModalState() {
@@ -56,16 +59,20 @@ function Fact(props) {
   const votePlusClick = async () => {
     // si user pas connecté (pas d'accessToken en mémoire) -> modal de connexion qui s'affiche
     if (!currentUser?.accessToken) {
-      changeModalState();
-      return;
+      return changeModalState();
     }
+    //En anticipation de potentiels rollback aux votes on stabilise les valeurs initiales
+    hasVotedPlusRef.current = hasVotedPlus;
+    nbVotesPlusRef.current = nbVotesPlus;
+    console.log(" nbVotesPlusRef.current = ", nbVotesPlusRef.current);
+    console.log("hasVotedPlusRef.current = ", hasVotedPlusRef.current);
 
     // Update en front du vote avec condition sur le currentuser a déjà voté ou pas
     if (!hasVotedPlus) {
       setNbVotesPlus(nbVotesPlus + 1);
       dispatch(addUserVote({ voteType: "votePlus", factId: props.factId }));
     } else {
-      console.log("user has already voted plus and reclicks");
+      //console.log("user has already voted plus and reclicks");
       setNbVotesPlus(nbVotesPlus - 1);
       dispatch(removeUserVote({ voteType: "votePlus", factId: props.factId }));
     }
@@ -82,9 +89,29 @@ function Fact(props) {
         }),
       });
 
-      console.log("votePlus confirmed", votePlusResponse);
+      //console.log("votePlus confirmed", votePlusResponse);
+      //mise à jour des refs pour avoir des futures refs à jour
+      nbVotesPlusRef.current = !hasVotedPlus
+        ? nbVotesPlus + 1
+        : nbVotesPlus - 1;
+      hasVotedPlusRef.current = !hasVotedPlus;
+      console.log(" nbVotesPlusRef.current = ", nbVotesPlusRef.current);
+      console.log("hasVotedPlusRef.current = ", hasVotedPlusRef.current);
     } catch (err) {
       console.error("Erreur lors du votePlus :", err);
+
+      //Rollback du votePlus en front
+      setNbVotesPlus(nbVotesPlusRef.current);
+      setHasVotedPlus(hasVotedPlusRef.current);
+      if (!hasVotedPlusRef.current) {
+        // Si l’utilisateur venait d’ajouter un vote, on le retire
+        dispatch(
+          removeUserVote({ voteType: "votePlus", factId: props.factId })
+        );
+      } else {
+        // S’il venait de retirer un vote, on le remet
+        dispatch(addUserVote({ voteType: "votePlus", factId: props.factId }));
+      }
     }
   };
 
@@ -94,7 +121,11 @@ function Fact(props) {
       changeModalState();
       return;
     }
-
+    //En anticipation de potentiels rollback aux votes on stabilise les valeurs initiales
+    hasVotedMinusRef.current = hasVotedMinus;
+    nbVotesMinusRef.current = nbVotesMinus;
+    console.log("hasVotedMinusRef = ", hasVotedMinusRef.current);
+    console.log("nbVotesMinusRef = ", nbVotesMinusRef.current);
     // Ajout condition de "has already voted"
     if (!hasVotedMinus) {
       setNbVotesMinus(nbVotesMinus - 1);
@@ -116,9 +147,28 @@ function Fact(props) {
         }),
       });
 
-      console.log("voteMinus confirmed", voteMinusResponse);
+      //console.log("voteMinus confirmed", voteMinusResponse);
+      //mise à jour des refs pour avoir des futures refs à jour
+      nbVotesMinusRef.current = !hasVotedMinus
+        ? nbVotesMinus - 1
+        : nbVotesMinus + 1;
+      hasVotedMinusRef.current = !hasVotedMinus;
+      console.log("hasVotedMinusRef = ", hasVotedMinusRef.current);
+      console.log("nbVotesMinusRef = ", nbVotesMinusRef.current);
     } catch (err) {
       console.error("Erreur lors du voteMinus :", err);
+      //Rollback du voteMinus en front
+      setNbVotesMinus(nbVotesMinusRef.current);
+      setHasVotedMinus(hasVotedMinusRef.current);
+      if (!hasVotedMinusRef.current) {
+        // Si l’utilisateur venait d’ajouter un vote, on le retire
+        dispatch(
+          removeUserVote({ voteType: "voteMinus", factId: props.factId })
+        );
+      } else {
+        // S’il venait de retirer un vote, on le remet
+        dispatch(addUserVote({ voteType: "voteMinus", factId: props.factId }));
+      }
     }
   };
 

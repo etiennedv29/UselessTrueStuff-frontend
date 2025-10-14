@@ -1,15 +1,23 @@
 import Fact from "./Fact";
+import Login from "./Login";
 import Head from "next/head";
+import { message } from "antd";
+import Modal from "antd/lib/modal";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setUserData, logout } from "../reducers/users";
 import { useRouter } from "next/router"; //récupération de l'url
 import InfiniteScroll from "react-infinite-scroll-component"; //pour le chargement au fur et à mesure
 import { apiFetch } from "../utils/apiFetch"; // le wrapper de fetch pour la gestion des accessToken et refreshToken à chaque appel fetch
 
 function Home() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector(state=> state.users.value)
   const [factsData, setFactsData] = useState([]);
   const [hasMore, setHasMore] = useState(true); //loading progressif des facts
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleModalLogin, setVisibleModalLogin] = useState(false);
 
   // Refs pour éviter les courses et fiabiliser l'offset
   const offsetRef = useRef(0);
@@ -17,6 +25,54 @@ function Home() {
   const knownIdsRef = useRef(new Set()); // déduplication
   const hasMoreRef = useRef(true); // <- miroir de hasMore pour éviter la closure périmée
   const LIMIT = 20;
+
+  //useEffect pour mettre à jour les infos utilisateurs au chargement
+  useEffect(() => {
+    //console.log("useEffect de syncUserData");
+    const syncUserData = async () => {
+      try {
+        //S'il n'y a pas d'acessToken en reducer, alors l'utilisateur est forcément un visiteur (ou un logged out)
+        //ancien code : const state = store.getState();
+        //ancien code : const token = state.users?.value?.accessToken;
+        //nouveau code : 
+        const token = user?.accessToken
+        if (!token) {
+          console.log("Aucun utilisateur connecté, skip de /users/me");
+          return; // évite l'appel pour les visiteurs ou loggedout
+        }
+        const data = await apiFetch("/users/me", { method: "GET" });
+        //console.log("userData sync:", data);
+        dispatch(setUserData(data));
+      } catch (error) {
+        console.warn(
+          "Impossible de synchroniser les données utilisateur :",
+          error
+        );
+
+        // Si le token est invalide ou expiré → déconnexion et modale de login
+        if (
+          error?.error === "Session expirée, reconnecte-toi." ||
+          error?.error?.includes("non correspondant") ||
+          error?.status === 401
+        ) {
+          message.warning("Session expirée, reconnecte-toi !");
+          dispatch(logout());
+          setVisibleModalLogin(true);
+        }
+      }
+    };
+    syncUserData();
+  }, [dispatch, user?.accessToken]);
+
+  //ouverture et fermeture de la modal Login
+  function changeModalState() {
+    setVisibleModalLogin(!visibleModalLogin);
+    if (success) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 300); // petit délai pour fermer proprement la modale
+    }
+  }
 
   // Fonction pour charger les facts (20 par 20)
   const loadMoreFacts = useCallback(async () => {
@@ -97,10 +153,19 @@ function Home() {
     return () => clearTimeout(timer);
   }, [router.isReady, router.query.type, loadMoreFacts]);
 
-  
-
   return (
     <div>
+      <Modal
+        getContainer="#react-modals"
+        open={visibleModalLogin}
+        closable={true}
+        footer={null}
+        onCancel={() => setVisibleModalLogin(null)}
+        width={500}
+        className="modal"
+      >
+        {visibleModalLogin && <Login changeVisibleModal={changeModalState} />}
+      </Modal>
       <Head>
         <title>UselessTrueStuff - Home</title>
       </Head>
