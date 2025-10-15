@@ -99,8 +99,9 @@ function Login({ changeVisibleModal }) {
         window.location.reload();
       }, 300);
     } catch (error) {
+      console.log({error})
       // gestion spécifique 401 (mauvais identifiants)
-      if (error.message.includes("401")) {
+      if (error.status===401) {
         setCorrectCredentials(false);
       } else {
         msg = error.message;
