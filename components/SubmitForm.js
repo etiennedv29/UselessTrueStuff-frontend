@@ -43,12 +43,14 @@ function SubmitForm(props) {
         method: "POST",
         body: JSON.stringify(fact),
       });
-     
+
       //console.log("added fact =>", addedFact?.description?.slice(0, 30));
 
       message.success("Merci pour cette info ! On la vérifie vite fait");
       // on réinitialise le formulaire
-      setFormData(Object.fromEntries(Object.keys(formData).map(key => [key, ""])));
+      setFormData(
+        Object.fromEntries(Object.keys(formData).map((key) => [key, ""]))
+      );
 
       //on ferme la modale
       props.changeVisibleModal();
@@ -81,15 +83,21 @@ function SubmitForm(props) {
               maxLength="30"
               required
             />
-            <textarea
-              className="p-2 border-1 border-[#1ad4ff] rounded-xs mb-2 text-white text-xs sm:text-sm"
-              name="description"
-              placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              style={{ height: "150px" }}
-            />
+            <div className="w-full flex flex-col items-end relative mb-2">
+              <textarea
+                className="w-full p-2 border-1 border-[#1ad4ff] rounded-xs  text-white text-xs sm:text-sm"
+                name="description"
+                placeholder="Dis-nous tout : quelle est ton info vraie et pas très utile ?"
+                value={formData.description}
+                onChange={handleChange}
+                required
+                style={{ height: "150px" }}
+                maxLength={500}
+              />
+              <span className="text-xs text-gray-400 pr-2">
+                {formData.description.length}/500
+              </span>
+            </div>
           </div>
 
           <button
